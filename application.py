@@ -18,11 +18,11 @@ app = Flask(__name__)
 
 #-----------------------------------------------------------------------
 
-register_url = '/api/user/register/tel'
-@app.route(register_url, methods=['POST'])
+url_register = '/api/user/register/tel'
+@app.route(url_register, methods=['POST'])
 def register():
 
-    app.logger.info('POST ' + register_url + ':\n%s', request.get_json())
+    app.logger.info('POST ' + url_register + ':\n%s', request.get_json())
 
     success = {
         "result": True,
@@ -42,11 +42,11 @@ def register():
 
 #-----------------------------------------------------------------------
 
-confirm_url = '/api/user/confirm/tel'
-@app.route(confirm_url, methods=['POST'])
+url_confirm = '/api/user/confirm/tel'
+@app.route(url_confirm, methods=['POST'])
 def confirm():
 
-    app.logger.info('POST ' + confirm_url + ':\n%s', request.get_json())
+    app.logger.info('POST ' + url_confirm + ':\n%s', request.get_json())
 
     success = {
         "result": True,
@@ -66,11 +66,11 @@ def confirm():
 
 #-----------------------------------------------------------------------
 
-reset_url = '/api/user/reset/tel'
-@app.route(reset_url, methods=['POST'])
+url_reset = '/api/user/reset/tel'
+@app.route(url_reset, methods=['POST'])
 def reset():
 
-    app.logger.info('POST ' + reset_url + ':\n%s', request.get_json())
+    app.logger.info('POST ' + url_reset + ':\n%s', request.get_json())
 
     success = {
         "result": True,
@@ -90,11 +90,33 @@ def reset():
 
 #-----------------------------------------------------------------------
 
-auth_url = '/api/user/auth'
-@app.route(auth_url, methods=['POST'])
+url_agreement = '/api/agreement'
+@app.route(url_agreement, methods=['GET'])
+def agreement():
+
+    success = {
+        "result": True,
+        "link": "https://api-tver.atomsbt.ru/agreement.html"
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 500,
+        "errorText": "Нет нифига ссылки на сервере"
+    }
+
+    sleep(0.5)
+    if choice([True, False]) == True :
+        return json(success), 200
+    return json(error), 500
+
+#-----------------------------------------------------------------------
+
+url_auth = '/api/user/auth'
+@app.route(url_auth, methods=['POST'])
 def auth():
 
-    app.logger.info('POST ' + auth_url + ':\n%s', request.get_json())
+    app.logger.info('POST ' + url_auth + ':\n%s', request.get_json())
 
     success = {
         "result": True,
@@ -114,39 +136,15 @@ def auth():
 
 #-----------------------------------------------------------------------
 
-bind_url = '/api/ls/bind'
-@app.route(bind_url, methods=['POST'])
-def bind():
-
-    app.logger.info('POST ' + bind_url + ':\n%s', request.get_json())
-
-    success = {
-        "result": True,
-        "message": "Лицевой счет успешно привязан"
-    }
-
-    error = {
-        "result": False,
-        "errorCode": 7030,
-        "errorText": "Введена некорректная сумма"
-    }
-
-    sleep(0.5)
-    if choice([True, False]) == True :
-        return json(success), 200
-    return json(error), 500
-
-#-----------------------------------------------------------------------
-
-ls_url = '/api/ls'
-@app.route(ls_url, methods=['GET'])
+url_ls = '/api/ls'
+@app.route(url_ls, methods=['GET'])
 def ls():
 
-    success = []
-
+    ls_array = []
     ls_count = randint(0,5)
     for _ in range(0,ls_count):
-        success.append(LS().content())
+        ls_array.append(LS().content())
+    success = ls_array
 
     error = {
         "result": False,
@@ -154,7 +152,47 @@ def ls():
         "errorText": "Указаны неверные учетные данные"
     }
 
-    sleep(0.5)
+    if choice([True, False]) == True :
+        return json(success), 200
+    return json(error), 500
+
+
+#-----------------------------------------------------------------------
+
+url_ls_option = '/api/ls/<option>'
+@app.route(url_ls_option, methods=['POST'])
+def ls_option(option=None):
+
+    success = None
+    error = None
+
+    if request.method == 'POST':
+        app.logger.info('POST ' + url_ls_option + ':\n%s', request.get_json())
+
+        if option == 'bind':
+
+            success = {
+                "result": True,
+                "message": "Лицевой счет успешно привязан"
+            }
+            error = {
+                "result": False,
+                "errorCode": 7030,
+                "errorText": "Введена некорректная сумма"
+            }
+
+        if option == 'remove':
+
+            success = {
+                "result": True,
+                "message": "Лицевой счет успешно отвязан"
+            }
+            error = {
+                "result": False,
+                "errorCode": 6070,
+                "errorText": "Нет прав на данный лицевой счет"
+            }
+
     if choice([True, False]) == True :
         return json(success), 200
     return json(error), 500
