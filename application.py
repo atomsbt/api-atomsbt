@@ -36,7 +36,7 @@ def register():
     }
 
     sleep(0.5)
-    if choice([True, False]) == True :
+    if choice([True, False]):
         return json(success), 200
     return json(error), 500
 
@@ -60,7 +60,7 @@ def confirm():
     }
 
     sleep(0.5)
-    if choice([True, False]) == True :
+    if choice([True, False]):
         return json(success), 200
     return json(error), 500
 
@@ -84,7 +84,7 @@ def reset():
     }
 
     sleep(0.5)
-    if choice([True, False]) == True :
+    if choice([True, False]):
         return json(success), 200
     return json(error), 500
 
@@ -106,7 +106,7 @@ def agreement():
     }
 
     sleep(0.5)
-    if choice([True, False]) == True :
+    if choice([True, False]):
         return json(success), 200
     return json(error), 500
 
@@ -130,7 +130,7 @@ def auth():
     }
 
     sleep(0.5)
-    if choice([True, False]) == True :
+    if choice([True, False]):
         return json(success), 200
     return json(error), 500
 
@@ -152,7 +152,7 @@ def ls():
         "errorText": "Указаны неверные учетные данные"
     }
 
-    if choice([True, False]) == True :
+    if choice([True, False]):
         return json(success), 200
     return json(error), 500
 
@@ -166,34 +166,33 @@ def ls_option(option=None):
     success = None
     error = None
 
-    if request.method == 'POST':
-        app.logger.info('POST ' + url_ls_option + ':\n%s', request.get_json())
+    app.logger.info('POST ' + url_ls_option + ':\n%s', request.get_json())
 
-        if option == 'bind':
+    if option == 'bind':
 
-            success = {
-                "result": True,
-                "message": "Лицевой счет успешно привязан"
-            }
-            error = {
-                "result": False,
-                "errorCode": 7030,
-                "errorText": "Введена некорректная сумма"
-            }
+        success = {
+            "result": True,
+            "message": "Лицевой счет успешно привязан"
+        }
+        error = {
+            "result": False,
+            "errorCode": 7030,
+            "errorText": "Введена некорректная сумма"
+        }
 
-        if option == 'remove':
+    if option == 'remove':
 
-            success = {
-                "result": True,
-                "message": "Лицевой счет успешно отвязан"
-            }
-            error = {
-                "result": False,
-                "errorCode": 6070,
-                "errorText": "Нет прав на данный лицевой счет"
-            }
+        success = {
+            "result": True,
+            "message": "Лицевой счет успешно отвязан"
+        }
+        error = {
+            "result": False,
+            "errorCode": 6070,
+            "errorText": "Нет прав на данный лицевой счет"
+        }
 
-    if choice([True, False]) == True :
+    if choice([True, False]):
         return json(success), 200
     return json(error), 500
 
