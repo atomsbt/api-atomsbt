@@ -36,9 +36,7 @@ def register():
     }
 
     sleep(0.5)
-    if choice([True, False]):
-        return json(success), 200
-    return json(error), 500
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -60,9 +58,7 @@ def confirm():
     }
 
     sleep(0.5)
-    if choice([True, False]):
-        return json(success), 200
-    return json(error), 500
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -84,9 +80,7 @@ def reset():
     }
 
     sleep(0.5)
-    if choice([True, False]):
-        return json(success), 200
-    return json(error), 500
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -106,9 +100,7 @@ def agreement():
     }
 
     sleep(0.5)
-    if choice([True, False]):
-        return json(success), 200
-    return json(error), 500
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -130,9 +122,7 @@ def auth():
     }
 
     sleep(0.5)
-    if choice([True, False]):
-        return json(success), 200
-    return json(error), 500
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -142,9 +132,13 @@ def ls():
 
     ls_array = []
     ls_count = randint(0,5)
-    for _ in range(0,ls_count):
-        ls_array.append(LS().content())
-    success = ls_array
+    for x in range(0,ls_count):
+        ls_array.append(LS().content(True if x==0 else False))
+
+    success = {
+        "result": True,
+        "data": ls_array
+    }
 
     error = {
         "result": False,
@@ -152,15 +146,13 @@ def ls():
         "errorText": "Указаны неверные учетные данные"
     }
 
-    if choice([True, False]):
-        return json(success), 200
-    return json(error), 500
-
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
 url_ls_option = '/api/ls/<option>'
-@app.route(url_ls_option, methods=['POST'])
+@app.route(url_ls_option, methods=['GET', 'POST'])
 def ls_option(option=None):
 
     success = None
@@ -180,7 +172,7 @@ def ls_option(option=None):
             "errorText": "Введена некорректная сумма"
         }
 
-    if option == 'remove':
+    elif option == 'remove':
 
         success = {
             "result": True,
@@ -192,9 +184,49 @@ def ls_option(option=None):
             "errorText": "Нет прав на данный лицевой счет"
         }
 
-    if choice([True, False]):
-        return json(success), 200
-    return json(error), 500
+    else:
+
+        success = {
+            "result": True,
+            "data": {
+                    "EMAILVCHEK": "",
+                    "ADRES": "г Тверь,ул Оснабрюкская,д.27к1 кв.14",
+                    "BALANS": 489,
+                    "VHPENI": 0,
+                    "DELO": "",
+                    "DOKSOBS": "",
+                    "DOLGNA": "2018-06-01T00:00:00.000",
+                    "ZHILPLOSCH": "0",
+                    "ISHPENI": 0,
+                    "KACHESTVO": 0,
+                    "KOPLATE": 489,
+                    "KOPLATESPENI": 489,
+                    "LS": "69100614420",
+                    "NACHISLENO": 489,
+                    "OBSCHPLOSCH": "42.3",
+                    "OPLACHENO": 0,
+                    "OPLACHENOZAKRMES": 27416,
+                    "OPLACHENOPENI": 0,
+                    "OPLACHENOPENIZAKRMES": 0,
+                    "OPLACHENOSPENI": 0,
+                    "OPLPENI": 0,
+                    "PVHSALDO": 27416,
+                    "PENI": 0,
+                    "PERERASCHET": 0,
+                    "TELEFONVCHEK": "",
+                    "TELNANIM": "89610165800,",
+                    "FIONANIM": "Фамилия И.О.",
+                    "CHISLPROP": "1"
+            }
+        }
+        error = {
+            "result": False,
+            "errorCode": 6070,
+            "errorText": "Нет прав на данный лицевой счет"
+        }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
