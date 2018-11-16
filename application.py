@@ -133,7 +133,7 @@ def ls():
     ls_array = []
     ls_count = randint(0,5)
     for x in range(0,ls_count):
-        ls_array.append(LS().content(True if x==0 else False))
+        ls_array.append(LS().object(True if x==0 else False))
 
     success = {
         "result": True,
@@ -188,36 +188,7 @@ def ls_option(option=None):
 
         success = {
             "result": True,
-            "data": {
-                    "EMAILVCHEK": "",
-                    "ADRES": "г Тверь,ул Оснабрюкская,д.27к1 кв.14",
-                    "BALANS": 489,
-                    "VHPENI": 0,
-                    "DELO": "",
-                    "DOKSOBS": "",
-                    "DOLGNA": "2018-06-01T00:00:00.000",
-                    "ZHILPLOSCH": "0",
-                    "ISHPENI": 0,
-                    "KACHESTVO": 0,
-                    "KOPLATE": 489,
-                    "KOPLATESPENI": 489,
-                    "LS": "69100614420",
-                    "NACHISLENO": 489,
-                    "OBSCHPLOSCH": "42.3",
-                    "OPLACHENO": 0,
-                    "OPLACHENOZAKRMES": 27416,
-                    "OPLACHENOPENI": 0,
-                    "OPLACHENOPENIZAKRMES": 0,
-                    "OPLACHENOSPENI": 0,
-                    "OPLPENI": 0,
-                    "PVHSALDO": 27416,
-                    "PENI": 0,
-                    "PERERASCHET": 0,
-                    "TELEFONVCHEK": "",
-                    "TELNANIM": "89610165800,",
-                    "FIONANIM": "Фамилия И.О.",
-                    "CHISLPROP": "1"
-            }
+            "data": LS().details()
         }
         error = {
             "result": False,
