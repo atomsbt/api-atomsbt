@@ -18,11 +18,24 @@ app = Flask(__name__)
 
 #-----------------------------------------------------------------------
 
+def request_logger(url, request):
+    at = request.headers.get('token')
+
+    json_headers = {
+        'token': at
+    }
+
+    json_body = request.get_json()
+
+    app.logger.info('REQUEST {0}\nHEADERS {1}\nBODY {2}'.format(url, json_headers, json_body))
+
+#-----------------------------------------------------------------------
+
 url_register = '/api/user/register/tel'
 @app.route(url_register, methods=['POST'])
 def register():
 
-    app.logger.info('POST ' + url_register + ':\n%s', request.get_json())
+    request_logger(url_register, request)
 
     success = {
         "result": True,
@@ -44,7 +57,7 @@ url_confirm = '/api/user/confirm/tel'
 @app.route(url_confirm, methods=['POST'])
 def confirm():
 
-    app.logger.info('POST ' + url_confirm + ':\n%s', request.get_json())
+    request_logger(url_confirm, request)
 
     success = {
         "result": True,
@@ -66,7 +79,7 @@ url_reset = '/api/user/reset/tel'
 @app.route(url_reset, methods=['POST'])
 def reset():
 
-    app.logger.info('POST ' + url_reset + ':\n%s', request.get_json())
+    request_logger(url_reset, request)
 
     success = {
         "result": True,
@@ -99,7 +112,7 @@ def agreement():
         "errorText": "Нет нифига ссылки на сервере"
     }
 
-    sleep(0.5)
+    sleep(5)
     return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
@@ -108,7 +121,7 @@ url_auth = '/api/user/auth'
 @app.route(url_auth, methods=['POST'])
 def auth():
 
-    app.logger.info('POST ' + url_auth + ':\n%s', request.get_json())
+    request_logger(url_auth, request)
 
     success = {
         "result": True,
@@ -158,7 +171,7 @@ def ls_option(option=None):
     success = None
     error = None
 
-    app.logger.info('POST ' + url_ls_option + ':\n%s', request.get_json())
+    request_logger(url_ls_option, request)
 
     if option == 'bind':
 
@@ -986,6 +999,47 @@ def ls_service_id(ls=None, id=None):
     }
 
     sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_services = '/api/user/services'
+@app.route(url_services, methods=['POST'])
+def services():
+
+    request_logger(url_services, request)
+
+    point = {
+        "INDEKS": "215430",
+        "ADDRESS": "Смоленская область п.Угра Новоселов 1",
+        "TELEFON": [
+            "+7 (4813) 74-1869"
+        ],
+        "EMAIL": "client@smolensk.atomsbt.ru",
+        "REZHIM_RABOTY": [
+            "пн - чт: с 09:00 по 18:00 Обед с 13:00 по 13:45",
+            "пт: с 09:00 по 16:45 Обед с 13:00 по 13:45"
+        ],
+        "SHIROTA": 54.777993,
+        "DOLGOTA": 34.319726
+    }
+
+    array = []
+    for x in range(0, randint(0,10)):
+        array.append(point)
+
+    success = {
+        "result": True,
+        "data": array
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 401,
+        "errorText": "Указаны неверные учетные данные"
+    }
+
+    sleep(2)
     return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
