@@ -13,6 +13,7 @@ from random import randint
 from time import sleep
 
 from content.ls import LS
+# from content.service import Service
 
 app = Flask(__name__)
 
@@ -112,7 +113,7 @@ def agreement():
         "errorText": "Нет нифига ссылки на сервере"
     }
 
-    sleep(5)
+    sleep(0.5)
     return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
@@ -217,6 +218,34 @@ def ls_option(option=None):
 url_ls_services = '/api/ls/<ls>/services'
 @app.route(url_ls_services, methods=['GET'])
 def ls_services(ls=None):
+
+    # name_standart = [
+    # serviceme_standart =Service
+    #     "Электроэнергия",
+    #     "Тепло",
+    #     "Вода",
+    #     "Газоснабжение",
+    #     "Жилищные услуги",
+    #     "Техническое обслуживание",
+    #     "Домофон",
+    #     "Капитальный ремонт",
+    #     "Вывоз ТКО",
+    #     "Антена"
+    # ]
+
+    # name_smart_home = [
+    #     "Видеонаблюдение",
+    #     "Система солнечного электроснабжения",
+    #     "Система учета энергоресурсов",
+    #     "Аналитика"
+    # ]
+
+    # array = []
+    # for x in range(0, randint(0,len(name_standart))):
+    #     array.append(Service().element(name_standart[x]))
+
+    # for x in range(0, randint(0,len(name_smart_home))):
+    #     array.append(Service().element(name_smart_home[x]))
 
     success = {
           "result": True,
@@ -1039,7 +1068,7 @@ def services():
         "errorText": "Указаны неверные учетные данные"
     }
 
-    sleep(2)
+    sleep(1)
     return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
