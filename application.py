@@ -389,7 +389,7 @@ def ls_services(ls=None):
                               "name": "Видеонаблюдение",
                               "priority": 1,
                               "type": "smart_home",
-                              "params": []
+                              "params": {}
                     },
                     {
                               "amount": 0,
@@ -402,7 +402,7 @@ def ls_services(ls=None):
                               "name": "Система солнечного электроснабжения",
                               "priority": 1,
                               "type": "smart_home",
-                              "params": []
+                              "params": {}
                     },
                     {
                               "amount": 0,
@@ -415,7 +415,7 @@ def ls_services(ls=None):
                               "name": "Система учета энергоресурсов",
                               "priority": 1,
                               "type": "smart_home",
-                              "params": []
+                              "params": {}
                     },
                     {
                               "amount": 0,
@@ -428,7 +428,7 @@ def ls_services(ls=None):
                               "name": "Аналитика",
                               "priority": 1,
                               "type": "smart_home",
-                              "params": []
+                              "params": {}
                     }
             ]
     }
