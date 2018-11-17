@@ -13,7 +13,7 @@ from random import randint
 from time import sleep
 
 from content.ls import LS
-# from content.service import Service
+from content.service import Service
 
 app = Flask(__name__)
 
@@ -219,260 +219,36 @@ url_ls_services = '/api/ls/<ls>/services'
 @app.route(url_ls_services, methods=['GET'])
 def ls_services(ls=None):
 
-    # name_standart = [
-    # serviceme_standart =Service
-    #     "Электроэнергия",
-    #     "Тепло",
-    #     "Вода",
-    #     "Газоснабжение",
-    #     "Жилищные услуги",
-    #     "Техническое обслуживание",
-    #     "Домофон",
-    #     "Капитальный ремонт",
-    #     "Вывоз ТКО",
-    #     "Антена"
-    # ]
+    name_standart = [
+        "Электроэнергия",
+        "Тепло",
+        "Вода",
+        "Газоснабжение",
+        "Жилищные услуги",
+        "Техническое обслуживание",
+        "Домофон",
+        "Капитальный ремонт",
+        "Вывоз ТКО",
+        "Антена"
+    ]
 
-    # name_smart_home = [
-    #     "Видеонаблюдение",
-    #     "Система солнечного электроснабжения",
-    #     "Система учета энергоресурсов",
-    #     "Аналитика"
-    # ]
+    name_smart_home = [
+        "Видеонаблюдение",
+        "Система солнечного электроснабжения",
+        "Система учета энергоресурсов",
+        "Аналитика"
+    ]
 
-    # array = []
-    # for x in range(0, randint(0,len(name_standart))):
-    #     array.append(Service().element(name_standart[x]))
+    array = []
+    for x in range(0, randint(0,len(name_standart))):
+        array.append(Service().element(name_standart[x], 'standart', True))
 
-    # for x in range(0, randint(0,len(name_smart_home))):
-    #     array.append(Service().element(name_smart_home[x]))
+    for x in range(0, randint(0,len(name_smart_home))):
+        array.append(Service().element(name_smart_home[x], 'smart_home', False))
 
     success = {
           "result": True,
-          "data": [
-                    {
-                              "amount": 43216,
-                              "amount_peni": 0,
-                              "nds": 18,
-                              "image_url": "https://via.placeholder.com/48x48",
-                              "id": 1,
-                              "codeInBilling": 100,
-                              "is_active": True,
-                              "name": "Электроэнергия",
-                              "priority": 1,
-                              "type": "standart",
-                              "params": {
-                                        "services": True,
-                                        "counters": True,
-                                        "payments": True
-                              }
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "",
-                              "id": 2,
-                              "codeInBilling": 200,
-                              "is_active": True,
-                              "name": "Тепло",
-                              "priority": 1,
-                              "type": "standart",
-                              "params": {
-                                        "services": True,
-                                        "counters": True,
-                                        "payments": True
-                              }
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "",
-                              "id": 3,
-                              "codeInBilling": 300,
-                              "is_active": True,
-                              "name": "Вода",
-                              "priority": 1,
-                              "type": "standart",
-                              "params": {
-                                        "services": True,
-                                        "counters": True,
-                                        "payments": True
-                              }
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "",
-                              "id": 10,
-                              "codeInBilling": 1000,
-                              "is_active": True,
-                              "name": "Газоснабжение",
-                              "priority": 1,
-                              "type": "standart",
-                              "params": {
-                                        "services": True,
-                                        "counters": True,
-                                        "payments": True
-                              }
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "https://via.placeholder.com/48x48",
-                              "id": 4,
-                              "codeInBilling": 400,
-                              "is_active": True,
-                              "name": "Жилищные услуги",
-                              "priority": 2,
-                              "type": "standart",
-                              "params": {
-                                        "services": True,
-                                        "counters": False,
-                                        "payments": True
-                              }
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "https://via.placeholder.com/48x48",
-                              "id": 5,
-                              "codeInBilling": 500,
-                              "is_active": True,
-                              "name": "Техническое обслуживание",
-                              "priority": 2,
-                              "type": "standart",
-                              "params": {
-                                        "services": True,
-                                        "counters": False,
-                                        "payments": True
-                              }
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "",
-                              "id": 6,
-                              "codeInBilling": 600,
-                              "is_active": True,
-                              "name": "Домофон",
-                              "priority": 2,
-                              "type": "standart",
-                              "params": {
-                                        "services": True,
-                                        "counters": False,
-                                        "payments": True
-                              }
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "",
-                              "id": 7,
-                              "codeInBilling": 700,
-                              "is_active": True,
-                              "name": "Капитальный ремонт",
-                              "priority": 2,
-                              "type": "standart",
-                              "params": {
-                                        "services": True,
-                                        "counters": False,
-                                        "payments": True
-                              }
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "",
-                              "id": 8,
-                              "codeInBilling": 800,
-                              "is_active": True,
-                              "name": "Вывоз ТКО",
-                              "priority": 2,
-                              "type": "standart",
-                              "params": {
-                                        "services": True,
-                                        "counters": False,
-                                        "payments": True
-                              }
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "",
-                              "id": 9,
-                              "codeInBilling": 900,
-                              "is_active": True,
-                              "name": "Антена",
-                              "priority": 2,
-                              "type": "standart",
-                              "params": {
-                                        "services": True,
-                                        "counters": False,
-                                        "payments": True
-                              }
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "",
-                              "id": 11,
-                              "codeInBilling": 1100,
-                              "is_active": True,
-                              "name": "Видеонаблюдение",
-                              "priority": 1,
-                              "type": "smart_home",
-                              "params": {}
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "",
-                              "id": 12,
-                              "codeInBilling": 1200,
-                              "is_active": True,
-                              "name": "Система солнечного электроснабжения",
-                              "priority": 1,
-                              "type": "smart_home",
-                              "params": {}
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "https://via.placeholder.com/48x48",
-                              "id": 13,
-                              "codeInBilling": 1300,
-                              "is_active": True,
-                              "name": "Система учета энергоресурсов",
-                              "priority": 1,
-                              "type": "smart_home",
-                              "params": {}
-                    },
-                    {
-                              "amount": 0,
-                              "amount_peni": 0,
-                              "nds": 0,
-                              "image_url": "",
-                              "id": 14,
-                              "codeInBilling": 1400,
-                              "is_active": True,
-                              "name": "Аналитика",
-                              "priority": 1,
-                              "type": "smart_home",
-                              "params": {}
-                    }
-            ]
+          "data": array
     }
 
     error = {
