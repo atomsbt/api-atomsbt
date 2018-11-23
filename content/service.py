@@ -88,7 +88,7 @@ class Form(object):
             "regexp": None if randint(0,3) != 3 else '^(\\w{1,10})',
             "error_msg": "Указаны не верные данные",
             "values": array if len(array)>0 else None,
-            "value": (array[0]['id'] if randint(0,5)>2 else None) if len(array)>0 else None
+            "value": ('{}'.format(array[0]['id']) if randint(0,5)>2 else None) if len(array)>0 else None
         }
 
         return content
