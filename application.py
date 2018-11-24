@@ -148,7 +148,7 @@ def ls():
     ls_array = []
     ls_count = randint(0,5)
     for x in range(0,ls_count):
-        ls_array.append(LS().object(True if x==0 else False))
+        ls_array.append(LS().object(True if x == 0 else False))
 
     success = {
         "result": True,
@@ -299,7 +299,7 @@ def services():
 
     success = {
         "result": True,
-        "data": Map().places(lon, lat, dis)
+        "data": Map().places(float(lon), float(lat), float(dis))
     }
 
     error = {
