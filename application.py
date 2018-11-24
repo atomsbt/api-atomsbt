@@ -175,6 +175,18 @@ def ls_option(option=None):
 
     request_logger(url_ls_option, request)
 
+    if option == 'change':
+
+        success = {
+            "result": True,
+            "message": "Основной лицевой счет изменен"
+        }
+        error = {
+            "result": False,
+            "errorCode": 7030,
+            "errorText": "Введена некорректная сумма"
+        }
+
     if option == 'bind':
 
         success = {
