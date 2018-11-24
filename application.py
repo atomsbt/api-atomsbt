@@ -16,6 +16,7 @@ from content.ls import LS
 from content.service import Service, Form
 from content.map import Map
 from content.counter import Counter
+from content.payment import Payment
 
 app = Flask(__name__)
 
@@ -304,19 +305,69 @@ url_ls_service_id = '/api/ls/<ls>/services/<id>'
 @app.route(url_ls_service_id, methods=['GET'])
 def ls_service_id(ls=None, id=None):
 
-    forms = []
+    array = []
     for x in range(0, randint(0,10)):
-        forms.append(Form().form('Форма с номером {}'.format(x), randint(1,10)))
+        array.append(Form().form('Форма с номером {}'.format(x), randint(1,10)))
 
     success = {
         "result": True,
-        "data": forms
+        "data": array
     }
 
     error = {
         "result": False,
         "errorCode": 6070,
         "errorText": "Нет прав на данный лицевой счет"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_payments = '/api/ls/payments'
+@app.route(url_payments, methods=['POST'])
+def payments():
+
+    request_logger(url_register, request)
+
+    array = []
+    for x in range(0,randint(0,15)):
+        array.append(Payment().payment())
+
+    success = {
+        "page": 1,
+        "pages": 1,
+        "rowPerPage": 100,
+        "totalRowsCount": 100,
+        "result": True,
+        "data": array
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 10050,
+        "errorText": "За указанную дату платежей нет"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_checks = '/api/ls/<ls>/checks/<tranzakciya>'
+@app.route(url_checks, methods=['GET'])
+def checks(ls=None, tranzakciya=None):
+
+    success = {
+        "result": True,
+        "data": Payment().check()
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 10050,
+        "errorText": "За указанную дату платежей нет"
     }
 
     sleep(0.5)
