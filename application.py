@@ -293,9 +293,13 @@ def services():
 
     request_logger(url_services, request)
 
+    lon = request.get_json()['longitude']
+    lat = request.get_json()['latitude']
+    dis = request.get_json()['distance']
+
     success = {
         "result": True,
-        "data": Map().places()
+        "data": Map().places(lon, lat, dis)
     }
 
     error = {
