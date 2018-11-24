@@ -187,7 +187,7 @@ def ls_option(option=None):
             "errorText": "Введена некорректная сумма"
         }
 
-    if option == 'bind':
+    elif option == 'bind':
 
         success = {
             "result": True,
