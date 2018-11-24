@@ -15,6 +15,7 @@ from time import sleep
 from content.ls import LS
 from content.service import Service, Form
 from content.map import Map
+from content.counter import Counter
 
 app = Flask(__name__)
 
@@ -268,6 +269,30 @@ def ls_services(ls=None):
         "result": False,
         "errorCode": 6070,
         "errorText": "Нет прав на данный лицевой счет"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_counters = '/api/ls/<ls>/counters/list/<codeInBilling>'
+@app.route(url_counters, methods=['GET'])
+def ls_counters(ls=None, codeInBilling=None):
+
+    array = []
+    for x in range(0,randint(0,5)):
+        array.append(Counter(ls=ls).counter(codeInBilling=codeInBilling))
+
+    success = {
+        "result": True,
+        "data": array
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 401,
+        "errorText": "Указаны неверные учетные данные"
     }
 
     sleep(0.5)
