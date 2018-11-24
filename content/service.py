@@ -82,7 +82,7 @@ class Form(object):
             array.append(value)
 
         content = {
-            "id": "{}".format(randint(10_000_000_000,99_999_999_999)),
+            "id": '{}'.format(randint(10_000_000_000,99_999_999_999)),
             "name": field_name,
             "type": field_type,
             "regexp": None if randint(0,3) != 3 else '^(\\w{1,10})',
