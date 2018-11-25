@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from random import randint
+from datetime import datetime, timedelta
 
 class Counter(object):
     """
@@ -79,16 +80,47 @@ class Counter(object):
                 "ASKUE": "{}".format(randint(0,1)), # автомат или нет
                 "DateCheck": "2018-11-01T00:00:00.000",
                 "DateNextCheck": "2018-11-01T00:00:00.000",
-                "NomerUslugiForBilling": "0100",
+                "NomerUslugiForBilling": "{}".format(randint(10_000,99_999)),
                 "Tarif": array
             }
 
         return content
 
+    def history(self, RowID=None):
+
+        tarifnost = randint(1,3)
+        date = (datetime.now() - timedelta(days=randint(20,30))).isoformat(timespec='milliseconds')
+
+        array = []
+        for x in range(0,tarifnost):
+            tarif = {
+                    "TARIF": x+1,
+                    "NAZVTAR": "Ночь",
+                    "POKAZANIE": randint(100,99_999),
+                    "RASHOD": randint(100,99_999),
+                    "RASHODRASPR": "0",
+                    "SOSTOYANIE": "1",
+                    "TIPVVODA": "Абонентское показание (интернет)"
+            }
+            array.append(tarif)
+
+        content = {
+            "DATA": date,
+            "ZAVNOM": randint(10_000,99_999),
+            "NAZVANIEUSL": "Электроснабжение",
+            "Tarifnost": tarifnost,
+            "RowID": randint(10_000,99_999),
+            "pokazaniya": array
+        }
+
+        return content
+
+
 #-----------------------------------------------------------------------
 
 if __name__ == '__main__':
     # print(Counter().counter())
+    # print(Counter().history())
     pass
 
 #-----------------------------------------------------------------------

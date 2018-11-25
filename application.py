@@ -323,6 +323,36 @@ def counters_add():
 
 #-----------------------------------------------------------------------
 
+url_counters_history = '/api/ls/counters/history'
+@app.route(url_counters_history, methods=['POST'])
+def counters_history():
+
+    request_logger(url_counters_history, request)
+
+    array = []
+    for x in range(0,randint(0,15)):
+        array.append(Counter().history())
+
+    success = {
+        "page": 1,
+        "pages": 1,
+        "rowPerPage": 100,
+        "totalRowsCount": 100,
+        "result": True,
+        "data": array
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 10050,
+        "errorText": "За указанную дату платежей нет"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
 url_ls_service_id = '/api/ls/<ls>/services/<id>'
 @app.route(url_ls_service_id, methods=['GET'])
 def ls_service_id(ls=None, id=None):
