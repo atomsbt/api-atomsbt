@@ -62,7 +62,6 @@ class LS(object):
 #-----------------------------------------------------------------------
 
 if __name__ == '__main__':
-    # print(LS().content())
     # print(datetime.now().isoformat(timespec='milliseconds'))
     # print(LS().details())
     pass

@@ -58,8 +58,8 @@ class Payment(object):
 #-----------------------------------------------------------------------
 
 if __name__ == '__main__':
-    print(Payment().payment())
-    print(Payment().check())
+    # print(Payment().payment())
+    # print(Payment().check())
     pass
 
 #-----------------------------------------------------------------------

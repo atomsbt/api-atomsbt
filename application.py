@@ -325,11 +325,33 @@ def ls_service_id(ls=None, id=None):
 
 #-----------------------------------------------------------------------
 
+url_send_form = '/api/user/send/form'
+@app.route(url_send_form, methods=['POST'])
+def send_form():
+
+    request_logger(url_send_form, request)
+
+    success = {
+        "result": True,
+        "message": "Данные приняты сервером"
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 6020,
+        "errorText": "Ошибка отправки"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
 url_payments = '/api/ls/payments'
 @app.route(url_payments, methods=['POST'])
 def payments():
 
-    request_logger(url_register, request)
+    request_logger(url_payments, request)
 
     array = []
     for x in range(0,randint(0,15)):
