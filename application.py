@@ -301,6 +301,28 @@ def ls_counters(ls=None, codeInBilling=None):
 
 #-----------------------------------------------------------------------
 
+url_counters_add = '/api/ls/counters/add'
+@app.route(url_counters_add, methods=['POST'])
+def counters_add():
+
+    request_logger(url_counters_add, request)
+
+    success = {
+        "result": True,
+        "message": "Данные успешно поданы"
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 10050,
+        "errorText": "За указанную дату платежей нет"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
 url_ls_service_id = '/api/ls/<ls>/services/<id>'
 @app.route(url_ls_service_id, methods=['GET'])
 def ls_service_id(ls=None, id=None):
@@ -397,6 +419,59 @@ def checks(ls=None, tranzakciya=None):
 
 #-----------------------------------------------------------------------
 
+url_getpaygateway = '/api/ls/<ls>/pay/getpaygateway'
+@app.route(url_getpaygateway, methods=['GET'])
+def getpaygateway(ls=None):
+
+    success = {
+        "result": True,
+        "pay_gateways": [
+            {
+                "code": "bankrossiya",
+                "name": "АБ «РОССИЯ»"
+            },
+            {
+                "code": "gazprombank",
+                "name": "Газпромбанк"
+            }
+        ],
+        "usls_enabled": False
+    }
+
+
+    error = {
+        "result": False,
+        "errorCode": 10050,
+        "errorText": "За указанную дату платежей нет"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_getlink = '/api/pay/getlink'
+@app.route(url_getlink, methods=['POST'])
+def getlink():
+
+    request_logger(url_getlink, request)
+
+    success = {
+        "result": True,
+        "link": ""
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 10050,
+        "errorText": "За указанную дату платежей нет"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
 url_services = '/api/user/services'
 @app.route(url_services, methods=['POST'])
 def services():
@@ -419,6 +494,28 @@ def services():
     }
 
     sleep(1)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_feedback = '/api/user/feedback'
+@app.route(url_feedback, methods=['POST'])
+def feedback():
+
+    request_logger(url_feedback, request)
+
+    success = {
+        "result": True,
+        "message": "Регистрация обращения выполнена"
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 10050,
+        "errorText": "За указанную дату платежей нет"
+    }
+
+    sleep(0.5)
     return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
