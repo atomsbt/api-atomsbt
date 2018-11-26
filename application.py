@@ -35,6 +35,41 @@ def request_logger(url, request):
 
 #-----------------------------------------------------------------------
 
+url_user = '/api/user'
+@app.route(url_user, methods=['GET'])
+def user():
+
+    success = {
+          "result": True,
+          "data": {
+                    "id": 23,
+                    "account_type_id": None,
+                    "billing_account_id": None,
+                    "account_login": "70000000004",
+                    "account_email": "test4@test.ru",
+                    "account_mphone": "70000000004",
+                    "account_password": "5f4dcc3b5aa765d61d8327deb882cf99",
+                    "account_status": None,
+                    "flag_sync": None,
+                    "remember_token": "b2ce18bf8089edf8d5872dc5bbb0bcec",
+                    "created_at": "2018-10-11T09:41:17.000",
+                    "updated_at": "2018-11-25T11:59:48.000",
+                    "account_pdn": None,
+                    "account_notify": None
+          }
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 6010,
+        "errorText": "Ошибка"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
 url_register = '/api/user/register/tel'
 @app.route(url_register, methods=['POST'])
 def register():
@@ -453,21 +488,20 @@ url_getpaygateway = '/api/ls/<ls>/pay/getpaygateway'
 @app.route(url_getpaygateway, methods=['GET'])
 def getpaygateway(ls=None):
 
+    array = []
+    for x in range(1,randint(1,5)):
+        rnd = randint(10_000,99_999)
+        pay_gateway = {
+            "code": "BN{}".format(rnd),
+            "name": "Банк {}".format(rnd)
+        }
+        array.append(Payment().payment())
+
     success = {
         "result": True,
-        "pay_gateways": [
-            {
-                "code": "bankrossiya",
-                "name": "АБ «РОССИЯ»"
-            },
-            {
-                "code": "gazprombank",
-                "name": "Газпромбанк"
-            }
-        ],
-        "usls_enabled": False
+        "pay_gateways": array,
+        "usls_enabled": False if randint(0,3) != 3 else True
     }
-
 
     error = {
         "result": False,
@@ -488,7 +522,7 @@ def getlink():
 
     success = {
         "result": True,
-        "link": ""
+        "link": "https://www.google.ru"
     }
 
     error = {
@@ -518,9 +552,9 @@ def services():
     }
 
     error = {
-        "result": False,
-        "errorCode": 401,
-        "errorText": "Указаны неверные учетные данные"
+          "result": false,
+          "errorCode": 9090,
+          "errorText": "Центры обслуживания в указанном радиусе не найдены"
     }
 
     sleep(1)
