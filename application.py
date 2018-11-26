@@ -23,6 +23,7 @@ app = Flask(__name__)
 #-----------------------------------------------------------------------
 
 def request_logger(url, request):
+
     at = request.headers.get('token')
 
     json_headers = {
@@ -174,7 +175,8 @@ def auth():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return json(success), 200
+    # return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -182,10 +184,10 @@ url_ls = '/api/ls'
 @app.route(url_ls, methods=['GET'])
 def ls():
 
+    ls_min = 1
     ls_array = []
-    ls_count = randint(0,5)
-    for x in range(0,ls_count):
-        ls_array.append(LS().object(True if x == 0 else False))
+    for x in range(ls_min,randint(ls_min,5)):
+        ls_array.append(LS().object(True if x == ls_min else False))
 
     success = {
         "result": True,
@@ -199,7 +201,8 @@ def ls():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return json(success), 200
+    # return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
