@@ -495,7 +495,7 @@ def getpaygateway(ls=None):
             "code": "BN{}".format(rnd),
             "name": "Банк {}".format(rnd)
         }
-        array.append(Payment().payment())
+        array.append(pay_gateway)
 
     success = {
         "result": True,
