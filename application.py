@@ -24,15 +24,10 @@ app = Flask(__name__)
 
 def request_logger(url, request):
 
-    at = request.headers.get('token')
-
-    json_headers = {
-        'token': at
-    }
-
+    json_headers = {'token': request.headers.get('token')}
     json_body = request.get_json()
 
-    app.logger.info('REQUEST {0}\nHEADERS {1}\nBODY {2}'.format(url, json_headers, json_body))
+    app.logger.info('\nREQUEST {0}\nHEADERS {1}\nBODY {2}'.format(url, json_headers, json_body))
 
 #-----------------------------------------------------------------------
 
@@ -68,6 +63,29 @@ def user():
 
     sleep(0.5)
     return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_auth = '/api/user/auth'
+@app.route(url_auth, methods=['POST'])
+def auth():
+
+    request_logger(url_auth, request)
+
+    success = {
+        "result": True,
+        "token": "312b9d11cae6a18ad78cfd34d6d39cfa"
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 401,
+        "errorText": "Указаны неверные учетные данные"
+    }
+
+    sleep(0.5)
+    return json(success), 200
+    # return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -154,29 +172,6 @@ def agreement():
 
     sleep(0.5)
     return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
-
-#-----------------------------------------------------------------------
-
-url_auth = '/api/user/auth'
-@app.route(url_auth, methods=['POST'])
-def auth():
-
-    request_logger(url_auth, request)
-
-    success = {
-        "result": True,
-        "token": "312b9d11cae6a18ad78cfd34d6d39cfa"
-    }
-
-    error = {
-        "result": False,
-        "errorCode": 401,
-        "errorText": "Указаны неверные учетные данные"
-    }
-
-    sleep(0.5)
-    return json(success), 200
-    # return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 

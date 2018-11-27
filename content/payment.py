@@ -44,7 +44,7 @@ class Payment(object):
         content = {
                 "ROW_ID": str(randint(1_000,9_999)),
                 "DATA": date,
-                "DATAVREMYA": "",
+                "DATAVREMYA": date,
                 "ISTOCHNIK": "Билинг",
                 "SUMMA": randint(10,99_999),
                 "TRANZAKCIYA": str(randint(10_000,99_999)) if randint(0,3) != 3 else ""
