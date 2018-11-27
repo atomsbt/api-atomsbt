@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<!--
+
+http://backurl/success - в случае успеха
+http://backurl/fail - в случае отказа
+http://backurl/processing - шлюз взял транзакцию в обработку
+
+ -->
+
+<html>
+<body>
+
+<head>
+  <style type="text/css">
+    #wrapper {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    button {
+      height: 30px;
+      width: 200px;
+    }
+    #success {
+      color: white;
+      background: #92B558;
+    }
+    #fail {
+      color: white;
+      background: #DC4C46;
+    }
+    #processing {
+      color: white;
+      background: #898E8C;
+    }
+
+  </style>
+</head>
+
+<div id="wrapper">
+  <table>
+    <tr><th>
+      <a href="http://backurl/success"><button type="button" id="success">success</button></a>
+    </th></tr>
+    <tr><th>
+      <a href="http://backurl/fail"><button type="button" id="fail">fail</button></a>
+    </th></tr>
+    <tr><th>
+      <a href="http://backurl/processing"><button type="button" id="processing">processing</button></a>
+    </th></tr>
+  </table>
+</div>
+
+</body>
+</html>

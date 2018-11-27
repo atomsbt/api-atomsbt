@@ -7,6 +7,7 @@ import os
 from flask import Flask
 from flask import request
 from flask import jsonify as json
+from flask import render_template
 
 from random import choice
 from random import randint
@@ -581,6 +582,10 @@ def feedback():
     return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
+
+@app.route("/")
+def main():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
