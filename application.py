@@ -521,7 +521,7 @@ def getlink():
 
     success = {
         "result": True,
-        "link": "https://www.google.ru"
+        "link": "https://api-atomsbt.herokuapp.com"
     }
 
     error = {
