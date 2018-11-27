@@ -27,7 +27,7 @@ def request_logger(url, request):
     json_headers = {'token': request.headers.get('token')}
     json_body = request.get_json()
 
-    app.logger.info('\nREQUEST {0}\nHEADERS {1}\nBODY {2}'.format(url, json_headers, json_body))
+    app.logger.info('\n'+'-'*80+'\nREQUEST {0}\nHEADERS {1}\nBODY {2}\n'.format(url, json_headers, json_body)+'-'*80)
 
 #-----------------------------------------------------------------------
 
