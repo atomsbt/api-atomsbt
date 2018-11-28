@@ -106,7 +106,7 @@ class Counter(object):
 
         content = {
             "DATA": date,
-            "ZAVNOM": randint(10_000,99_999),
+            "ZAVNOM": str(randint(10_000,99_999)),
             "NAZVANIEUSL": "Электроснабжение",
             "Tarifnost": tarifnost,
             "RowID": randint(10_000,99_999),
