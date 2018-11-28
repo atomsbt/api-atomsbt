@@ -96,8 +96,8 @@ class Counter(object):
             tarif = {
                     "TARIF": x+1,
                     "NAZVTAR": "Ночь",
-                    "POKAZANIE": randint(100,99_999),
-                    "RASHOD": randint(100,99_999),
+                    "POKAZANIE": str(randint(100,99_999)),
+                    "RASHOD": str(randint(100,99_999)),
                     "RASHODRASPR": "0",
                     "SOSTOYANIE": "1",
                     "TIPVVODA": "Абонентское показание (интернет)"
