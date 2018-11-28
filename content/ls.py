@@ -29,7 +29,7 @@ class LS(object):
         content_json = {
                     "EMAILVCHEK": "",
                     "ADRES": "г Тверь,ул Оснабрюкская,д.27к1 кв.14",
-                    "BALANS": 489,
+                    "BALANS": randint(10,9999999),
                     "VHPENI": 0,
                     "DELO": "{}".format(delo) if randint(0,3) == 3 else "",
                     "DOKSOBS": "",
