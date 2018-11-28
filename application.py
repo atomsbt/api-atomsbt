@@ -551,7 +551,7 @@ def services():
     }
 
     error = {
-          "result": false,
+          "result": False,
           "errorCode": 9090,
           "errorText": "Центры обслуживания в указанном радиусе не найдены"
     }
