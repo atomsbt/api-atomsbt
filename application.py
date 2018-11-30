@@ -90,9 +90,93 @@ def auth():
 
 #-----------------------------------------------------------------------
 
+url_user_changeemail = '/api/user/changeemail'
+@app.route(url_user_changeemail, methods=['POST'])
+def url_user_changeemail():
+
+    request_logger(url_user_changeemail, request)
+
+    success = {
+        "result": True,
+        "message": "Емаил изменен"
+    }
+    error = {
+        "result": False,
+        "errorCode": 7030,
+        "errorText": "Введена некорректная данные"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_user_changepassword = '/api/user/changepassword'
+@app.route(url_user_changepassword, methods=['POST'])
+def url_user_changepassword():
+
+    request_logger(url_user_changepassword, request)
+
+    success = {
+        "result": True,
+        "message": "Пароль изменен"
+    }
+    error = {
+        "result": False,
+        "errorCode": 7030,
+        "errorText": "Введена некорректная данные"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_user_tel_change = '/api/user/tel/change'
+@app.route(url_user_tel_change, methods=['POST'])
+def url_user_tel_change():
+
+    request_logger(url_user_tel_change, request)
+
+    success = {
+        "result": True,
+        "message": "Код подтверждения отправлен на телефон"
+    }
+    error = {
+        "result": False,
+        "errorCode": 7030,
+        "errorText": "Введена некорректная"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_user_tel_change_confirm = '/api/user/tel/change/confirm'
+@app.route(url_user_tel_change_confirm, methods=['POST'])
+def url_user_tel_change_confirm():
+
+    request_logger(url_user_tel_change_confirm, request)
+
+    success = {
+        "result": True,
+        "message": "Телефон изменен"
+    }
+    error = {
+        "result": False,
+        "errorCode": 7030,
+        "errorText": "Введена некорректная"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
 url_register = '/api/user/register/tel'
 @app.route(url_register, methods=['POST'])
-def register():
+def url_register():
 
     request_logger(url_register, request)
 
