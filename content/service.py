@@ -13,9 +13,11 @@ class Service(object):
 
         service_id = randint(10_000_000_000,99_999_999_999)
 
+        amount = randint(0,9999_999)
+
         content = {
-            "amount": 0,
-            "amount_peni": 0,
+            "amount": amount,
+            "amount_peni": int(amount*0.1),
             "nds": 18,
             "image_url": self.image_url if randint(0,3) != 3 else '',
             "id": service_id,
