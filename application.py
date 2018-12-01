@@ -3,6 +3,7 @@
 # heroku logs -a api-atomsbt -t --source app
 
 import os
+import uuid
 
 from flask import Flask
 from flask import request
@@ -37,23 +38,23 @@ url_user = '/api/user'
 def user():
 
     success = {
-          "result": True,
-          "data": {
-                    "id": 23,
-                    "account_type_id": None,
-                    "billing_account_id": None,
-                    "account_login": "70000000004",
-                    "account_email": "test4@test.ru",
-                    "account_mphone": "70000000004",
-                    "account_password": "5f4dcc3b5aa765d61d8327deb882cf99",
-                    "account_status": None,
-                    "flag_sync": None,
-                    "remember_token": "b2ce18bf8089edf8d5872dc5bbb0bcec",
-                    "created_at": "2018-10-11T09:41:17.000",
-                    "updated_at": "2018-11-25T11:59:48.000",
-                    "account_pdn": None,
-                    "account_notify": None
-          }
+        "result": True,
+        "data": {
+            "id": 23,
+            "account_type_id": None,
+            "billing_account_id": None,
+            "account_login": "70000000004",
+            "account_email": "test4@test.ru",
+            "account_mphone": "70000000004",
+            "account_password": "5f4dcc3b5aa765d61d8327deb882cf99",
+            "account_status": None,
+            "flag_sync": None,
+            "remember_token": "b2ce18bf8089edf8d5872dc5bbb0bcec",
+            "created_at": "2018-10-11T09:41:17.000",
+            "updated_at": "2018-11-25T11:59:48.000",
+            "account_pdn": None,
+            "account_notify": None
+        }
     }
 
     error = {
@@ -75,7 +76,7 @@ def auth():
 
     success = {
         "result": True,
-        "token": "312b9d11cae6a18ad78cfd34d6d39cfa"
+        "token": str(uuid.uuid4().hex)
     }
 
     error = {
@@ -246,7 +247,7 @@ def agreement():
 
     success = {
         "result": True,
-        "link": "https://api-tver.atomsbt.ru/agreement.html"
+        "link": "https://api-atomsbt.herokuapp.com/policy"
     }
 
     error = {
@@ -605,7 +606,7 @@ def getlink():
 
     success = {
         "result": True,
-        "link": "https://api-atomsbt.herokuapp.com"
+        "link": "https://api-atomsbt.herokuapp.com/pay"
     }
 
     error = {
@@ -667,9 +668,17 @@ def feedback():
 
 #-----------------------------------------------------------------------
 
-@app.route("/")
-def main():
-    return render_template('index.html')
+@app.route("/<option>")
+def main(option=None):
+
+    template = 'index.html'
+
+    if option == 'pay':
+        template = 'pay.html'
+    if option == 'policy':
+        template = 'policy.html'
+
+    return render_template(template)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
