@@ -1,6 +1,11 @@
 #!/usr/bin/python3
 
-# heroku logs -a api-atomsbt -t --source app
+"""
+heroku logs -a api-atomsbt -t --source app
+
+
+
+"""
 
 import os
 import uuid
@@ -245,7 +250,7 @@ def reset():
 
 url_agreement = '/api/agreement'
 @app.route(url_agreement, methods=['GET'])
-def agreement():
+def url_agreement():
 
     success = {
         "result": True,
@@ -269,8 +274,8 @@ def ls():
 
     ls_min = 1
     ls_array = []
-    for x in range(ls_min,randint(ls_min,5)):
-        ls_array.append(LS().object(True if x == ls_min else False))
+    for i in range(ls_min,randint(ls_min,5)):
+        ls_array.append(LS().object(True if i == ls_min else False))
 
     success = {
         "result": True,
@@ -355,32 +360,74 @@ url_ls_services = '/api/ls/<ls>/services'
 @app.route(url_ls_services, methods=['GET'])
 def ls_services(ls=None):
 
-    name_standart = [
-        "Электроэнергия",
-        "Тепло",
-        "Вода",
-        "Газоснабжение",
-        "Жилищные услуги",
-        "Техническое обслуживание",
-        "Домофон",
-        "Капитальный ремонт",
-        "Вывоз ТКО",
-        "Антена"
+    standart = [
+        {
+            'name': "Электроэнергия",
+            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543782462/atom/services/El.png'
+        },
+        {
+            'name': "Тепло",
+            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543783046/atom/services/Te.png'
+        },
+        {
+            'name': "Вода",
+            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543783673/atom/services/Vd.png'
+        },
+        {
+            'name': "Газоснабжение",
+            'image_url': None
+        },
+        {
+            'name': "Жилищные услуги",
+            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543783767/atom/services/Hm.png'
+        },
+        {
+            'name': "Техническое обслуживание",
+            'image_url': None
+        },
+        {
+            'name': "Домофон",
+            'image_url': None
+        },
+        {
+            'name': "Капитальный ремонт",
+            'image_url': None
+        },
+        {
+            'name': "Вывоз ТКО",
+            'image_url': None
+        },
+        {
+            'name': "Антена",
+            'image_url': None
+        }
     ]
 
-    name_smart_home = [
-        "Видеонаблюдение",
-        "Система солнечного электроснабжения",
-        "Система учета энергоресурсов",
-        "Аналитика"
+    smart_home = [
+        {
+            'name': "Видеонаблюдение",
+            'image_url': None
+        },
+        {
+            'name': "Система солнечного электроснабжения",
+            'image_url': None
+        },
+        {
+            'name': "Система учета энергоресурсов",
+            'image_url': None
+        },
+        {
+            'name': "Аналитика",
+            'image_url': None
+        }
     ]
 
     array = []
-    for x in range(0, randint(0,len(name_standart))):
-        array.append(Service().element(name_standart[x], 'standart', True))
+    for x in range(0, randint(0,len(standart))):
+        array.append(Service().element(standart[x]['name'], 'standart', True, standart[x]['image_url']))
 
-    for x in range(0, randint(0,len(name_smart_home))):
-        array.append(Service().element(name_smart_home[x], 'smart_home', False))
+    for x in range(0, randint(0,len(smart_home))):
+        array.append(Service().element(smart_home[x]['name'], 'smart_home', False, , smart_home[x]['image_url']))
 
     success = {
           "result": True,
@@ -476,11 +523,11 @@ def counters_history():
 
 url_ls_service_id = '/api/ls/<ls>/services/<id>'
 @app.route(url_ls_service_id, methods=['GET'])
-def ls_service_id(ls=None, id=None):
+def url_ls_service_id(ls=None, id=None):
 
     array = []
-    for x in range(0, randint(0,10)):
-        array.append(Form().form('Форма с номером {}'.format(x), randint(1,10)))
+    for x in range(0, randint(0,15)):
+        array.append(Form().form('Форма с номером {}'.format(x), randint(3,10)))
 
     success = {
         "result": True,
@@ -598,7 +645,6 @@ def getpaygateway(ls=None):
     sleep(0.5)
     return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
-#-----------------------------------------------------------------------
 
 url_getlink = '/api/pay/getlink'
 @app.route(url_getlink, methods=['POST'])
