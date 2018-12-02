@@ -28,15 +28,24 @@ http://backurl/processing - шлюз взял транзакцию в обраб
     }
     #success {
       color: white;
-      background: #92B558;
+      background: #92b558;
     }
     #fail {
       color: white;
-      background: #DC4C46;
+      background: #dc4c46;
     }
     #processing {
       color: white;
-      background: #898E8C;
+      background: #ecbd51;
+    }
+    #card {
+      color: white;
+      background: #fff;
+      background: linear-gradient(-45deg, #b8dd51, #418b4e);
+      height: 10em;
+      width: 20em;
+      border-radius: 1em;
+      border: 0;
     }
 
   </style>
@@ -44,6 +53,15 @@ http://backurl/processing - шлюз взял транзакцию в обраб
 
 <div id="wrapper">
   <table>
+    <tr><th>
+      <div>Card to account transfer</div>
+    </th></tr>
+    <tr><th>
+      <div id="card"></div>
+    </th></tr>
+    <tr><th>
+      <div><br></div>
+    </th></tr>
     <tr><th>
       <a href="http://backurl/success"><button type="button" id="success">success</button></a>
     </th></tr>
