@@ -7,19 +7,19 @@ class Service(object):
     def __init__(self):
         super(Service).__init__()
 
-        self.image_url = "https://via.placeholder.com/48x48"
+        self.image_url = "https://via.placeholder.com/48x48" if randint(0,3) != 3 else ''
 
-    def element(self, e_name=None, e_type=None, e_params=False):
+    def element(self, e_name=None, e_type=None, e_params=False, e_image_url=None):
 
         service_id = randint(10_000_000_000,99_999_999_999)
-
-        amount = randint(0,9999_999)
+        amount = randint(0,999999)
+        image_url = e_image_url if e_image_url not None else self.image_url
 
         content = {
             "amount": amount,
-            "amount_peni": int(amount*0.1),
+            "amount_peni": int(amount*0.12),
             "nds": 18,
-            "image_url": self.image_url if randint(0,3) != 3 else '',
+            "image_url": image_url,
             "id": service_id,
             "codeInBilling": service_id,
             "is_active": True if randint(0,5) != 5 else False,
@@ -103,22 +103,3 @@ if __name__ == '__main__':
     pass
 
 #-----------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
