@@ -13,6 +13,7 @@ from flask import render_template
 from random import choice
 from random import randint
 from time import sleep
+from datetime import datetime, timedelta
 
 from content.ls import LS
 from content.service import Service, Form
@@ -26,10 +27,11 @@ app = Flask(__name__)
 
 def request_logger(url, request):
 
-    json_headers = {'token': request.headers.get('token')}
-    json_body = request.get_json()
+    jh = {'token': request.headers.get('token')}
+    jb = request.get_json()
 
-    app.logger.info('\n'+'-'*80+'\nREQUEST {0}\nHEADERS {1}\nBODY {2}\n'.format(url, json_headers, json_body)+'-'*80)
+    body = '\nREQUEST {0}\nHEADERS {1}\nBODY {2}\n'.format(url, jh, jb)
+    app.logger.info('\n'+'-'*80+body+'-'*80)
 
 #-----------------------------------------------------------------------
 
@@ -64,7 +66,7 @@ def user():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -108,7 +110,7 @@ def url_user_changeemail():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -129,7 +131,7 @@ def url_user_changepassword():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -150,7 +152,7 @@ def url_user_tel_change():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -171,7 +173,7 @@ def url_user_tel_change_confirm():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -193,7 +195,7 @@ def url_register():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -215,7 +217,7 @@ def confirm():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -237,7 +239,7 @@ def reset():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -257,7 +259,7 @@ def agreement():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -345,7 +347,7 @@ def ls_option(option=None):
         }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -392,7 +394,7 @@ def ls_services(ls=None):
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -416,7 +418,7 @@ def ls_counters(ls=None, codeInBilling=None):
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -438,7 +440,7 @@ def counters_add():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -468,7 +470,7 @@ def counters_history():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -492,7 +494,7 @@ def ls_service_id(ls=None, id=None):
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -514,7 +516,7 @@ def send_form():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -544,7 +546,7 @@ def payments():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -564,7 +566,7 @@ def checks(ls=None, tranzakciya=None):
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -594,7 +596,7 @@ def getpaygateway(ls=None):
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -616,7 +618,52 @@ def getlink():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_kvtMonths = '/api/ls/<ls>/reports/kvtMonths'
+@app.route(url_kvtMonths, methods=['GET'])
+def url_kvtMonths(ls=None):
+
+    array = []
+    for i in range(1, randint(1,15)):
+        date = datetime.now() - timedelta(days=31*i)
+        array.append(date.isoformat(timespec='milliseconds'))
+
+    success = {
+        "result": True,
+        "data": array
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 10050,
+        "errorText": "За указанную дату ничего нет"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+
+url_reports = '/api/ls/reports/<option>'
+@app.route(url_reports, methods=['POST'])
+def url_reports(option=None):
+
+    request_logger(url_reports, request)
+
+    success = {
+        "result": True,
+        "url": "https://static.tinkoff.ru/documents/docs/terms_of_integrated_banking_services.pdf"
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 10050,
+        "errorText": "За указанную дату ничего нет"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -642,7 +689,7 @@ def services():
     }
 
     sleep(1)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
@@ -664,7 +711,7 @@ def feedback():
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
 
 #-----------------------------------------------------------------------
 
