@@ -1,8 +1,12 @@
 #!/usr/bin/python3
 
 """
+
 heroku logs -a api-atomsbt -t --source app
 
+
+resorces
+icons: https://cloudinary.com
 
 
 """
@@ -406,19 +410,19 @@ def ls_services(ls=None):
     smart_home = [
         {
             'name': "Видеонаблюдение",
-            'image_url': None
+            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788073/atom/services/Vn.png'
         },
         {
             'name': "Система солнечного электроснабжения",
-            'image_url': None
+            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788096/atom/services/Ss.png'
         },
         {
             'name': "Система учета энергоресурсов",
-            'image_url': None
+            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788085/atom/services/Su.png'
         },
         {
             'name': "Аналитика",
-            'image_url': None
+            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788066/atom/services/An.png'
         }
     ]
 
