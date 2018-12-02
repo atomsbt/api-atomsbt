@@ -13,7 +13,7 @@ class Service(object):
 
         service_id = randint(10_000_000_000,99_999_999_999)
         amount = randint(0,999999)
-        image_url = e_image_url if e_image_url not None else self.image_url
+        image_url = e_image_url if not None else self.image_url
 
         content = {
             "amount": amount,
@@ -99,7 +99,7 @@ class Form(object):
 #-----------------------------------------------------------------------
 
 if __name__ == '__main__':
-    print(Form().form(form_name='Tect', form_fields_count=3))
+    # print(Form().form(form_name='Tect', form_fields_count=3))
     pass
 
 #-----------------------------------------------------------------------

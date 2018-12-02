@@ -424,10 +424,14 @@ def ls_services(ls=None):
 
     array = []
     for x in range(0, randint(0,len(standart))):
-        array.append(Service().element(standart[x]['name'], 'standart', True, standart[x]['image_url']))
+        name = standart[x].get('name')
+        image = standart[x].get('image_url')
+        array.append(Service().element(name, 'standart', True, image))
 
     for x in range(0, randint(0,len(smart_home))):
-        array.append(Service().element(smart_home[x]['name'], 'smart_home', False, , smart_home[x]['image_url']))
+        name = smart_home[x].get('name')
+        image = smart_home[x].get('image_url')
+        array.append(Service().element(name, 'smart_home', False, image))
 
     success = {
           "result": True,
