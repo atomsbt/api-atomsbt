@@ -61,26 +61,26 @@ class Counter(object):
                 "DatePok": "2018-11-01T00:00:00.000",
                 "NomerTarifa": "{}".format(x+1),
                 "NazvanieTarifa": "День",
-                "PredPok": "{}".format(randint(100,9_999))
+                "PredPok": str(randint(100,9_999))
             }
             array.append(tarif)
 
         content = {
-                "RowID": "1050194",
+                "RowID": str(randint(10_000,99_999)),
                 "Tarifnost": tarifnost,
                 "NomerUslugi": 100,
                 "NazvanieUslugi": "Электроснабжение",
-                "ZavodNomer": "{}".format(randint(10_000,99_999)),
+                "ZavodNomer": str(randint(10_000,99_999)),
                 "Razradnost": "4",
                 "KoefTrans": "1",
                 "MaxPok": "3000",
                 "result": "ЭЛ",
                 "errorCode": "ЭЛ",
                 "errorMessage": "ЭЛ",
-                "ASKUE": "{}".format(randint(0,1)), # автомат или нет
+                "ASKUE": str(randint(0,1)), # автомат или нет
                 "DateCheck": "2018-11-01T00:00:00.000",
                 "DateNextCheck": "2018-11-01T00:00:00.000",
-                "NomerUslugiForBilling": "{}".format(randint(10_000,99_999)),
+                "NomerUslugiForBilling": str(randint(10_000,99_999)),
                 "Tarif": array
             }
 

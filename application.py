@@ -458,12 +458,20 @@ url_counters = '/api/ls/<ls>/counters/list/<codeInBilling>'
 def ls_counters(ls=None, codeInBilling=None):
 
     array = []
-    for x in range(0,randint(0,5)):
+    for x in range(1,randint(1,5)):
         array.append(Counter(ls=ls).counter(codeInBilling=codeInBilling))
+
+    dn = datetime.now()
+    ot = dn - timedelta(days=15)
+    do = (dn - timedelta(days=3)) if randint(0,1)>0 else (dn + timedelta(days=3))
 
     success = {
         "result": True,
-        "data": array
+        "data": array,
+        "PeriodSch": {
+            "ot": ot.isoformat(timespec='milliseconds'),
+            "do": do.isoformat(timespec='milliseconds')
+        }
     }
 
     error = {
