@@ -33,7 +33,7 @@ class Counter(object):
                     },
                     {
                         "DatePok": "2018-11-01T00:00:00.000",
-                        "NomerTarifa": "1",
+                        "NomerTarifa": 1,
                         "NazvanieTarifa": "Ночь",
                         "PredPok": "0"
                     }
@@ -109,7 +109,7 @@ class Counter(object):
             "ZAVNOM": str(randint(10_000,99_999)),
             "NAZVANIEUSL": "Электроснабжение",
             "Tarifnost": tarifnost,
-            "RowID": randint(10_000,99_999),
+            "RowID": str(randint(10_000,99_999)),
             "pokazaniya": array
         }
 
