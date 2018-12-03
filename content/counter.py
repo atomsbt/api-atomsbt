@@ -59,7 +59,7 @@ class Counter(object):
         for x in range(0,tarifnost):
             tarif = {
                 "DatePok": "2018-11-01T00:00:00.000",
-                "NomerTarifa": "{}".format(x+1),
+                "NomerTarifa": x+1,
                 "NazvanieTarifa": "День",
                 "PredPok": str(randint(100,9_999))
             }
