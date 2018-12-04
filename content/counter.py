@@ -89,13 +89,13 @@ class Counter(object):
     def history(self, RowID=None):
 
         tarifnost = randint(1,3)
-        date = (datetime.now() - timedelta(days=randint(20,30))).isoformat(timespec='milliseconds')
+        date = datetime.now() - timedelta(days=randint(20,30))
 
         array = []
         for x in range(0,tarifnost):
             tarif = {
-                    "TARIF": x+1,
-                    "NAZVTAR": "Ночь",
+                    "NomerTarifa": x+1,
+                    "NazvanieTarifa": "Ночь",
                     "POKAZANIE": str(randint(100,99_999)),
                     "RASHOD": str(randint(100,99_999)),
                     "RASHODRASPR": "0",
@@ -105,9 +105,9 @@ class Counter(object):
             array.append(tarif)
 
         content = {
-            "DATA": date,
-            "ZAVNOM": str(randint(10_000,99_999)),
-            "NAZVANIEUSL": "Электроснабжение",
+            "DATA": date.isoformat(timespec='milliseconds'),
+            "ZavodNomer": str(randint(10_000,99_999)),
+            "NazvanieUslugi": "Электроснабжение",
             "Tarifnost": tarifnost,
             "RowID": str(randint(10_000,99_999)),
             "pokazaniya": array
@@ -124,17 +124,3 @@ if __name__ == '__main__':
     pass
 
 #-----------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
