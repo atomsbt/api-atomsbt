@@ -779,6 +779,39 @@ def url_getInstallation(ls=None):
 
 #-----------------------------------------------------------------------
 
+url_camera = '/ls/<ls>/camera'
+@app.route(url_camera, methods=['GET'])
+def url_camera(ls=None):
+
+    success = {
+        "result": True,
+        "data": [
+            {
+                "place": "КУХНЯ",
+                "link": "rtsp//admin12345@84.42.31.48/00"
+            },
+            {
+                "place": "ПОДЪЕЗД",
+                "link": "rtsp//admin12345@84.42.31.48/10"
+            },
+            {
+                "place": "ДВОР",
+                "link": "rtsp//admin12345@84.42.31.48/20"
+            }
+        ]
+    }
+
+    error = {
+        "result": False,
+        "errorCode": 9040,
+        "errorText": "Нет камер"
+    }
+
+    sleep(1)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
 url_feedback = '/api/user/feedback'
 @app.route(url_feedback, methods=['POST'])
 def feedback():
