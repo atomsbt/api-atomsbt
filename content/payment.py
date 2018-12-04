@@ -46,7 +46,7 @@ class Payment(object):
                 "DATA": date,
                 "DATAVREMYA": date,
                 "ISTOCHNIK": "Билинг",
-                "SUMMA": randint(10,99_999),
+                "SUMMA": randint(10,999999),
                 "TRANZAKCIYA": str(randint(10_000,99_999)) if randint(0,3) != 3 else ""
         }
 

@@ -755,6 +755,30 @@ def services():
 
 #-----------------------------------------------------------------------
 
+url_getInstallation = '/ls/<ls>/victronenergy/getInstallation'
+@app.route(url_getInstallation, methods=['GET'])
+def services(ls=None):
+
+    success = {
+        "result": True,
+        "OV1": "232.9 VAC" if randint(0,3)>1 else None,
+        "OV2": "22.3 VAC" if randint(0,3)>1 else None,
+        "OV3": "5 VAC" if randint(0,3)>1 else None,
+        "bs": "84.5 %",
+        "solar_yield": "140 W"
+    }
+
+    error = {
+          "result": False,
+          "errorCode": 9090,
+          "errorText": "Центры обслуживания в указанном радиусе не найдены"
+    }
+
+    sleep(1)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
 url_feedback = '/api/user/feedback'
 @app.route(url_feedback, methods=['POST'])
 def feedback():
