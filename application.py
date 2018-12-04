@@ -362,7 +362,7 @@ def ls_option(option=None):
 
 url_ls_services = '/api/ls/<ls>/services'
 @app.route(url_ls_services, methods=['GET'])
-def ls_services(ls=None):
+def url_ls_services(ls=None):
 
     standart = [
         {
@@ -731,7 +731,7 @@ def url_reports(option=None):
 
 url_services = '/api/user/services'
 @app.route(url_services, methods=['POST'])
-def services():
+def url_services():
 
     request_logger(url_services, request)
 
@@ -757,7 +757,7 @@ def services():
 
 url_getInstallation = '/ls/<ls>/victronenergy/getInstallation'
 @app.route(url_getInstallation, methods=['GET'])
-def services(ls=None):
+def url_getInstallation(ls=None):
 
     success = {
         "result": True,
