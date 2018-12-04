@@ -635,7 +635,7 @@ def checks(ls=None, tranzakciya=None):
 
 url_getpaygateway = '/api/ls/<ls>/pay/getpaygateway'
 @app.route(url_getpaygateway, methods=['GET'])
-def getpaygateway(ls=None):
+def url_getpaygateway(ls=None):
 
     array = []
     for x in range(1,randint(1,5)):
@@ -755,7 +755,7 @@ def url_services():
 
 #-----------------------------------------------------------------------
 
-url_getInstallation = '/ls/<ls>/victronenergy/getInstallation'
+url_getInstallation = '/api/ls/<ls>/victronenergy/getInstallation'
 @app.route(url_getInstallation, methods=['GET'])
 def url_getInstallation(ls=None):
 
@@ -779,7 +779,7 @@ def url_getInstallation(ls=None):
 
 #-----------------------------------------------------------------------
 
-url_camera = '/ls/<ls>/camera'
+url_camera = '/api/ls/<ls>/camera'
 @app.route(url_camera, methods=['GET'])
 def url_camera(ls=None):
 
