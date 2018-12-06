@@ -21,7 +21,7 @@ class Service(object):
             "nds": 18,
             "image_url": image_url,
             "id": service_id,
-            "codeInBilling": e_codeInBilling if not None else service_id,
+            "codeInBilling": e_codeInBilling or service_id,
             "is_active": True if randint(0,5) != 5 else False,
             "name": e_name,
             "priority": 1,
