@@ -434,7 +434,7 @@ def url_ls_services(ls=None):
     for x in range(0, randint(0,len(standart))):
         name = standart[x].get('name')
         image = standart[x].get('image_url')
-        array.append(Service().element(name, 'standart', True, image))
+        array.append(Service().element(name, 'standart', True, image, None))
 
     for x in range(0, randint(0,len(smart_home))):
         name = smart_home[x].get('name')
