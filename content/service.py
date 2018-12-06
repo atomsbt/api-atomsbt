@@ -9,7 +9,7 @@ class Service(object):
 
         self.image_url = "https://via.placeholder.com/48x48" if randint(0,3) != 3 else ''
 
-    def element(self, e_name=None, e_type=None, e_params=False, e_image_url=None):
+    def element(self, e_name=None, e_type=None, e_params=False, e_image_url=None, e_codeInBilling=None):
 
         service_id = randint(10_000_000_000,99_999_999_999)
         amount = randint(0,999999)
@@ -21,7 +21,7 @@ class Service(object):
             "nds": 18,
             "image_url": image_url,
             "id": service_id,
-            "codeInBilling": service_id,
+            "codeInBilling": e_codeInBilling if not None else service_id,
             "is_active": True if randint(0,5) != 5 else False,
             "name": e_name,
             "priority": 1,

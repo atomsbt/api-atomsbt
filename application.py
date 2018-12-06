@@ -81,7 +81,7 @@ def user():
 
 url_auth = '/api/user/auth'
 @app.route(url_auth, methods=['POST'])
-def auth():
+def auth_request():
 
     request_logger(url_auth, request)
 
@@ -104,7 +104,7 @@ def auth():
 
 url_user_changeemail = '/api/user/changeemail'
 @app.route(url_user_changeemail, methods=['POST'])
-def url_user_changeemail():
+def url_user_changeemail_request():
 
     request_logger(url_user_changeemail, request)
 
@@ -125,7 +125,7 @@ def url_user_changeemail():
 
 url_user_changepassword = '/api/user/changepassword'
 @app.route(url_user_changepassword, methods=['POST'])
-def url_user_changepassword():
+def url_user_changepassword_request():
 
     request_logger(url_user_changepassword, request)
 
@@ -146,7 +146,7 @@ def url_user_changepassword():
 
 url_user_tel_change = '/api/user/tel/change'
 @app.route(url_user_tel_change, methods=['POST'])
-def url_user_tel_change():
+def url_user_tel_change_request():
 
     request_logger(url_user_tel_change, request)
 
@@ -167,7 +167,7 @@ def url_user_tel_change():
 
 url_user_tel_change_confirm = '/api/user/tel/change/confirm'
 @app.route(url_user_tel_change_confirm, methods=['POST'])
-def url_user_tel_change_confirm():
+def url_user_tel_change_confirm_request():
 
     request_logger(url_user_tel_change_confirm, request)
 
@@ -188,7 +188,7 @@ def url_user_tel_change_confirm():
 
 url_register = '/api/user/register/tel'
 @app.route(url_register, methods=['POST'])
-def url_register():
+def url_register_request():
 
     request_logger(url_register, request)
 
@@ -210,7 +210,7 @@ def url_register():
 
 url_confirm = '/api/user/confirm/tel'
 @app.route(url_confirm, methods=['POST'])
-def confirm():
+def confirm_request():
 
     request_logger(url_confirm, request)
 
@@ -232,7 +232,7 @@ def confirm():
 
 url_reset = '/api/user/reset/tel'
 @app.route(url_reset, methods=['POST'])
-def reset():
+def reset_request():
 
     request_logger(url_reset, request)
 
@@ -300,7 +300,7 @@ def ls():
 
 url_ls_option = '/api/ls/<option>'
 @app.route(url_ls_option, methods=['GET', 'POST'])
-def ls_option(option=None):
+def ls_option_request(option=None):
 
     success = None
     error = None
@@ -410,18 +410,22 @@ def url_ls_services(ls=None):
     smart_home = [
         {
             'name': "Видеонаблюдение",
+            'codeInBilling': 1100,
             'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788073/atom/services/Vn.png'
         },
         {
             'name': "Система солнечного электроснабжения",
+            "codeInBilling": 1200,
             'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788096/atom/services/Ss.png'
         },
         {
             'name': "Система учета энергоресурсов",
+            "codeInBilling": 1300,
             'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788085/atom/services/Su.png'
         },
         {
             'name': "Аналитика",
+            "codeInBilling": 1400,
             'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788066/atom/services/An.png'
         }
     ]
@@ -435,7 +439,8 @@ def url_ls_services(ls=None):
     for x in range(0, randint(0,len(smart_home))):
         name = smart_home[x].get('name')
         image = smart_home[x].get('image_url')
-        array.append(Service().element(name, 'smart_home', False, image))
+        codeInBilling = smart_home[x].get('codeInBilling')
+        array.append(Service().element(name, 'smart_home', False, image, codeInBilling))
 
     success = {
           "result": True,
@@ -487,7 +492,7 @@ def ls_counters(ls=None, codeInBilling=None):
 
 url_counters_add = '/api/ls/counters/add'
 @app.route(url_counters_add, methods=['POST'])
-def counters_add():
+def counters_add_request():
 
     request_logger(url_counters_add, request)
 
@@ -509,7 +514,7 @@ def counters_add():
 
 url_counters_history = '/api/ls/counters/history'
 @app.route(url_counters_history, methods=['POST'])
-def counters_history():
+def counters_history_request():
 
     request_logger(url_counters_history, request)
 
@@ -563,7 +568,7 @@ def url_ls_service_id(ls=None, id=None):
 
 url_send_form = '/api/user/send/form'
 @app.route(url_send_form, methods=['POST'])
-def send_form():
+def send_form_request():
 
     request_logger(url_send_form, request)
 
@@ -585,7 +590,7 @@ def send_form():
 
 url_payments = '/api/ls/payments'
 @app.route(url_payments, methods=['POST'])
-def payments():
+def payments_request():
 
     request_logger(url_payments, request)
 
@@ -664,7 +669,7 @@ def url_getpaygateway(ls=None):
 
 url_getlink = '/api/pay/getlink'
 @app.route(url_getlink, methods=['POST'])
-def getlink():
+def getlink_request():
 
     request_logger(url_getlink, request)
 
@@ -709,7 +714,7 @@ def url_kvtMonths(ls=None):
 
 url_reports = '/api/ls/reports/<option>'
 @app.route(url_reports, methods=['POST'])
-def url_reports(option=None):
+def url_reports_request(option=None):
 
     request_logger(url_reports, request)
 
@@ -731,7 +736,7 @@ def url_reports(option=None):
 
 url_services = '/api/user/services'
 @app.route(url_services, methods=['POST'])
-def url_services():
+def url_services_request():
 
     request_logger(url_services, request)
 
@@ -814,7 +819,7 @@ def url_camera(ls=None):
 
 url_feedback = '/api/user/feedback'
 @app.route(url_feedback, methods=['POST'])
-def feedback():
+def feedback_request():
 
     request_logger(url_feedback, request)
 
