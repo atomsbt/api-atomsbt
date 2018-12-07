@@ -115,12 +115,34 @@ class Counter(object):
 
         return content
 
+    def ascue(self, count=0, discretization=None):
+
+        array = []
+        for x in range(0,count):
+            
+            date = None
+            if discretization == 'h':
+                date = datetime.now() - timedelta(hours=x)
+            if discretization == 'd':
+                date = datetime.now() - timedelta(days=x)
+            if discretization == 'm':
+                date = datetime.now() - timedelta(weeks=4*x)
+
+            content = {
+                "date": date.isoformat(timespec='milliseconds'),
+                "value": randint(0,9000) / 100
+            }
+            array.append(content)
+
+        return array
+
 
 #-----------------------------------------------------------------------
 
 if __name__ == '__main__':
     # print(Counter().counter())
     # print(Counter().history())
+    # print(Counter().ascue(3,'d'))
     pass
 
 #-----------------------------------------------------------------------
