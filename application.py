@@ -19,8 +19,7 @@ from flask import request
 from flask import jsonify as json
 from flask import render_template
 
-from random import choice
-from random import randint
+from random import choice, random, randint
 from time import sleep
 from datetime import datetime, timedelta
 
@@ -46,7 +45,7 @@ def request_logger(url, request):
 
 url_user = '/api/user'
 @app.route(url_user, methods=['GET'])
-def user():
+def request_user():
 
     success = {
         "result": True,
@@ -81,7 +80,7 @@ def user():
 
 url_auth = '/api/user/auth'
 @app.route(url_auth, methods=['POST'])
-def auth_request():
+def request_auth():
 
     request_logger(url_auth, request)
 
@@ -90,11 +89,11 @@ def auth_request():
         "token": str(uuid.uuid4().hex)
     }
 
-    error = {
-        "result": False,
-        "errorCode": 401,
-        "errorText": "Указаны неверные учетные данные"
-    }
+    # error = {
+    #     "result": False,
+    #     "errorCode": 401,
+    #     "errorText": "Указаны неверные учетные данные"
+    # }
 
     sleep(0.5)
     return json(success), 200
@@ -104,7 +103,7 @@ def auth_request():
 
 url_user_changeemail = '/api/user/changeemail'
 @app.route(url_user_changeemail, methods=['POST'])
-def url_user_changeemail_request():
+def request_url_user_changeemail():
 
     request_logger(url_user_changeemail, request)
 
@@ -125,7 +124,7 @@ def url_user_changeemail_request():
 
 url_user_changepassword = '/api/user/changepassword'
 @app.route(url_user_changepassword, methods=['POST'])
-def url_user_changepassword_request():
+def request_url_user_changepassword():
 
     request_logger(url_user_changepassword, request)
 
@@ -146,7 +145,7 @@ def url_user_changepassword_request():
 
 url_user_tel_change = '/api/user/tel/change'
 @app.route(url_user_tel_change, methods=['POST'])
-def url_user_tel_change_request():
+def request_url_user_tel_change():
 
     request_logger(url_user_tel_change, request)
 
@@ -167,7 +166,7 @@ def url_user_tel_change_request():
 
 url_user_tel_change_confirm = '/api/user/tel/change/confirm'
 @app.route(url_user_tel_change_confirm, methods=['POST'])
-def url_user_tel_change_confirm_request():
+def request_url_user_tel_change_confirm():
 
     request_logger(url_user_tel_change_confirm, request)
 
@@ -188,7 +187,7 @@ def url_user_tel_change_confirm_request():
 
 url_register = '/api/user/register/tel'
 @app.route(url_register, methods=['POST'])
-def url_register_request():
+def request_url_register():
 
     request_logger(url_register, request)
 
@@ -210,7 +209,7 @@ def url_register_request():
 
 url_confirm = '/api/user/confirm/tel'
 @app.route(url_confirm, methods=['POST'])
-def confirm_request():
+def request_confirm():
 
     request_logger(url_confirm, request)
 
@@ -232,7 +231,7 @@ def confirm_request():
 
 url_reset = '/api/user/reset/tel'
 @app.route(url_reset, methods=['POST'])
-def reset_request():
+def request_reset():
 
     request_logger(url_reset, request)
 
@@ -254,7 +253,7 @@ def reset_request():
 
 url_agreement = '/api/agreement'
 @app.route(url_agreement, methods=['GET'])
-def url_agreement():
+def request_url_agreement():
 
     success = {
         "result": True,
@@ -274,7 +273,7 @@ def url_agreement():
 
 url_ls = '/api/ls'
 @app.route(url_ls, methods=['GET'])
-def ls():
+def request_ls():
 
     ls_min = 1
     ls_array = []
@@ -286,11 +285,11 @@ def ls():
         "data": ls_array
     }
 
-    error = {
-        "result": False,
-        "errorCode": 401,
-        "errorText": "Указаны неверные учетные данные"
-    }
+    # error = {
+    #     "result": False,
+    #     "errorCode": 401,
+    #     "errorText": "Указаны неверные учетные данные"
+    # }
 
     sleep(0.5)
     return json(success), 200
@@ -300,7 +299,7 @@ def ls():
 
 url_ls_option = '/api/ls/<option>'
 @app.route(url_ls_option, methods=['GET', 'POST'])
-def ls_option_request(option=None):
+def request_ls_option(option=None):
 
     success = None
     error = None
@@ -362,7 +361,7 @@ def ls_option_request(option=None):
 
 url_ls_services = '/api/ls/<ls>/services'
 @app.route(url_ls_services, methods=['GET'])
-def url_ls_services(ls=None):
+def request_url_ls_services(ls=None):
 
     standart = [
         {
@@ -460,10 +459,10 @@ def url_ls_services(ls=None):
 
 url_counters = '/api/ls/<ls>/counters/list/<codeInBilling>'
 @app.route(url_counters, methods=['GET'])
-def ls_counters(ls=None, codeInBilling=None):
+def request_ls_counters(ls=None, codeInBilling=None):
 
     array = []
-    for x in range(1,randint(1,5)):
+    for _ in range(1,randint(1,5)):
         array.append(Counter(ls=ls).counter(codeInBilling=codeInBilling))
 
     dn = datetime.now()
@@ -492,7 +491,7 @@ def ls_counters(ls=None, codeInBilling=None):
 
 url_counters_add = '/api/ls/counters/add'
 @app.route(url_counters_add, methods=['POST'])
-def counters_add_request():
+def request_counters_add():
 
     request_logger(url_counters_add, request)
 
@@ -514,12 +513,12 @@ def counters_add_request():
 
 url_counters_history = '/api/ls/counters/history'
 @app.route(url_counters_history, methods=['POST'])
-def counters_history_request():
+def request_counters_history():
 
     request_logger(url_counters_history, request)
 
     array = []
-    for x in range(0,randint(0,15)):
+    for _ in range(0,randint(0,15)):
         array.append(Counter().history())
 
     success = {
@@ -544,7 +543,7 @@ def counters_history_request():
 
 url_ls_service_id = '/api/ls/<ls>/services/<id>'
 @app.route(url_ls_service_id, methods=['GET'])
-def url_ls_service_id(ls=None, id=None):
+def request_url_ls_service_id(ls=None, id=None):
 
     array = []
     for x in range(0, randint(0,15)):
@@ -568,7 +567,7 @@ def url_ls_service_id(ls=None, id=None):
 
 url_send_form = '/api/user/send/form'
 @app.route(url_send_form, methods=['POST'])
-def send_form_request():
+def request_send_form():
 
     request_logger(url_send_form, request)
 
@@ -590,12 +589,12 @@ def send_form_request():
 
 url_payments = '/api/ls/payments'
 @app.route(url_payments, methods=['POST'])
-def payments_request():
+def request_payments():
 
     request_logger(url_payments, request)
 
     array = []
-    for x in range(0,randint(0,15)):
+    for _ in range(0,randint(0,15)):
         array.append(Payment().payment())
 
     success = {
@@ -620,7 +619,7 @@ def payments_request():
 
 url_checks = '/api/ls/<ls>/checks/<tranzakciya>'
 @app.route(url_checks, methods=['GET'])
-def checks(ls=None, tranzakciya=None):
+def request_checks(ls=None, tranzakciya=None):
 
     success = {
         "result": True,
@@ -640,10 +639,10 @@ def checks(ls=None, tranzakciya=None):
 
 url_getpaygateway = '/api/ls/<ls>/pay/getpaygateway'
 @app.route(url_getpaygateway, methods=['GET'])
-def url_getpaygateway(ls=None):
+def request_url_getpaygateway(ls=None):
 
     array = []
-    for x in range(1,randint(1,5)):
+    for _ in range(1,randint(1,5)):
         rnd = randint(10_000,99_999)
         pay_gateway = {
             "code": "BN{}".format(rnd),
@@ -669,7 +668,7 @@ def url_getpaygateway(ls=None):
 
 url_getlink = '/api/pay/getlink'
 @app.route(url_getlink, methods=['POST'])
-def getlink_request():
+def request_getlink():
 
     request_logger(url_getlink, request)
 
@@ -691,7 +690,7 @@ def getlink_request():
 
 url_kvtMonths = '/api/ls/<ls>/reports/kvtMonths'
 @app.route(url_kvtMonths, methods=['GET'])
-def url_kvtMonths(ls=None):
+def request_url_kvtMonths(ls=None):
 
     array = []
     for i in range(1, randint(1,15)):
@@ -714,7 +713,7 @@ def url_kvtMonths(ls=None):
 
 url_reports = '/api/ls/reports/<option>'
 @app.route(url_reports, methods=['POST'])
-def url_reports_request(option=None):
+def request_url_reports(option=None):
 
     request_logger(url_reports, request)
 
@@ -736,7 +735,7 @@ def url_reports_request(option=None):
 
 url_services = '/api/user/services'
 @app.route(url_services, methods=['POST'])
-def url_services_request():
+def request_url_services():
 
     request_logger(url_services, request)
 
@@ -762,7 +761,7 @@ def url_services_request():
 
 url_getInstallation = '/api/ls/<ls>/victronenergy/getInstallation'
 @app.route(url_getInstallation, methods=['GET'])
-def url_getInstallation(ls=None):
+def request_url_getInstallation(ls=None):
 
     success = {
         "result": True,
@@ -786,7 +785,7 @@ def url_getInstallation(ls=None):
 
 url_camera = '/api/ls/<ls>/camera'
 @app.route(url_camera, methods=['GET'])
-def url_camera(ls=None):
+def request_url_camera(ls=None):
 
     success = {
         "result": True,
@@ -817,9 +816,67 @@ def url_camera(ls=None):
 
 #-----------------------------------------------------------------------
 
+url_ontime = '/api/ls/counter/ontime'
+@app.route(url_ontime, methods=['POST'])
+def request_url_ontime():
+
+    request_logger(url_ontime, request)
+
+    disc = request.get_json().get('discretization')
+
+    success = {
+        "result": True,
+        "data": [Counter().ascue(randint(1,24), disc)]
+    }
+
+    error = {
+          "result": False,
+          "errorCode": 9090,
+          "errorText": "Центры обслуживания в указанном радиусе не найдены"
+    }
+
+    sleep(1)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
+url_analytics = '/api/ls/counter/analytics'
+@app.route(url_analytics, methods=['POST'])
+def request_url_analytics():
+
+    request_logger(url_analytics, request)
+    current = choice((True, False))
+
+    success = {
+        "result": True,
+        "data": [        
+            {
+                "Current": current,
+                "Tarif": "1",
+                "sum": randint(11100,999900)
+            },
+            {
+                "Current": not current,
+                "Tarif": "2",
+                "sum": randint(11100,999900)
+            }
+        ]
+    }
+
+    error = {
+          "result": False,
+          "errorCode": 10040,
+          "errorText": "Ошибка при аналитике"
+    }
+
+    sleep(1)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
 url_feedback = '/api/user/feedback'
 @app.route(url_feedback, methods=['POST'])
-def feedback_request():
+def request_feedback():
 
     request_logger(url_feedback, request)
 
