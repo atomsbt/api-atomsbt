@@ -840,7 +840,7 @@ def request_url_ontime():
 
 #-----------------------------------------------------------------------
 
-url_analytics = '/api/ls/counter/analytics'
+url_analytics = '/api/ls/analytics'
 @app.route(url_analytics, methods=['POST'])
 def request_url_analytics():
 
