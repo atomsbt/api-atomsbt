@@ -14,21 +14,6 @@ class Map(object):
           self.user='wcskpxfmdwhqtp'
           self.password='c5ae351b7e07a34fec9661fb9a03d173530e5727c013777a0acfa94fc4fb6cad'
 
-          _content = {
-               "INDEKS": "215430",
-               "ADDRESS": "Смоленская область п.Угра Новоселов 1",
-               "TELEFON": [
-                    "+7 (4813) 74-1869"
-               ],
-               "EMAIL": "client@smolensk.atomsbt.ru",
-               "REZHIM_RABOTY": [
-                    "пн - чт: с 09:00 по 18:00 Обед с 13:00 по 13:45",
-                    "пт: с 09:00 по 16:45 Обед с 13:00 по 13:45"
-               ],
-               "SHIROTA": 54.777993,
-               "DOLGOTA": 34.319726
-          }
-
      def places(self, longitude=None, latitude=None, distance=None):
           if longitude == None or latitude == None or distance == None : return []
 
@@ -41,15 +26,15 @@ class Map(object):
           cursor.execute(ex)
 
           content = []
-          for zip, address, email, work_phones, work_times, point, dis in cursor:
+          for zip, address, email, work_phones, work_times, point, _ in cursor:
                data={
-                    'INDEKS':zip,
-                    'ADDRESS':address,
-                    'EMAIL':email,
-                    'TELEFON':work_phones,
-                    'REZHIM_RABOTY':work_times,
-                    'DOLGOTA':json.loads(point)['coordinates'][0],
-                    'SHIROTA':json.loads(point)['coordinates'][1]
+                    'INDEKS': zip,
+                    'ADDRESS': address,
+                    'EMAIL': email,
+                    'TELEFON': work_phones,
+                    'REZHIM_RABOTY': work_times,
+                    'DOLGOTA': json.loads(point)['coordinates'][0],
+                    'SHIROTA': json.loads(point)['coordinates'][1]
                }
                content.append(data)
 
