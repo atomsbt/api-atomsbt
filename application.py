@@ -822,7 +822,7 @@ def request_url_ontime():
 
     request_logger(url_ontime, request)
 
-    disc = request.get_json().get('discretization').lower()
+    disc = request.get_json().get('discretization')
 
     success = {
         "result": True,

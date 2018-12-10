@@ -121,11 +121,11 @@ class Counter(object):
         for x in range(0,count):
             
             date = None
-            if discretization == 'h':
+            if discretization.lower() == 'h':
                 date = datetime.now() - timedelta(hours=x)
-            if discretization == 'd':
+            if discretization.lower() == 'd':
                 date = datetime.now() - timedelta(days=x)
-            if discretization == 'm':
+            if discretization.lower() == 'm':
                 date = datetime.now() - timedelta(weeks=4*x)
 
             content = {
