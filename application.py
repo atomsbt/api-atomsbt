@@ -29,6 +29,8 @@ from content.map import Map
 from content.counter import Counter
 from content.payment import Payment
 
+from adapters.dbconnector import AtomDB
+
 app = Flask(__name__)
 
 #-----------------------------------------------------------------------
@@ -363,87 +365,30 @@ url_ls_services = '/api/ls/<ls>/services'
 @app.route(url_ls_services, methods=['GET'])
 def request_url_ls_services(ls=None):
 
-    standart = [
-        {
-            'name': "Электроэнергия",
-            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543782462/atom/services/El.png'
-        },
-        {
-            'name': "Тепло",
-            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543783046/atom/services/Te.png'
-        },
-        {
-            'name': "Вода",
-            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543783673/atom/services/Vd.png'
-        },
-        {
-            'name': "Газоснабжение",
-            'image_url': None
-        },
-        {
-            'name': "Жилищные услуги",
-            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543783767/atom/services/Hm.png'
-        },
-        {
-            'name': "Техническое обслуживание",
-            'image_url': None
-        },
-        {
-            'name': "Домофон",
-            'image_url': None
-        },
-        {
-            'name': "Капитальный ремонт",
-            'image_url': None
-        },
-        {
-            'name': "Вывоз ТКО",
-            'image_url': None
-        },
-        {
-            'name': "Антена",
-            'image_url': None
-        }
-    ]
-
-    smart_home = [
-        {
-            'name': "Видеонаблюдение",
-            'codeInBilling': 1100,
-            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788073/atom/services/Vn.png'
-        },
-        {
-            'name': "Система солнечного электроснабжения",
-            "codeInBilling": 1200,
-            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788096/atom/services/Ss.png'
-        },
-        {
-            'name': "Система учета энергоресурсов",
-            "codeInBilling": 1300,
-            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788085/atom/services/Su.png'
-        },
-        {
-            'name': "Аналитика",
-            "codeInBilling": 1400,
-            'image_url': 'https://res.cloudinary.com/dlr1k3h7l/image/upload/c_scale,w_48/v1543788066/atom/services/An.png'
-        }
-    ]
+    sql = """
+        SELECT id, name, image_url, type, code_in_billing 
+        FROM atom_services
+        WHERE type LIKE '{}'
+        ORDER BY id ASC    
+    """
 
     array = []
+    standart = AtomDB().execute(sql.format('standart'))
     for x in range(0, randint(0,len(standart))):
-        name = standart[x].get('name')
-        image = standart[x].get('image_url')
+        name = standart[x][1]
+        image = standart[x][2]
         array.append(Service().element(name, 'standart', True, image, None))
 
+    smart_home = AtomDB().execute(sql.format('smart_home'))
     for x in range(0, randint(0,len(smart_home))):
-        name = smart_home[x].get('name')
-        image = smart_home[x].get('image_url')
-        codeInBilling = smart_home[x].get('codeInBilling')
-        array.append(Service().element(name, 'smart_home', False, image, codeInBilling))
+        name = smart_home[x][1]
+        image = smart_home[x][2]
+        billing = smart_home[x][4]
+        array.append(Service().element(name, 'smart_home', True, image, billing))
 
     success = {
-          "result": True,
-          "data": array
+        "result": True,
+        "data": array
     }
 
     error = {

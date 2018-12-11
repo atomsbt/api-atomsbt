@@ -2,43 +2,40 @@
 
 import os
 import json
-import psycopg2
+
+from adapters.dbconnector import AtomDB
 
 class Map(object):
-     """ST_Point(float x_lon, float y_lat)"""
+     """
+     
+     ST_Point(float x_lon, float y_lat)
+     
+     """
      def __init__(self):
           super(Map, self).__init__()
 
-          self.host='ec2-54-235-156-60.compute-1.amazonaws.com'
-          self.dbname='ded684tvpdf9gi'
-          self.user='wcskpxfmdwhqtp'
-          self.password='c5ae351b7e07a34fec9661fb9a03d173530e5727c013777a0acfa94fc4fb6cad'
+     def places(self, longitude, latitude, distance):
 
-     def places(self, longitude=None, latitude=None, distance=None):
-          if longitude == None or latitude == None or distance == None : return []
-
-          bd_address = "host={0} dbname={1} user={2} password={3}".format(self.host, self.dbname, self.user, self.password)
-
-          db = psycopg2.connect(bd_address)
-          cursor = db.cursor()
-
-          ex = 'SELECT zip, address, email, work_phones, work_times, ST_AsGeoJSON(point), ST_Distance(point, ST_MakePoint({0}, {1})::geography) AS distance FROM atom_map_points WHERE ST_DWithin(point, ST_MakePoint({0}, {1})::geography, {2}) ORDER BY distance ASC'.format(longitude, latitude, distance)
-          cursor.execute(ex)
+          sql = ''' SELECT zip, address, email, work_phones, work_times, 
+                    ST_AsGeoJSON(point), ST_Distance(point, 
+                    ST_MakePoint({0}, {1})::geography) AS distance 
+                    FROM atom_map_points 
+                    WHERE ST_DWithin(point, ST_MakePoint({0}, {1})::geography, {2}) 
+                    ORDER BY distance ASC'''.format(longitude, latitude, distance)
 
           content = []
-          for zip, address, email, work_phones, work_times, point, _ in cursor:
+          for item in AtomDB().execute(sql):
                data={
-                    'INDEKS': zip,
-                    'ADDRESS': address,
-                    'EMAIL': email,
-                    'TELEFON': work_phones,
-                    'REZHIM_RABOTY': work_times,
-                    'DOLGOTA': json.loads(point)['coordinates'][0],
-                    'SHIROTA': json.loads(point)['coordinates'][1]
+                    'INDEKS': item[0],
+                    'ADDRESS': item[1],
+                    'EMAIL': item[2],
+                    'TELEFON': item[3],
+                    'REZHIM_RABOTY': item[4],
+                    'DOLGOTA': json.loads(item[5])['coordinates'][0],
+                    'SHIROTA': json.loads(item[5])['coordinates'][1]
                }
                content.append(data)
-
-          cursor.close()
+  
           return content
 
 #-----------------------------------------------------------------------
