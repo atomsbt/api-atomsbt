@@ -874,6 +874,29 @@ def request_url_analytics():
 
 #-----------------------------------------------------------------------
 
+url_askue = '/api/ls/counter/last'
+@app.route(url_askue, methods=['POST'])
+def request_url_askue():
+
+    request_logger(url_askue, request)
+
+    success = {
+        "result": True,
+        "NAPRYAZHENIE": "220 В",
+        "SILATOKA": "0.3 А"
+    }
+
+    error = {
+          "result": False,
+          "errorCode": 10040,
+          "errorText": "Ошибка при аналитике"
+    }
+
+    sleep(1)
+    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+
+#-----------------------------------------------------------------------
+
 url_feedback = '/api/user/feedback'
 @app.route(url_feedback, methods=['POST'])
 def request_feedback():
