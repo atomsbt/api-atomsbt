@@ -19,7 +19,7 @@ class Map(object):
           sql = ''' SELECT zip, address, email, work_phones, work_times, 
                     ST_AsGeoJSON(point), ST_Distance(point, 
                     ST_MakePoint({0}, {1})::geography) AS distance 
-                    FROM atom_map_points 
+                    FROM atom_points 
                     WHERE ST_DWithin(point, ST_MakePoint({0}, {1})::geography, {2}) 
                     ORDER BY distance ASC'''.format(longitude, latitude, distance)
 
