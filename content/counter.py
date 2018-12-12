@@ -4,48 +4,6 @@ from random import randint
 from datetime import datetime, timedelta
 
 class Counter(object):
-    """
-    {
-        "result": true,
-        "data": [
-            {
-                "RowID": "1050194",
-                "Tarifnost": 2,
-                "NomerUslugi": 100,
-                "NazvanieUslugi": "Электроснабжение ",
-                "ZavodNomer": "112233",
-                "Razradnost": "4",
-                "KoefTrans": "1",
-                "MaxPok": "3000",
-                "result": "ЭЛ",
-                "errorCode": "ЭЛ",
-                "errorMessage": "ЭЛ",
-                "ASKUE": "1",
-                "DateCheck": "2018-11-01T00:00:00.000",
-                "DateNextCheck": "2018-11-01T00:00:00.000",
-                "NomerUslugiForBilling": "0100",
-                "Tarif": [
-                    {
-                        "DatePok": "2018-11-01T00:00:00.000",
-                        "NomerTarifa": 0,
-                        "NazvanieTarifa": "День",
-                        "PredPok": "0"
-                    },
-                    {
-                        "DatePok": "2018-11-01T00:00:00.000",
-                        "NomerTarifa": 1,
-                        "NazvanieTarifa": "Ночь",
-                        "PredPok": "0"
-                    }
-                ]
-            }
-        ],
-        "PeriodSch": {
-            "ot": "2018-11-01T00:00:00.000",
-            "do": "2018-11-30T23:59:59.000"
-        }
-    }
-    """
     def __init__(self, ls=None):
         super(Counter, self).__init__()
 
@@ -115,10 +73,20 @@ class Counter(object):
 
         return content
 
-    def ascue(self, count=0, discretization=None):
-
+    def ascue(self, count, discretization):
+        """
+        return [{"date": string,"value": int}]
+        """
+        
+        if discretization.lower() == 'h':
+            _count = count if count < 24 else randint(0,24)
+        if discretization.lower() == 'd':
+            _count = count if count < 29 else randint(0,29)
+        if discretization.lower() == 'm':
+            _count = count if count < 12 else randint(0,12)
+        
         array = []
-        for x in range(0,count):
+        for x in range(0,_count):
             
             date = None
             if discretization.lower() == 'h':

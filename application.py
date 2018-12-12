@@ -771,7 +771,7 @@ def request_url_ontime():
 
     success = {
         "result": True,
-        "data": Counter().ascue(randint(1,24), disc)
+        "data": Counter().ascue(randint(1,30), disc)
     }
 
     error = {
