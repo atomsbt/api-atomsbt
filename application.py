@@ -14,10 +14,9 @@ icons: https://cloudinary.com
 import os
 import uuid
 
-from flask import Flask
-from flask import request
+from flask import Flask, request, render_template
 from flask import jsonify as json
-from flask import render_template
+from flask.logging import create_logger
 
 from random import choice, random, randint
 from time import sleep
@@ -32,6 +31,7 @@ from content.payment import Payment
 from adapters.dbconnector import AtomDB
 
 app = Flask(__name__)
+log = create_logger(app)
 
 #-----------------------------------------------------------------------
 
@@ -41,7 +41,7 @@ def request_logger(url, request):
     jb = request.get_json()
 
     body = '\nREQUEST {0}\nHEADERS {1}\nBODY {2}\n'.format(url, jh, jb)
-    app.logger.info('\n'+'-'*80+body+'-'*80)
+    log.info('\n'+'-'*80+body+'-'*80)
 
 #-----------------------------------------------------------------------
 
@@ -277,10 +277,9 @@ url_ls = '/api/ls'
 @app.route(url_ls, methods=['GET'])
 def request_ls():
 
-    ls_min = 1
     ls_array = []
-    for i in range(ls_min,randint(ls_min,5)):
-        ls_array.append(LS().object(True if i == ls_min else False))
+    for i in range(1, randint(1, 5)):
+        ls_array.append(LS().object(i if i == 1 else 0))
 
     success = {
         "result": True,
@@ -293,7 +292,7 @@ def request_ls():
     #     "errorText": "Указаны неверные учетные данные"
     # }
 
-    sleep(0.5)
+    sleep(1)
     return json(success), 200
     # return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
 
@@ -303,58 +302,25 @@ url_ls_option = '/api/ls/<option>'
 @app.route(url_ls_option, methods=['GET', 'POST'])
 def request_ls_option(option=None):
 
-    success = None
-    error = None
-
     request_logger(url_ls_option, request)
 
-    if option == 'change':
-
+    success = None
+    if option in ['change', 'bind', 'remove']:
         success = {
             "result": True,
             "message": "Основной лицевой счет изменен"
         }
-        error = {
-            "result": False,
-            "errorCode": 7030,
-            "errorText": "Введена некорректная сумма"
-        }
-
-    elif option == 'bind':
-
-        success = {
-            "result": True,
-            "message": "Лицевой счет успешно привязан"
-        }
-        error = {
-            "result": False,
-            "errorCode": 7030,
-            "errorText": "Введена некорректная сумма"
-        }
-
-    elif option == 'remove':
-
-        success = {
-            "result": True,
-            "message": "Лицевой счет успешно отвязан"
-        }
-        error = {
-            "result": False,
-            "errorCode": 6070,
-            "errorText": "Нет прав на данный лицевой счет"
-        }
-
     else:
-
         success = {
             "result": True,
             "data": LS().details()
         }
-        error = {
-            "result": False,
-            "errorCode": 6070,
-            "errorText": "Нет прав на данный лицевой счет"
-        }
+
+    error = {
+        "result": False,
+        "errorCode": 7030,
+        "errorText": "Ошибка ls/<option>"
+    }
 
     sleep(0.5)
     return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
@@ -394,7 +360,7 @@ def request_url_ls_services(ls=None):
     error = {
         "result": False,
         "errorCode": 6070,
-        "errorText": "Нет прав на данный лицевой счет"
+        "errorText": "Ошибка <ls>/services"
     }
 
     sleep(0.5)
@@ -426,7 +392,7 @@ def request_ls_counters(ls=None, codeInBilling=None):
     error = {
         "result": False,
         "errorCode": 401,
-        "errorText": "Указаны неверные учетные данные"
+        "errorText": "Ошибка list/<codeInBilling>"
     }
 
     sleep(0.5)
@@ -448,7 +414,7 @@ def request_counters_add():
     error = {
         "result": False,
         "errorCode": 10050,
-        "errorText": "За указанную дату платежей нет"
+        "errorText": "Ошибка counters/add"
     }
 
     sleep(0.5)
@@ -478,7 +444,7 @@ def request_counters_history():
     error = {
         "result": False,
         "errorCode": 10050,
-        "errorText": "За указанную дату платежей нет"
+        "errorText": "Ошибка counters/history"
     }
 
     sleep(0.5)
@@ -502,7 +468,7 @@ def request_url_ls_service_id(ls=None, id=None):
     error = {
         "result": False,
         "errorCode": 6070,
-        "errorText": "Нет прав на данный лицевой счет"
+        "errorText": "Ошибка services/<id>"
     }
 
     sleep(0.5)
@@ -524,7 +490,7 @@ def request_send_form():
     error = {
         "result": False,
         "errorCode": 6020,
-        "errorText": "Ошибка отправки"
+        "errorText": "Ошибка send/form"
     }
 
     sleep(0.5)
@@ -554,7 +520,7 @@ def request_payments():
     error = {
         "result": False,
         "errorCode": 10050,
-        "errorText": "За указанную дату платежей нет"
+        "errorText": "Ошибка ls/payments"
     }
 
     sleep(0.5)
@@ -574,7 +540,7 @@ def request_checks(ls=None, tranzakciya=None):
     error = {
         "result": False,
         "errorCode": 10050,
-        "errorText": "За указанную дату платежей нет"
+        "errorText": "Ошибка checks/<tranzakciya>"
     }
 
     sleep(0.5)
@@ -604,7 +570,7 @@ def request_url_getpaygateway(ls=None):
     error = {
         "result": False,
         "errorCode": 10050,
-        "errorText": "За указанную дату платежей нет"
+        "errorText": "Ошибка pay/getpaygateway"
     }
 
     sleep(0.5)
@@ -625,7 +591,7 @@ def request_getlink():
     error = {
         "result": False,
         "errorCode": 10050,
-        "errorText": "За указанную дату платежей нет"
+        "errorText": "Ошибка pay/getlink"
     }
 
     sleep(0.5)
@@ -650,7 +616,7 @@ def request_url_kvtMonths(ls=None):
     error = {
         "result": False,
         "errorCode": 10050,
-        "errorText": "За указанную дату ничего нет"
+        "errorText": "Ошибка reports/kvtMonths"
     }
 
     sleep(0.5)
@@ -670,7 +636,7 @@ def request_url_reports(option=None):
     error = {
         "result": False,
         "errorCode": 10050,
-        "errorText": "За указанную дату ничего нет"
+        "errorText": "Ошибка reports/<option>"
     }
 
     sleep(0.5)
@@ -696,7 +662,7 @@ def request_url_services():
     error = {
           "result": False,
           "errorCode": 9090,
-          "errorText": "Центры обслуживания в указанном радиусе не найдены"
+          "errorText": "Ошибка user/services"
     }
 
     sleep(1)
@@ -720,7 +686,7 @@ def request_url_getInstallation(ls=None):
     error = {
           "result": False,
           "errorCode": 9090,
-          "errorText": "Центры обслуживания в указанном радиусе не найдены"
+          "errorText": "Ошибка victronenergy/getInstallation"
     }
 
     sleep(1)
@@ -753,7 +719,7 @@ def request_url_camera(ls=None):
     error = {
         "result": False,
         "errorCode": 9040,
-        "errorText": "Нет камер"
+        "errorText": "Ошибка ls/<ls>/camera"
     }
 
     sleep(1)
@@ -777,7 +743,7 @@ def request_url_ontime():
     error = {
           "result": False,
           "errorCode": 9090,
-          "errorText": "Центры обслуживания в указанном радиусе не найдены"
+          "errorText": "Ошибка counter/ontime"
     }
 
     sleep(1)
@@ -811,7 +777,7 @@ def request_url_analytics():
     error = {
           "result": False,
           "errorCode": 10040,
-          "errorText": "Ошибка при аналитике"
+          "errorText": "Ошибка ls/analytics"
     }
 
     sleep(1)
@@ -834,7 +800,7 @@ def request_url_askue():
     error = {
           "result": False,
           "errorCode": 10040,
-          "errorText": "Ошибка при аналитике"
+          "errorText": "Ошибка counter/last"
     }
 
     sleep(1)
@@ -856,7 +822,7 @@ def request_feedback():
     error = {
         "result": False,
         "errorCode": 10050,
-        "errorText": "За указанную дату платежей нет"
+        "errorText": "Ошибка feedback"
     }
 
     sleep(0.5)

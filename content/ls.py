@@ -4,24 +4,35 @@ from random import randint
 from datetime import datetime, timedelta
 
 class LS(object):
-    """docstring for LS"""
     def __init__(self):
         super(LS, self).__init__()
 
-    def object(self, is_mane=False):
-
+    def object(self, is_mane):
+        """
+        {
+            "billing_object_id": int,
+            "billing_object_number": str,
+            "main_ls": int
+        }
+        """
         number = randint(10_000_000_000,99_999_999_999)
 
         content_json =  {
             "billing_object_id": randint(100000,399999),
             "billing_object_number": str(number),
-            "main_ls": str(1 if is_mane else 0)
+            "main_ls": '{}'.format(is_mane)
         }
 
         return content_json
 
     def details(self):
-
+        """
+        {
+            "EMAILVCHEK": str,
+            ...
+            "CHISLPROP": str
+        }
+        """
         delta = randint(1,30)
         dolgna = (datetime.now()).isoformat(timespec='milliseconds')
         delo = (datetime.now() - timedelta(days=delta)).isoformat(timespec='milliseconds')
