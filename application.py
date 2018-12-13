@@ -380,7 +380,7 @@ def request_url_ls_services(ls=None):
         array.append(Service().element(name, 'standart', True, image, None))
 
     smart_home = AtomDB().execute(sql.format('smart_home'))
-    for x in len(smart_home):
+    for x in range(0, len(smart_home)):
         name = smart_home[x][1]
         image = smart_home[x][2]
         billing = smart_home[x][4]
