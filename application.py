@@ -16,7 +16,6 @@ import uuid
 
 from flask import Flask, request, render_template
 from flask import jsonify as json
-from flask.logging import create_logger
 
 from random import choice, random, randint
 from time import sleep
@@ -31,7 +30,6 @@ from content.payment import Payment
 from adapters.dbconnector import AtomDB
 
 app = Flask(__name__)
-log = create_logger(app)
 
 #-----------------------------------------------------------------------
 
@@ -41,7 +39,7 @@ def request_logger(url, request):
     jb = request.get_json()
 
     body = '\nREQUEST {0}\nHEADERS {1}\nBODY {2}\n'.format(url, jh, jb)
-    log.info('\n'+'-'*80+body+'-'*80)
+    app.logger.info('\n'+'-'*80+body+'-'*80)
 
 #-----------------------------------------------------------------------
 
@@ -72,7 +70,7 @@ def request_user():
     error = {
         "result": False,
         "errorCode": 6010,
-        "errorText": "Ошибка"
+        "errorText": "Ошибка /user"
     }
 
     sleep(0.5)
@@ -116,7 +114,7 @@ def request_url_user_changeemail():
     error = {
         "result": False,
         "errorCode": 7030,
-        "errorText": "Введена некорректная данные"
+        "errorText": "Ошибка /user/changeemail"
     }
 
     sleep(0.5)
@@ -137,7 +135,7 @@ def request_url_user_changepassword():
     error = {
         "result": False,
         "errorCode": 7030,
-        "errorText": "Введена некорректная данные"
+        "errorText": "Ошибка /user/changepassword"
     }
 
     sleep(0.5)
@@ -158,7 +156,7 @@ def request_url_user_tel_change():
     error = {
         "result": False,
         "errorCode": 7030,
-        "errorText": "Введена некорректная"
+        "errorText": "Ошибка /user/tel/change"
     }
 
     sleep(0.5)
@@ -179,7 +177,7 @@ def request_url_user_tel_change_confirm():
     error = {
         "result": False,
         "errorCode": 7030,
-        "errorText": "Введена некорректная"
+        "errorText": "Ошибка /tel/change/confirm"
     }
 
     sleep(0.5)
@@ -201,7 +199,7 @@ def request_url_register():
     error = {
         "result": False,
         "errorCode": 6010,
-        "errorText": "Ошибка отправки СМС"
+        "errorText": "Ошибка /user/register/tel"
     }
 
     sleep(0.5)
@@ -223,7 +221,7 @@ def request_confirm():
     error = {
         "result": False,
         "errorCode": 5010,
-        "errorText": "Пользователь с указанным логином уже зарегистрирован"
+        "errorText": "Ошибка /confirm/tel"
     }
 
     sleep(0.5)
@@ -245,7 +243,7 @@ def request_reset():
     error = {
         "result": False,
         "errorCode": 401,
-        "errorText": "Указаны неверные учетные данные"
+        "errorText": "Ошибка /reset/tel"
     }
 
     sleep(0.5)
@@ -265,7 +263,7 @@ def request_url_agreement():
     error = {
         "result": False,
         "errorCode": 500,
-        "errorText": "Нет нифига ссылки на сервере"
+        "errorText": "Ошибка /agreement"
     }
 
     sleep(0.5)
