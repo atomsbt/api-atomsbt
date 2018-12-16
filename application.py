@@ -41,6 +41,24 @@ def request_logger(url, request):
     body = '\nREQUEST {0}\nHEADERS {1}\nBODY {2}\n'.format(url, jh, jb)
     app.logger.info('\n'+'-'*80+body+'-'*80)
 
+def error(errorCode):
+    """
+    return {"result": False, "errorCode": int, "errorText": str}
+    """
+    sql = """
+        SELECT error_code, error_text 
+        FROM atom_errors
+        WHERE error_code = {}   
+    """
+    ex = AtomDB().execute(sql.format(errorCode))
+
+    error = {
+        "result": False,
+        "errorCode": ex[0][0] if len(ex)>0 else 0,
+        "errorText": ex[0][1] if len(ex)>0 else 'None',
+    }
+    return json(error)
+
 #-----------------------------------------------------------------------
 
 url_user = '/api/user'
@@ -67,14 +85,8 @@ def request_user():
         }
     }
 
-    error = {
-        "result": False,
-        "errorCode": 6010,
-        "errorText": "Ошибка /user"
-    }
-
-    sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    sleep(1)
+    return (json(success), 200) if randint(0,10) != 5 else (error(4020), 500)
 
 #-----------------------------------------------------------------------
 
@@ -89,15 +101,8 @@ def request_auth():
         "token": str(uuid.uuid4().hex)
     }
 
-    # error = {
-    #     "result": False,
-    #     "errorCode": 401,
-    #     "errorText": "Указаны неверные учетные данные"
-    # }
-
-    sleep(0.5)
-    return json(success), 200
-    # return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    sleep(1)
+    return (json(success), 200) if randint(0,10) != 5 else (error(401), 500)
 
 #-----------------------------------------------------------------------
 
@@ -111,14 +116,9 @@ def request_url_user_changeemail():
         "result": True,
         "message": "Емаил изменен"
     }
-    error = {
-        "result": False,
-        "errorCode": 7030,
-        "errorText": "Ошибка /user/changeemail"
-    }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(5070), 500)
 
 #-----------------------------------------------------------------------
 
@@ -132,14 +132,9 @@ def request_url_user_changepassword():
         "result": True,
         "message": "Пароль изменен"
     }
-    error = {
-        "result": False,
-        "errorCode": 7030,
-        "errorText": "Ошибка /user/changepassword"
-    }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(4050), 500)
 
 #-----------------------------------------------------------------------
 
@@ -153,14 +148,9 @@ def request_url_user_tel_change():
         "result": True,
         "message": "Код подтверждения отправлен на телефон"
     }
-    error = {
-        "result": False,
-        "errorCode": 7030,
-        "errorText": "Ошибка /user/tel/change"
-    }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(5010), 500)
 
 #-----------------------------------------------------------------------
 
@@ -174,14 +164,9 @@ def request_url_user_tel_change_confirm():
         "result": True,
         "message": "Телефон изменен"
     }
-    error = {
-        "result": False,
-        "errorCode": 7030,
-        "errorText": "Ошибка /tel/change/confirm"
-    }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 #-----------------------------------------------------------------------
 
@@ -196,14 +181,8 @@ def request_url_register():
         "message": "Код подтверждения отправлен на телефон"
     }
 
-    error = {
-        "result": False,
-        "errorCode": 6010,
-        "errorText": "Ошибка /user/register/tel"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(6010), 500)
 
 #-----------------------------------------------------------------------
 
@@ -218,14 +197,8 @@ def request_confirm():
         "message": "Пользователь успешно зарегистрирован"
     }
 
-    error = {
-        "result": False,
-        "errorCode": 5010,
-        "errorText": "Ошибка /confirm/tel"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(5010), 500)
 
 #-----------------------------------------------------------------------
 
@@ -240,14 +213,8 @@ def request_reset():
         "message": "Новый пароль отправлен на телефон"
     }
 
-    error = {
-        "result": False,
-        "errorCode": 401,
-        "errorText": "Ошибка /reset/tel"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(401), 500)
 
 #-----------------------------------------------------------------------
 
@@ -260,14 +227,8 @@ def request_url_agreement():
         "link": "https://api-atomsbt.herokuapp.com/policy"
     }
 
-    error = {
-        "result": False,
-        "errorCode": 500,
-        "errorText": "Ошибка /agreement"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(500), 500)
 
 #-----------------------------------------------------------------------
 
@@ -284,15 +245,8 @@ def request_ls():
         "data": ls_array
     }
 
-    # error = {
-    #     "result": False,
-    #     "errorCode": 401,
-    #     "errorText": "Указаны неверные учетные данные"
-    # }
-
     sleep(1)
-    return json(success), 200
-    # return (json(success), 200) if randint(0,5) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(7050), 500)
 
 #-----------------------------------------------------------------------
 
@@ -314,14 +268,8 @@ def request_ls_option(option=None):
             "data": LS().details()
         }
 
-    error = {
-        "result": False,
-        "errorCode": 7030,
-        "errorText": "Ошибка ls/<option>"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(7030), 500)
 
 #-----------------------------------------------------------------------
 
@@ -355,14 +303,8 @@ def request_url_ls_services(ls=None):
         "data": array
     }
 
-    error = {
-        "result": False,
-        "errorCode": 6070,
-        "errorText": "Ошибка <ls>/services"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(9050), 500)
 
 #-----------------------------------------------------------------------
 
@@ -387,14 +329,8 @@ def request_ls_counters(ls=None, codeInBilling=None):
         }
     }
 
-    error = {
-        "result": False,
-        "errorCode": 401,
-        "errorText": "Ошибка list/<codeInBilling>"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(6060), 500)
 
 #-----------------------------------------------------------------------
 
@@ -409,14 +345,8 @@ def request_counters_add():
         "message": "Данные успешно поданы"
     }
 
-    error = {
-        "result": False,
-        "errorCode": 10050,
-        "errorText": "Ошибка counters/add"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(6050), 500)
 
 #-----------------------------------------------------------------------
 
@@ -439,14 +369,8 @@ def request_counters_history():
         "data": array
     }
 
-    error = {
-        "result": False,
-        "errorCode": 10050,
-        "errorText": "Ошибка counters/history"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(7010), 500)
 
 #-----------------------------------------------------------------------
 
@@ -463,14 +387,8 @@ def request_url_ls_service_id(ls=None, id=None):
         "data": array
     }
 
-    error = {
-        "result": False,
-        "errorCode": 6070,
-        "errorText": "Ошибка services/<id>"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(9050), 500)
 
 #-----------------------------------------------------------------------
 
@@ -485,14 +403,8 @@ def request_send_form():
         "message": "Данные приняты сервером"
     }
 
-    error = {
-        "result": False,
-        "errorCode": 6020,
-        "errorText": "Ошибка send/form"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(5090), 500)
 
 #-----------------------------------------------------------------------
 
@@ -515,14 +427,8 @@ def request_payments():
         "data": array
     }
 
-    error = {
-        "result": False,
-        "errorCode": 10050,
-        "errorText": "Ошибка ls/payments"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(10050), 500)
 
 #-----------------------------------------------------------------------
 
@@ -535,14 +441,8 @@ def request_checks(ls=None, tranzakciya=None):
         "data": Payment().check()
     }
 
-    error = {
-        "result": False,
-        "errorCode": 10050,
-        "errorText": "Ошибка checks/<tranzakciya>"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(9030), 500)
 
 #-----------------------------------------------------------------------
 
@@ -565,14 +465,8 @@ def request_url_getpaygateway(ls=None):
         "usls_enabled": False if randint(0,3) != 3 else True
     }
 
-    error = {
-        "result": False,
-        "errorCode": 10050,
-        "errorText": "Ошибка pay/getpaygateway"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 
 url_getlink = '/api/pay/getlink'
@@ -586,14 +480,8 @@ def request_getlink():
         "link": "https://api-atomsbt.herokuapp.com/pay"
     }
 
-    error = {
-        "result": False,
-        "errorCode": 10050,
-        "errorText": "Ошибка pay/getlink"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 #-----------------------------------------------------------------------
 
@@ -611,14 +499,8 @@ def request_url_kvtMonths(ls=None):
         "data": array
     }
 
-    error = {
-        "result": False,
-        "errorCode": 10050,
-        "errorText": "Ошибка reports/kvtMonths"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 url_reports = '/api/ls/reports/<option>'
 @app.route(url_reports, methods=['POST'])
@@ -631,14 +513,8 @@ def request_url_reports(option=None):
         "url": "https://static.tinkoff.ru/documents/docs/terms_of_integrated_banking_services.pdf"
     }
 
-    error = {
-        "result": False,
-        "errorCode": 10050,
-        "errorText": "Ошибка reports/<option>"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 #-----------------------------------------------------------------------
 
@@ -657,14 +533,8 @@ def request_url_services():
         "data": Map().places(float(lon), float(lat), float(dis))
     }
 
-    error = {
-          "result": False,
-          "errorCode": 9090,
-          "errorText": "Ошибка user/services"
-    }
-
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 #-----------------------------------------------------------------------
 
@@ -681,14 +551,8 @@ def request_url_getInstallation(ls=None):
         "solar_yield": "140 W"
     }
 
-    error = {
-          "result": False,
-          "errorCode": 9090,
-          "errorText": "Ошибка victronenergy/getInstallation"
-    }
-
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 #-----------------------------------------------------------------------
 
@@ -714,14 +578,8 @@ def request_url_camera(ls=None):
         ]
     }
 
-    error = {
-        "result": False,
-        "errorCode": 9040,
-        "errorText": "Ошибка ls/<ls>/camera"
-    }
-
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(9040), 500)
 
 #-----------------------------------------------------------------------
 
@@ -738,14 +596,8 @@ def request_url_ontime():
         "data": Counter().ascue(randint(0,30), disc)
     }
 
-    error = {
-          "result": False,
-          "errorCode": 9090,
-          "errorText": "Ошибка counter/ontime"
-    }
-
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(6080), 500)
 
 #-----------------------------------------------------------------------
 
@@ -772,14 +624,8 @@ def request_url_analytics():
         ]
     }
 
-    error = {
-          "result": False,
-          "errorCode": 10040,
-          "errorText": "Ошибка ls/analytics"
-    }
-
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(10040), 500)
 
 #-----------------------------------------------------------------------
 
@@ -795,14 +641,8 @@ def request_url_askue():
         "SILATOKA": "0.3 А"
     }
 
-    error = {
-          "result": False,
-          "errorCode": 10040,
-          "errorText": "Ошибка counter/last"
-    }
-
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(10080), 500)
 
 #-----------------------------------------------------------------------
 
@@ -817,14 +657,8 @@ def request_feedback():
         "message": "Регистрация обращения выполнена"
     }
 
-    error = {
-        "result": False,
-        "errorCode": 10050,
-        "errorText": "Ошибка feedback"
-    }
-
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (json(error), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(6020), 500)
 
 #-----------------------------------------------------------------------
 
