@@ -75,9 +75,16 @@ class Counter(object):
 
     def ascue(self, count, discretization):
         """
-        return [{"date": string,"value": int}]
+        return 
+        [
+            {
+                "date": string,
+                "value": int
+            }
+        ]
         """
         
+        _count = None
         if discretization.lower() == 'h':
             _count = count if count < 24 else randint(0,24)
         if discretization.lower() == 'd':
@@ -88,17 +95,21 @@ class Counter(object):
         array = []
         for x in range(0,_count):
             
-            date = None
+            _date = None
+            _max = None
             if discretization.lower() == 'h':
-                date = datetime.now() - timedelta(hours=x)
+                _date = datetime.now() - timedelta(hours=x)
+                _max = 900
             if discretization.lower() == 'd':
-                date = datetime.now() - timedelta(days=x)
+                _date = datetime.now() - timedelta(days=x)
+                _max = 9900
             if discretization.lower() == 'm':
-                date = datetime.now() - timedelta(weeks=4*x)
+                _date = datetime.now() - timedelta(days=31*x)
+                _max = 99900
 
             content = {
-                "date": date.isoformat(timespec='milliseconds'),
-                "value": randint(0,9000) / 100
+                "date": _date.isoformat(timespec='milliseconds'),
+                "value": randint(0,_max) / 100
             }
             array.append(content)
 

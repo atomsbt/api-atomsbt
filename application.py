@@ -43,7 +43,12 @@ def request_logger(url, request):
 
 def error(errorCode):
     """
-    return {"result": False, "errorCode": int, "errorText": str}
+    return 
+    {
+        "result": False, 
+        "errorCode": int, 
+        "errorText": str
+    }
     """
     sql = """
         SELECT error_code, error_text 
