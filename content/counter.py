@@ -98,7 +98,8 @@ class Counter(object):
             _date = None
             _max = None
             if discretization.lower() == 'h':
-                _date = datetime.now() - timedelta(hours=x)
+                _naw = datetime.now()
+                _date = datetime(_naw.year, _naw.month, _naw.day,0,0,0,0) + timedelta(hours=x)
                 _max = 900
             if discretization.lower() == 'd':
                 _date = datetime.now() - timedelta(days=x)
