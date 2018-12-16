@@ -51,10 +51,18 @@ class Form(object):
             "PRINTED_TEXT" #поле нередактируемого текста, информационной надобности
         ]
 
-    def form(self, form_name=None, form_fields_count=1):
+    def form(self, form_name=None, form_image=None, form_fields_count=1):
         """
-        1..1 form_name string
-        1..1 form_fields array
+        return {
+            "id": str,
+            "name": str,
+            "image_url": str,
+            "fields": [
+                {
+
+                }
+            ]
+        }
         """
         fields = []
         for x in range(0, randint(1,form_fields_count if form_fields_count>0 else 1)):
@@ -66,14 +74,29 @@ class Form(object):
         content = {
             "id": "{}".format(randint(10_000_000_000,99_999_999_999)),
             "name": form_name,
-            "image_url": self.image_url if randint(0,3) != 3 else '',
+            "image_url": form_image if not None else (self.image_url if randint(0,3) != 3 else ''),
             "fields": fields
         }
 
         return content
 
     def field(self, field_name=None, field_type=None, field_values_count=0):
-
+        """
+        return {
+            "id": str,
+            "name": str,
+            "type": str,
+            "regexp": str,
+            "error_msg": str,
+            "values": [
+                {
+                    "id": str,
+                    "value": str
+                }
+            ],
+            "value": str
+        }
+        """
         array = []
         for _ in range(0, randint(0,field_values_count)):
             guid = randint(10_000,99_999)

@@ -383,9 +383,20 @@ url_ls_service_id = '/api/ls/<ls>/services/<id>'
 @app.route(url_ls_service_id, methods=['GET'])
 def request_url_ls_service_id(ls=None, id=None):
 
+    sql = """
+        SELECT name, image_url
+        FROM atom_forms    
+    """
+
     array = []
+    dbarr = AtomDB().execute(sql)
+    for x in range(0, randint(0,len(dbarr))):
+        name = dbarr[x][0]
+        image = dbarr[x][1]
+        array.append(Form().form(name, image, randint(3,10)))
+
     for x in range(0, randint(0,15)):
-        array.append(Form().form('Форма с номером {}'.format(x), randint(3,10)))
+        array.append(Form().form('Форма с номером {}'.format(x), None, randint(3,10)))
 
     success = {
         "result": True,
