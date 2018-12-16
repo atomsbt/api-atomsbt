@@ -595,10 +595,11 @@ def request_url_ontime():
     request_logger(url_ontime, request)
 
     disc = request.get_json().get('discretization')
+    date = request.get_json().get('startdate')
 
     success = {
         "result": True,
-        "data": Counter().ascue(randint(0,30), disc)
+        "data": Counter().ascue(randint(0,30), disc, date)
     }
 
     sleep(1)

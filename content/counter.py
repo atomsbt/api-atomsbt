@@ -73,7 +73,7 @@ class Counter(object):
 
         return content
 
-    def ascue(self, count, discretization):
+    def ascue(self, count, discretization, date):
         """
         return 
         [
@@ -98,14 +98,13 @@ class Counter(object):
             _date = None
             _max = None
             if discretization.lower() == 'h':
-                _naw = datetime.now()
-                _date = datetime(_naw.year, _naw.month, _naw.day,0,0,0,0) + timedelta(hours=x)
+                _date = datetime.fromisoformat(date) + timedelta(hours=x)
                 _max = 900
             if discretization.lower() == 'd':
-                _date = datetime.now() - timedelta(days=x)
+                _date = datetime.fromisoformat(date) + timedelta(days=x)
                 _max = 9900
             if discretization.lower() == 'm':
-                _date = datetime.now() - timedelta(days=31*x)
+                _date = datetime.fromisoformat(date) + timedelta(days=31*x)
                 _max = 99900
 
             content = {
