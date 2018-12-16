@@ -86,7 +86,7 @@ class Counter(object):
         
         _count = None
         if discretization.lower() == 'h':
-            _count = count if count < 24 else randint(0,24)
+            _count = count if count < 23 else randint(0,23)
         if discretization.lower() == 'd':
             _count = count if count < 29 else randint(0,29)
         if discretization.lower() == 'm':
