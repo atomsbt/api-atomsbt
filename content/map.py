@@ -15,7 +15,9 @@ class Map(object):
           super(Map, self).__init__()
 
      def places(self, longitude, latitude, distance):
-
+          """
+          return [{}]
+          """
           sql = ''' SELECT zip, address, email, work_phones, work_times, 
                     ST_AsGeoJSON(point), ST_Distance(point, 
                     ST_MakePoint({0}, {1})::geography) AS distance 
@@ -25,7 +27,7 @@ class Map(object):
 
           content = []
           for item in AtomDB().execute(sql):
-               data={
+               data = {
                     'INDEKS': item[0],
                     'ADDRESS': item[1],
                     'EMAIL': item[2],

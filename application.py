@@ -138,7 +138,7 @@ def request_url_user_changepassword():
         "message": "Пароль изменен"
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(4050), 500)
 
 #-----------------------------------------------------------------------
@@ -154,7 +154,7 @@ def request_url_user_tel_change():
         "message": "Код подтверждения отправлен на телефон"
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(5010), 500)
 
 #-----------------------------------------------------------------------
@@ -170,7 +170,7 @@ def request_url_user_tel_change_confirm():
         "message": "Телефон изменен"
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 #-----------------------------------------------------------------------
@@ -186,7 +186,7 @@ def request_url_register():
         "message": "Код подтверждения отправлен на телефон"
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(6010), 500)
 
 #-----------------------------------------------------------------------
@@ -202,7 +202,7 @@ def request_confirm():
         "message": "Пользователь успешно зарегистрирован"
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(5010), 500)
 
 #-----------------------------------------------------------------------
@@ -273,7 +273,7 @@ def request_ls_option(option=None):
             "data": LS().details()
         }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(7030), 500)
 
 #-----------------------------------------------------------------------
@@ -308,7 +308,7 @@ def request_url_ls_services(ls=None):
         "data": array
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(9050), 500)
 
 #-----------------------------------------------------------------------
@@ -334,7 +334,7 @@ def request_ls_counters(ls=None, codeInBilling=None):
         }
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(6060), 500)
 
 #-----------------------------------------------------------------------
@@ -350,7 +350,7 @@ def request_counters_add():
         "message": "Данные успешно поданы"
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(6050), 500)
 
 #-----------------------------------------------------------------------
@@ -374,7 +374,7 @@ def request_counters_history():
         "data": array
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(7010), 500)
 
 #-----------------------------------------------------------------------
@@ -403,7 +403,7 @@ def request_url_ls_service_id(ls=None, id=None):
         "data": array
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(9050), 500)
 
 #-----------------------------------------------------------------------
@@ -419,7 +419,7 @@ def request_send_form():
         "message": "Данные приняты сервером"
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(5090), 500)
 
 #-----------------------------------------------------------------------
@@ -443,7 +443,7 @@ def request_payments():
         "data": array
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(10050), 500)
 
 #-----------------------------------------------------------------------
@@ -457,7 +457,7 @@ def request_checks(ls=None, tranzakciya=None):
         "data": Payment().check()
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(9030), 500)
 
 #-----------------------------------------------------------------------
@@ -481,7 +481,7 @@ def request_url_getpaygateway(ls=None):
         "usls_enabled": False if randint(0,3) != 3 else True
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 
@@ -496,7 +496,7 @@ def request_getlink():
         "link": "https://api-atomsbt.herokuapp.com/pay"
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 #-----------------------------------------------------------------------
@@ -515,7 +515,7 @@ def request_url_kvtMonths(ls=None):
         "data": array
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 url_reports = '/api/ls/reports/<option>'
@@ -529,7 +529,7 @@ def request_url_reports(option=None):
         "url": "https://static.tinkoff.ru/documents/docs/terms_of_integrated_banking_services.pdf"
     }
 
-    sleep(0.5)
+    sleep(1)
     return (json(success), 200) if randint(0,10) != 5 else (error(5050), 500)
 
 #-----------------------------------------------------------------------

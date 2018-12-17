@@ -3,17 +3,16 @@
 from random import randint
 
 class Service(object):
-    """docstring for Service"""
     def __init__(self):
         super(Service).__init__()
 
-        self.image_url = "https://via.placeholder.com/48x48" if randint(0,3) != 3 else ''
+        self.image_url = "https://via.placeholder.com/48x48"
 
     def element(self, e_name=None, e_type=None, e_params=False, e_image_url=None, e_codeInBilling=None):
 
         service_id = randint(10_000_000_000,99_999_999_999)
         amount = randint(0,999999)
-        image_url = e_image_url if not None else self.image_url
+        image_url = e_image_url if not None else (self.image_url if randint(0,3) != 3 else '')
 
         content = {
             "amount": amount,
