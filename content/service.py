@@ -10,8 +10,8 @@ class Service(object):
 
     def element(self, e_name=None, e_type=None, e_params=False, e_image_url=None, e_codeInBilling=None):
 
-        service_id = randint(10_000_000_000,99_999_999_999)
-        amount = randint(0,999999)
+        service_id = randint(10_000_000,99_999_999)
+        amount = randint(0,999_999)
         image_url = e_image_url if not None else (self.image_url if randint(0,3) != 3 else '')
 
         content = {
@@ -35,7 +35,6 @@ class Service(object):
         return content
 
 class Form(object):
-    """docstring for Form"""
     def __init__(self):
         super(Form, self).__init__()
 
@@ -71,7 +70,7 @@ class Form(object):
             fields.append(field)
 
         content = {
-            "id": "{}".format(randint(10_000_000_000,99_999_999_999)),
+            "id": str(randint(10_000,99_999)),
             "name": form_name,
             "image_url": form_image if not None else (self.image_url if randint(0,3) != 3 else ''),
             "fields": fields
@@ -98,21 +97,21 @@ class Form(object):
         """
         array = []
         for _ in range(0, randint(0,field_values_count)):
-            guid = randint(10_000,99_999)
+            guid = randint(100,999)
             value = {
-                "id": guid,
+                "id": str(guid),
                 "value": "Значение {}".format(guid)
             }
             array.append(value)
 
         content = {
-            "id": '{}'.format(randint(10_000_000_000,99_999_999_999)),
+            "id": str(randint(1_000,9_999)),
             "name": field_name,
             "type": field_type,
             "regexp": None if randint(0,3) != 3 else '^(\\w{1,10})',
             "error_msg": "Указаны не верные данные",
-            "values": array if len(array)>0 else None,
-            "value": ('{}'.format(array[0]['id']) if randint(0,5)>2 else None) if len(array)>0 else None
+            "values": array if len(array) > 0 else None,
+            "value": (array[0]['id'] if randint(0,5) > 2 else None) if len(array)>0 else None
         }
 
         return content

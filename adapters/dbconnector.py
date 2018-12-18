@@ -17,7 +17,7 @@ class AtomDB(object):
         self._db_cursor = self._db_connect.cursor()
 
     def execute(self, sql):
-        """ return [ (item_1, item_2) ] """
+        """ return [ ( item_1, item_2, ... ) ] """
         self._db_cursor.execute(sql)
         return self._db_cursor.fetchall()
 

@@ -18,7 +18,7 @@ class LS(object):
         number = randint(10_000_000_000,99_999_999_999)
 
         content_json =  {
-            "billing_object_id": randint(100000,399999),
+            "billing_object_id": randint(100_000,999_999),
             "billing_object_number": str(number),
             "main_ls": '{}'.format(is_mane)
         }
