@@ -576,26 +576,24 @@ url_camera = '/api/ls/<ls>/camera'
 @app.route(url_camera, methods=['GET'])
 def request_url_camera(ls=None):
 
+    sql = """
+        SELECT name, video_url
+        FROM atom_video
+    """
+
+    array = []
+    dbarr = AtomDB().execute(sql)
+    if len(dbarr) > 0:
+        for x in range(0, len(dbarr)):
+            item = {
+                "link": dbarr[x][1],
+                "place": dbarr[x][0]
+            }
+            array.append(item)
+
     success = {
         "result": True,
-        "data": [
-            {
-                "place": "КУХНЯ",
-                "link": "rtsp//admin12345@84.42.31.48/00"
-            },
-            {
-                "place": "ПОДЪЕЗД",
-                "link": "rtsp//admin12345@84.42.31.48/10"
-            },
-            {
-                "place": "ДВОР",
-                "link": "rtsp//admin12345@84.42.31.48/20"
-            },
-            {
-                "place": "ТЕСТОВЫЙ УРЛ НА ВНЕШНЮЮ КАМЕРУ",
-                "link": "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov"
-            }
-        ]
+        "data": array
     }
 
     sleep(1)
