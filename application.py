@@ -274,7 +274,7 @@ def request_ls_option(option=None):
         }
 
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (error(7030), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(7080), 500)
 
 #-----------------------------------------------------------------------
 
@@ -590,6 +590,10 @@ def request_url_camera(ls=None):
             {
                 "place": "ДВОР",
                 "link": "rtsp//admin12345@84.42.31.48/20"
+            },
+            {
+                "place": "ТЕСТОВЫЙ УРЛ НА ВНЕШНЮЮ КАМЕРУ",
+                "link": "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov"
             }
         ]
     }
@@ -672,6 +676,34 @@ def request_feedback():
     success = {
         "result": True,
         "message": "Регистрация обращения выполнена"
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,10) != 5 else (error(6020), 500)
+
+#-----------------------------------------------------------------------
+
+url_push_check = '/api/ls/<ls>/devices/<device_code>/check'
+@app.route(url_push_check, methods=['GET'])
+def request_url_push_check(ls=None, device_code=None):
+
+    success = {
+        "result": True,
+        "status": choice((True, False))
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,10) != 5 else (error(6020), 500)
+
+url_push_chenge = '/api/devices/<option>'
+@app.route(url_push_chenge, methods=['POST'])
+def request_url_push_chenge(option=None):
+
+    request_logger(url_push_chenge, request)
+
+    success = {
+        "result": True,
+        "message": "Изменения в ПУШ успешны"
     }
 
     sleep(0.5)
