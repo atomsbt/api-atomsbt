@@ -16,7 +16,7 @@ class AtomDB(object):
         self._db_connect = psycopg2.connect(**self._db_config)
         self._db_cursor = self._db_connect.cursor()
 
-    def execute(self, sql):
+    def execute(self, sql: str):
         """ return [ ( item_1, item_2, ... ) ] """
         self._db_cursor.execute(sql)
         return self._db_cursor.fetchall()
