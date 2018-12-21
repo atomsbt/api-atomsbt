@@ -49,7 +49,7 @@ class Form(object):
             "PRINTED_TEXT" #поле нередактируемого текста, информационной надобности
         ]
 
-    def form(self, form_name=None, form_image=None, form_fields_count=1):
+    def form(self, form_name: str, form_image=None, form_fields_count=1):
         """
         return {
             "id": str,
@@ -63,7 +63,7 @@ class Form(object):
         }
         """
         fields = []
-        for x in range(0, randint(1,form_fields_count if form_fields_count>0 else 1)):
+        for x in range(randint(1, form_fields_count if form_fields_count > 0 else 1)):
             field_type = self.form_field_type[randint(0,len(self.form_field_type)-1)]
             combo_count = 0 if field_type != 'COMBO_BOX' else randint(0,10)
             field = Form().field('Поле типа {0} с номером {1}'.format(field_type, x), field_type, combo_count)
@@ -78,7 +78,7 @@ class Form(object):
 
         return content
 
-    def field(self, field_name=None, field_type=None, field_values_count=0):
+    def field(self, field_name: str, field_type=None, field_values_count=0):
         """
         return {
             "id": str,
@@ -96,7 +96,7 @@ class Form(object):
         }
         """
         array = []
-        for _ in range(0, randint(0,field_values_count)):
+        for _ in range(randint(0,field_values_count)):
             guid = randint(100,999)
             value = {
                 "id": str(guid),

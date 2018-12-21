@@ -13,6 +13,7 @@ icons: https://cloudinary.com
 
 import os
 import uuid
+import logging
 
 from flask import Flask, request, render_template
 from flask import jsonify as json
@@ -39,7 +40,11 @@ def request_logger(url, request):
     jb = request.get_json()
 
     body = '\nREQUEST {0}\nHEADERS {1}\nBODY {2}\n'.format(url, jh, jb)
-    app.logger.info('\n'+'-'*80+body+'-'*80)
+    logging.basicConfig(
+        format='-'*80+body+'-'*80, 
+        level=logging.INFO, 
+        datefmt='%d-%b-%y %H:%M:%S'
+    )
 
 def error(errorCode):
     """
@@ -241,13 +246,13 @@ url_ls = '/api/ls'
 @app.route(url_ls, methods=['GET'])
 def request_ls():
 
-    ls_array = []
-    for i in range(1, randint(1, 5)):
-        ls_array.append(LS().object(i if i == 1 else 0))
+    array = []
+    for i in range(randint(0, 5)):
+        array.append(LS().object(1 if i == 0 else 0))
 
     success = {
         "result": True,
-        "data": ls_array
+        "data": array
     }
 
     sleep(1)
@@ -339,43 +344,39 @@ def request_ls_counters(ls=None, codeInBilling=None):
 
 #-----------------------------------------------------------------------
 
-url_counters_add = '/api/ls/counters/add'
-@app.route(url_counters_add, methods=['POST'])
-def request_counters_add():
+url_counters_option = '/api/ls/counters/<option>'
+@app.route(url_counters_option, methods=['POST'])
+def request_counters_option(option):
 
-    request_logger(url_counters_add, request)
+    request_logger(url_counters_option, request)
 
-    success = {
-        "result": True,
-        "message": "Данные успешно поданы"
-    }
+    success = {}
+    err = None
 
-    sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (error(6050), 500)
+    if option == 'add':
+        success = {
+            "result": True,
+            "message": "Данные успешно поданы"
+        }
+        err = error(6050)
 
-#-----------------------------------------------------------------------
+    if option == 'history':
+        array = []
+        for _ in range(randint(0,15)):
+            array.append(Counter().history())
 
-url_counters_history = '/api/ls/counters/history'
-@app.route(url_counters_history, methods=['POST'])
-def request_counters_history():
-
-    request_logger(url_counters_history, request)
-
-    array = []
-    for _ in range(0,randint(0,15)):
-        array.append(Counter().history())
-
-    success = {
-        "page": 1,
-        "pages": 1,
-        "rowPerPage": 100,
-        "totalRowsCount": 100,
-        "result": True,
-        "data": array
-    }
+        success = {
+            "page": 1,
+            "pages": 1,
+            "rowPerPage": 100,
+            "totalRowsCount": 100,
+            "result": True,
+            "data": array
+        }
+        err = error(7010)
 
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (error(7010), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (err, 500)
 
 #-----------------------------------------------------------------------
 
@@ -705,21 +706,16 @@ def request_url_push_chenge(option=None):
     }
 
     sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (error(6020), 500)
+    return (json(success), 200) if randint(0,10) != 5 else (error(10020), 500)
 
 #-----------------------------------------------------------------------
 
+@app.route("/")
 @app.route("/<option>")
-def main(option=None):
+def main(option='index'):
 
-    template = 'index.html'
-
-    if option == 'pay':
-        template = 'pay.html'
-    if option == 'policy':
-        template = 'policy.html'
-
-    return render_template(template)
+    temp = '{}.html'.format(option)
+    return render_template(temp)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
