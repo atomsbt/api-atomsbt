@@ -31,10 +31,7 @@ from content.payment import Payment
 from adapters.dbconnector import AtomDB
 
 app = Flask(__name__)
-logging.basicConfig(
-        format='%(message)s', 
-        level=logging.INFO
-    )
+logging.basicConfig(format='%(message)s', level=logging.INFO)
 
 #-----------------------------------------------------------------------
 
@@ -49,7 +46,7 @@ def request_logger(url, request):
 
 def error(errorCode):
     """
-    return 
+    :return: 
     {
         "result": False, 
         "errorCode": int, 

@@ -112,6 +112,4 @@ dmypy.json
 
 # vscode
 .vscode/*
-
-#lint
-.pylintrc
+.vscode

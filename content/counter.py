@@ -99,7 +99,7 @@ class Counter(object):
             _max = None
             if discretization.lower() == 'h':
                 _date = datetime.fromisoformat(date) + timedelta(hours=x)
-                _max = 900
+                _max = 99
             if discretization.lower() == 'd':
                 _date = datetime.fromisoformat(date) + timedelta(days=x)
                 _max = 9900
