@@ -110,7 +110,7 @@ def request_auth():
     }
 
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (error(401), 500)
+    return (json(success), 200) if randint(0,20) != 5 else (error(401), 500)
 
 #-----------------------------------------------------------------------
 
