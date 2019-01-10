@@ -190,7 +190,7 @@ def request_url_register():
     }
 
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (error(6010), 500)
+    return (json(success), 200) if randint(0,20) != 5 else (error(6010), 500)
 
 #-----------------------------------------------------------------------
 
@@ -206,7 +206,7 @@ def request_confirm():
     }
 
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (error(5010), 500)
+    return (json(success), 200) if randint(0,20) != 5 else (error(5010), 500)
 
 #-----------------------------------------------------------------------
 
