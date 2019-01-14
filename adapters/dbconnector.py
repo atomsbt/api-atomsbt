@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import psycopg2
+import psycopg2.extras
 
 class AtomDB(object):
     def __init__(self):
@@ -14,10 +15,10 @@ class AtomDB(object):
         }
         
         self._db_connect = psycopg2.connect(**self._db_config)
-        self._db_cursor = self._db_connect.cursor()
+        self._db_cursor = self._db_connect.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
 
     def execute(self, sql: str):
-        """ return [ ( item_1, item_2, ... ) ] """
+        """ return [ { key_1: item_1 } ... ) ] """
         self._db_cursor.execute(sql)
         return self._db_cursor.fetchall()
 
@@ -29,15 +30,5 @@ class AtomDB(object):
 
 if __name__ == '__main__':
     
-    # array1 = []
-    # obj = {'pas': "password", 'login': "login"}
-    # exc = 'select password, login from atom_users'
-    # for row in AtomDB().execute(exc):
-    #     array1.append({'password':row[0], 'login':row[1]})
-
-    # print('-'*80)
-    # print(array1)
-    # print('-'*80)
-
     pass
 #-----------------------------------------------------------------------

@@ -18,9 +18,9 @@ class Map(object):
           """
           return [{}]
           """
-          sql = ''' SELECT zip, address, email, work_phones, work_times, 
-                    ST_AsGeoJSON(point), ST_Distance(point, 
-                    ST_MakePoint({0}, {1})::geography) AS distance 
+          sql = ''' SELECT zip, address, email, work_phones, work_times
+                    , ST_AsGeoJSON(point) AS coord
+                    , ST_Distance(point, ST_MakePoint({0}, {1})::geography) AS distance 
                     FROM atom_points 
                     WHERE ST_DWithin(point, ST_MakePoint({0}, {1})::geography, {2}) 
                     ORDER BY distance ASC'''.format(longitude, latitude, distance)
@@ -28,13 +28,13 @@ class Map(object):
           content = []
           for item in AtomDB().execute(sql):
                data = {
-                    'INDEKS': item[0],
-                    'ADDRESS': item[1],
-                    'EMAIL': item[2],
-                    'TELEFON': item[3],
-                    'REZHIM_RABOTY': item[4],
-                    'DOLGOTA': json.loads(item[5])['coordinates'][0],
-                    'SHIROTA': json.loads(item[5])['coordinates'][1]
+                    'INDEKS': item.get('zip'),
+                    'ADDRESS': item.get('address'),
+                    'EMAIL': item.get('email'),
+                    'TELEFON': item.get('work_phones'),
+                    'REZHIM_RABOTY': item.get('work_times'),
+                    'DOLGOTA': json.loads(item.get('coord')).get('coordinates')[0],
+                    'SHIROTA': json.loads(item.get('coord')).get('coordinates')[1]
                }
                content.append(data)
   
