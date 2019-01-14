@@ -664,6 +664,28 @@ def request_url_askue():
 
 #-----------------------------------------------------------------------
 
+url_getWeatherToLS = '/api/ls/<option>/getWeatherToLS'
+@app.route(url_getWeatherToLS, methods=['GET'])
+def request_url_getWeatherToLS(option):
+
+    icon = choice([
+        "https://api-atomsbt.herokuapp.com/assets/bkn_sn_d.svg",
+        ""
+    ])
+
+    success = {
+        "result": True,
+        "data": {
+            "temp": str(randint(-40,40)),
+            "icon": icon
+        }
+    }
+
+    sleep(1)
+    return (json(success), 200) if randint(0,10) != 5 else (error(10080), 500)
+
+#-----------------------------------------------------------------------
+
 url_feedback = '/api/user/feedback'
 @app.route(url_feedback, methods=['POST'])
 def request_feedback():
