@@ -62,8 +62,8 @@ def error(errorCode):
 
     error = {
         "result": False,
-        "errorCode": ex[0][0] if len(ex)>0 else 0,
-        "errorText": ex[0][1] if len(ex)>0 else 'None',
+        "errorCode": ex[0].get('error_code') if len(ex)>0 else 0,
+        "errorText": ex[0].get('error_text') if len(ex)>0 else 'None',
     }
     return json(error)
 
@@ -294,16 +294,16 @@ def request_url_ls_services(ls=None):
 
     array = []
     standart = AtomDB().execute(sql.format('standart'))
-    for x in range(0, randint(0,len(standart))):
-        name = standart[x][1]
-        image = standart[x][2]
+    for x in range(randint(0,len(standart))):
+        name = standart[x].get('name')
+        image = standart[x].get('image_url')
         array.append(Service().element(name, 'standart', True, image, None))
 
     smart_home = AtomDB().execute(sql.format('smart_home'))
-    for x in range(0, len(smart_home)):
-        name = smart_home[x][1]
-        image = smart_home[x][2]
-        billing = smart_home[x][4]
+    for x in range(len(smart_home)):
+        name = smart_home[x].get('name')
+        image = smart_home[x].get('image_url')
+        billing = smart_home[x].get('code_in_billing')
         array.append(Service().element(name, 'smart_home', True, image, billing))
 
     success = {
@@ -389,12 +389,12 @@ def request_url_ls_service_id(ls=None, id=None):
 
     array = []
     dbarr = AtomDB().execute(sql)
-    for x in range(0, randint(0,len(dbarr))):
-        name = dbarr[x][0]
-        image = dbarr[x][1]
+    for x in range(randint(0,len(dbarr))):
+        name = dbarr[x].get('name')
+        image = dbarr[x].get('image_url')
         array.append(Form().form(name, image, randint(3,10)))
 
-    for x in range(0, randint(0,15)):
+    for x in range(randint(0,15)):
         array.append(Form().form('Форма с номером {}'.format(x), None, randint(3,10)))
 
     success = {
@@ -583,10 +583,10 @@ def request_url_camera(ls=None):
     array = []
     dbarr = AtomDB().execute(sql)
     if len(dbarr) > 0:
-        for x in range(0, len(dbarr)):
+        for x in range(len(dbarr)):
             item = {
-                "link": dbarr[x][1],
-                "place": dbarr[x][0]
+                "link": dbarr[x].get('video_url'),
+                "place": dbarr[x].get('name')
             }
             array.append(item)
 
