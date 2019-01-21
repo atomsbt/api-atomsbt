@@ -279,7 +279,7 @@ def request_url_ls_services(ls=None):
 
     array = []
     standart = AtomDB().execute(sql.format('standart'))
-    for x in range(randint(len(standart))):
+    for x in range(randint(0,len(standart))):
         name = standart[x].get('name')
         image = standart[x].get('image_url')
         array.append(Service().element(name, 'standart', True, image, None))
