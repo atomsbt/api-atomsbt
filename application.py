@@ -35,14 +35,17 @@ logging.basicConfig(format='%(message)s', level=logging.INFO)
 
 #-----------------------------------------------------------------------
 
-def request_logger(url, request):
+@app.after_request
+def after_request(response):
 
-    jh = {'token': request.headers.get('token')}
-    jb = request.get_json()
+    if request.method == 'POST':
+        req = f'\nREQUEST {request.method} {request.path}'
+        hed = '\nHEADERS {}'.format({"token": request.headers.get("token")})
+        bod = f'\nBODY {request.get_json()}\n'
+        message = '-'*80+req+hed+bod+'-'*80
+        print(message)
 
-    body = '\nREQUEST {0}\nHEADERS {1}\nBODY {2}\n'.format(url, jh, jb)
-    message = '-'*80+body+'-'*80
-    logging.info(message)
+    return response
 
 def error(errorCode):
     """
@@ -94,15 +97,13 @@ def request_user():
     }
 
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (error(4020), 500)
+    return (json(success), 200) if randint(0,20) != 5 else (error(4020), 500)
 
 #-----------------------------------------------------------------------
 
 url_auth = '/api/user/auth'
 @app.route(url_auth, methods=['POST'])
 def request_auth():
-
-    request_logger(url_auth, request)
 
     success = {
         "result": True,
@@ -118,8 +119,6 @@ url_user_changeemail = '/api/user/changeemail'
 @app.route(url_user_changeemail, methods=['POST'])
 def request_url_user_changeemail():
 
-    request_logger(url_user_changeemail, request)
-
     success = {
         "result": True,
         "message": "Емаил изменен"
@@ -133,8 +132,6 @@ def request_url_user_changeemail():
 url_user_changepassword = '/api/user/changepassword'
 @app.route(url_user_changepassword, methods=['POST'])
 def request_url_user_changepassword():
-
-    request_logger(url_user_changepassword, request)
 
     success = {
         "result": True,
@@ -150,8 +147,6 @@ url_user_tel_change = '/api/user/tel/change'
 @app.route(url_user_tel_change, methods=['POST'])
 def request_url_user_tel_change():
 
-    request_logger(url_user_tel_change, request)
-
     success = {
         "result": True,
         "message": "Код подтверждения отправлен на телефон"
@@ -165,8 +160,6 @@ def request_url_user_tel_change():
 url_user_tel_change_confirm = '/api/user/tel/change/confirm'
 @app.route(url_user_tel_change_confirm, methods=['POST'])
 def request_url_user_tel_change_confirm():
-
-    request_logger(url_user_tel_change_confirm, request)
 
     success = {
         "result": True,
@@ -182,8 +175,6 @@ url_register = '/api/user/register/tel'
 @app.route(url_register, methods=['POST'])
 def request_url_register():
 
-    request_logger(url_register, request)
-
     success = {
         "result": True,
         "message": "Код подтверждения отправлен на телефон"
@@ -198,8 +189,6 @@ url_confirm = '/api/user/confirm/tel'
 @app.route(url_confirm, methods=['POST'])
 def request_confirm():
 
-    request_logger(url_confirm, request)
-
     success = {
         "result": True,
         "message": "Пользователь успешно зарегистрирован"
@@ -213,8 +202,6 @@ def request_confirm():
 url_reset = '/api/user/reset/tel'
 @app.route(url_reset, methods=['POST'])
 def request_reset():
-
-    request_logger(url_reset, request)
 
     success = {
         "result": True,
@@ -245,7 +232,7 @@ url_ls = '/api/ls'
 def request_ls():
 
     array = []
-    for i in range(randint(0, 5)):
+    for i in range(1,randint(1, 5)):
         array.append(LS().object(1 if i == 0 else 0))
 
     success = {
@@ -254,15 +241,13 @@ def request_ls():
     }
 
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (error(7050), 500)
+    return (json(success), 200) if randint(0,20) != 5 else (error(7050), 500)
 
 #-----------------------------------------------------------------------
 
 url_ls_option = '/api/ls/<option>'
 @app.route(url_ls_option, methods=['GET', 'POST'])
 def request_ls_option(option=None):
-
-    request_logger(url_ls_option, request)
 
     success = None
     if option in ['change', 'bind', 'remove']:
@@ -277,7 +262,7 @@ def request_ls_option(option=None):
         }
 
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (error(7080), 500)
+    return (json(success), 200) if randint(0,20) != 5 else (error(7080), 500)
 
 #-----------------------------------------------------------------------
 
@@ -346,8 +331,6 @@ url_counters_option = '/api/ls/counters/<option>'
 @app.route(url_counters_option, methods=['POST'])
 def request_counters_option(option):
 
-    request_logger(url_counters_option, request)
-
     success = {}
     err = None
 
@@ -360,7 +343,7 @@ def request_counters_option(option):
 
     if option == 'history':
         array = []
-        for _ in range(randint(0,15)):
+        for _ in range(1,randint(1,15)):
             array.append(Counter().history())
 
         success = {
@@ -374,7 +357,7 @@ def request_counters_option(option):
         err = error(7010)
 
     sleep(1)
-    return (json(success), 200) if randint(0,10) != 5 else (err, 500)
+    return (json(success), 200) if randint(0,20) != 5 else (err, 500)
 
 #-----------------------------------------------------------------------
 
@@ -411,8 +394,6 @@ url_send_form = '/api/user/send/form'
 @app.route(url_send_form, methods=['POST'])
 def request_send_form():
 
-    request_logger(url_send_form, request)
-
     success = {
         "result": True,
         "message": "Данные приняты сервером"
@@ -426,8 +407,6 @@ def request_send_form():
 url_payments = '/api/ls/payments'
 @app.route(url_payments, methods=['POST'])
 def request_payments():
-
-    request_logger(url_payments, request)
 
     array = []
     for _ in range(0,randint(0,15)):
@@ -488,8 +467,6 @@ url_getlink = '/api/pay/getlink'
 @app.route(url_getlink, methods=['POST'])
 def request_getlink():
 
-    request_logger(url_getlink, request)
-
     success = {
         "result": True,
         "link": "https://api-atomsbt.herokuapp.com/pay"
@@ -521,8 +498,6 @@ url_reports = '/api/ls/reports/<option>'
 @app.route(url_reports, methods=['POST'])
 def request_url_reports(option=None):
 
-    request_logger(url_reports, request)
-
     success = {
         "result": True,
         "url": "https://static.tinkoff.ru/documents/docs/terms_of_integrated_banking_services.pdf"
@@ -536,8 +511,6 @@ def request_url_reports(option=None):
 url_services = '/api/user/services'
 @app.route(url_services, methods=['POST'])
 def request_url_services():
-
-    request_logger(url_services, request)
 
     lon = request.get_json()['longitude']
     lat = request.get_json()['latitude']
@@ -604,8 +577,6 @@ url_ontime = '/api/ls/counter/ontime'
 @app.route(url_ontime, methods=['POST'])
 def request_url_ontime():
 
-    request_logger(url_ontime, request)
-
     disc = request.get_json().get('discretization')
     date = request.get_json().get('startdate')
 
@@ -623,7 +594,6 @@ url_analytics = '/api/ls/analytics'
 @app.route(url_analytics, methods=['POST'])
 def request_url_analytics():
 
-    request_logger(url_analytics, request)
     current = choice((True, False))
 
     success = {
@@ -650,8 +620,6 @@ def request_url_analytics():
 url_askue = '/api/ls/counter/last'
 @app.route(url_askue, methods=['POST'])
 def request_url_askue():
-
-    request_logger(url_askue, request)
 
     success = {
         "result": True,
@@ -695,8 +663,6 @@ url_feedback = '/api/user/feedback'
 @app.route(url_feedback, methods=['POST'])
 def request_feedback():
 
-    request_logger(url_feedback, request)
-
     success = {
         "result": True,
         "message": "Регистрация обращения выполнена"
@@ -722,8 +688,6 @@ def request_url_push_check(ls=None, device_code=None):
 url_push_chenge = '/api/devices/<option>'
 @app.route(url_push_chenge, methods=['POST'])
 def request_url_push_chenge(option=None):
-
-    request_logger(url_push_chenge, request)
 
     success = {
         "result": True,
