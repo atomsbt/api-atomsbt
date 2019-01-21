@@ -232,7 +232,7 @@ url_ls = '/api/ls'
 def request_ls():
 
     array = []
-    for i in range(1,randint(1, 5)):
+    for i in range(randint(1, 5)):
         array.append(LS().object(1 if i == 0 else 0))
 
     success = {
@@ -279,7 +279,7 @@ def request_url_ls_services(ls=None):
 
     array = []
     standart = AtomDB().execute(sql.format('standart'))
-    for x in range(randint(0,len(standart))):
+    for x in range(randint(len(standart))):
         name = standart[x].get('name')
         image = standart[x].get('image_url')
         array.append(Service().element(name, 'standart', True, image, None))
@@ -306,7 +306,7 @@ url_counters = '/api/ls/<ls>/counters/list/<codeInBilling>'
 def request_ls_counters(ls=None, codeInBilling=None):
 
     array = []
-    for _ in range(1,randint(1,5)):
+    for _ in range(randint(1,5)):
         array.append(Counter(ls=ls).counter(codeInBilling=codeInBilling))
 
     dn = datetime.now()
@@ -343,7 +343,7 @@ def request_counters_option(option):
 
     if option == 'history':
         array = []
-        for _ in range(1,randint(1,15)):
+        for _ in range(randint(1,15)):
             array.append(Counter().history())
 
         success = {
@@ -409,7 +409,7 @@ url_payments = '/api/ls/payments'
 def request_payments():
 
     array = []
-    for _ in range(0,randint(0,15)):
+    for _ in range(randint(0,15)):
         array.append(Payment().payment())
 
     success = {
@@ -445,7 +445,7 @@ url_getpaygateway = '/api/ls/<ls>/pay/getpaygateway'
 def request_url_getpaygateway(ls=None):
 
     array = []
-    for _ in range(1,randint(1,5)):
+    for _ in range(randint(1,5)):
         rnd = randint(10_000,99_999)
         pay_gateway = {
             "code": "BN{}".format(rnd),
@@ -482,7 +482,7 @@ url_kvtMonths = '/api/ls/<ls>/reports/kvtMonths'
 def request_url_kvtMonths(ls=None):
 
     array = []
-    for i in range(1, randint(1,15)):
+    for i in range(randint(1,15)):
         date = datetime.now() - timedelta(days=31*i)
         array.append(date.isoformat(timespec='milliseconds'))
 
