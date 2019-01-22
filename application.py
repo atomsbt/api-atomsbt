@@ -31,7 +31,6 @@ from content.payment import Payment
 from adapters.dbconnector import AtomDB
 
 app = Flask(__name__)
-logging.basicConfig(format='%(message)s', level=logging.INFO)
 
 #-----------------------------------------------------------------------
 
@@ -42,20 +41,13 @@ def after_request(response):
         req = f'\nREQUEST {request.method} {request.path}'
         hed = '\nHEADERS {}'.format({"token": request.headers.get("token")})
         bod = f'\nBODY {request.get_json()}\n'
-        message = '-'*80+req+hed+bod+'-'*80+'\n'
+        message = '-'*80+req+hed+bod+'-'*80
         print(message)
 
     return response
 
 def error(errorCode):
-    """
-    :return: 
-    {
-        "result": False, 
-        "errorCode": int, 
-        "errorText": str
-    }
-    """
+
     sql = """
         SELECT error_code, error_text 
         FROM atom_errors
@@ -66,7 +58,7 @@ def error(errorCode):
     error = {
         "result": False,
         "errorCode": ex[0].get('error_code') if len(ex)>0 else 0,
-        "errorText": ex[0].get('error_text') if len(ex)>0 else 'None',
+        "errorText": ex[0].get('error_text') if len(ex)>0 else None,
     }
     return json(error)
 
@@ -229,10 +221,10 @@ def request_url_agreement():
 
 url_ls = '/api/ls'
 @app.route(url_ls, methods=['GET'])
-def request_ls():
+def request_url_ls():
 
     array = []
-    for i in range(randint(1, 5)):
+    for i in range(randint(1, 8)):
         array.append(LS().object(1 if i == 0 else 0))
 
     success = {
