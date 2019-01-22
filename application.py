@@ -42,7 +42,7 @@ def after_request(response):
         req = f'\nREQUEST {request.method} {request.path}'
         hed = '\nHEADERS {}'.format({"token": request.headers.get("token")})
         bod = f'\nBODY {request.get_json()}\n'
-        message = '-'*80+req+hed+bod+'-'*80
+        message = '-'*80+req+hed+bod+'-'*80+'\n'
         print(message)
 
     return response

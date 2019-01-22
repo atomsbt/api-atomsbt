@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from random import randint
+from random import randint, choice
 from datetime import datetime, timedelta
 
 class LS(object):
@@ -26,13 +26,7 @@ class LS(object):
         return content_json
 
     def details(self):
-        """
-        {
-            "EMAILVCHEK": str,
-            ...
-            "CHISLPROP": str
-        }
-        """
+
         delta = randint(1,30)
         dolgna = (datetime.now()).isoformat(timespec='milliseconds')
         delo = (datetime.now() - timedelta(days=delta)).isoformat(timespec='milliseconds')
@@ -66,7 +60,8 @@ class LS(object):
             "TELEFONVCHEK": "+79157053345",
             "TELNANIM": "89610165800",
             "FIONANIM": "Фамилия Имя Отчество",
-            "CHISLPROP": "1"
+            "CHISLPROP": "1",
+            "UrgentPayment": choice([True, False])
         }
 
         return content_json
