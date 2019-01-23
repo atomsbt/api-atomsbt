@@ -665,25 +665,12 @@ def request_feedback():
 
 #-----------------------------------------------------------------------
 
-url_push_check = '/api/ls/<ls>/devices/<device_code>/check'
-@app.route(url_push_check, methods=['GET'])
-def request_url_push_check(ls=None, device_code=None):
-
-    success = {
-        "result": True,
-        "status": choice((True, False))
-    }
-
-    sleep(0.5)
-    return (json(success), 200) if randint(0,10) != 5 else (error(6020), 500)
-
 url_push_chenge = '/api/devices/<option>'
 @app.route(url_push_chenge, methods=['POST'])
 def request_url_push_chenge(option=None):
 
     success = {
-        "result": True,
-        "message": "Изменения в ПУШ успешны"
+        "result": True
     }
 
     sleep(0.5)
@@ -695,7 +682,7 @@ def request_url_push_chenge(option=None):
 @app.route("/<option>")
 def main(option='index'):
 
-    temp = '{}.html'.format(option)
+    temp = f'{option}.html'
     return render_template(temp)
 
 if __name__ == '__main__':

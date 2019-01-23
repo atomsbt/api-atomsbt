@@ -18,7 +18,7 @@ class Counter(object):
             tarif = {
                 "DatePok": "2018-11-01T00:00:00.000",
                 "NomerTarifa": x+1,
-                "NazvanieTarifa": "День",
+                "NazvanieTarifa": f'T{x+1}',
                 "PredPok": str(randint(100,9_999))
             }
             array.append(tarif)
