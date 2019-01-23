@@ -309,8 +309,8 @@ def request_ls_counters(ls=None, codeInBilling=None):
         "result": True,
         "data": array,
         "PeriodSch": {
-            "ot": "2019-01-20T14:18:35.535", #ot.isoformat(timespec='milliseconds'),
-            "do": "2019-01-28T14:18:35.535"#do.isoformat(timespec='milliseconds')
+            "ot": ot.isoformat(timespec='milliseconds'),
+            "do": do.isoformat(timespec='milliseconds')
         }
     }
 
