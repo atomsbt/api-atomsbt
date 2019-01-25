@@ -670,8 +670,8 @@ def request_url_getTheme(option):
     array = list()
     for i in range(randint(1,20)):
         item = {
-            "theme": f'theme {i}',
-            "description": choice(["test", None]),
+            "theme": f'theme {i}'+choice([' тестовый текст для проверки 2х строчной выпадалки', '']),
+            "description": choice(["test", None, ""]),
             "id": f'{i}'
         }
         array.append(item)
