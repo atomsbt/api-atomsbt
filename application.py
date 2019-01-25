@@ -663,6 +663,27 @@ def request_feedback():
     sleep(0.5)
     return (json(success), 200) if randint(0,10) != 5 else (error(6020), 500)
 
+url_getTheme = '/api/ls/<option>/getTheme'
+@app.route(url_getTheme, methods=['GET'])
+def request_url_getTheme(option):
+
+    array = list()
+    for i in range(randint(1,20)):
+        item = {
+            "theme": f'theme {i}',
+            "description": choice(["test", None]),
+            "id": f'{i}'
+        }
+        array.append(item)
+
+    success = {
+        "result": True,
+        "data": array
+    }
+
+    sleep(0.5)
+    return (json(success), 200) if randint(0,10) != 5 else (error(6020), 500)
+
 #-----------------------------------------------------------------------
 
 url_push_chenge = '/api/devices/<option>'
