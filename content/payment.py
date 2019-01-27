@@ -3,6 +3,7 @@
 from random import randint
 from datetime import datetime, timedelta
 
+
 class Payment(object):
     """
     {
@@ -31,6 +32,7 @@ class Payment(object):
         ]
     }
     """
+
     def __init__(self):
         super(Payment, self).__init__()
 
@@ -38,16 +40,17 @@ class Payment(object):
 
     def payment(self):
 
-        delta = randint(1,30)
-        date = (datetime.now() - timedelta(days=delta)).isoformat(timespec='milliseconds')
+        delta = randint(1, 30)
+        date = (datetime.now() - timedelta(days=delta)
+                ).isoformat(timespec='milliseconds')
 
         content = {
-                "ROW_ID": str(randint(1_000,9_999)),
-                "DATA": date,
-                "DATAVREMYA": date,
-                "ISTOCHNIK": "Билинг",
-                "SUMMA": randint(10,999999),
-                "TRANZAKCIYA": str(randint(10_000,99_999)) if randint(0,3) != 3 else ""
+            "ROW_ID": str(randint(1_000, 9_999)),
+            "DATA": date,
+            "DATAVREMYA": date,
+            "ISTOCHNIK": "Билинг",
+            "SUMMA": randint(10, 999999),
+            "TRANZAKCIYA": str(randint(10_000, 99_999)) if randint(0, 3) != 3 else ""
         }
 
         return content
@@ -55,14 +58,8 @@ class Payment(object):
     def check(self, tranzakciya=None):
         return self.url_pdf
 
-#-----------------------------------------------------------------------
 
 if __name__ == '__main__':
     # print(Payment().payment())
     # print(Payment().check())
     pass
-
-#-----------------------------------------------------------------------
-
-
-

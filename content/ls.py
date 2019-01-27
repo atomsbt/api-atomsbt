@@ -68,12 +68,8 @@ class LS(object):
 
         return content_json
 
-# -----------------------------------------------------------------------
-
 
 if __name__ == '__main__':
     # print(datetime.now().isoformat(timespec='milliseconds'))
     # print(LS().details())
     pass
-
-# -----------------------------------------------------------------------

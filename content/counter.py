@@ -29,7 +29,7 @@ class Counter(object):
             "Tarifnost": tarifnost,
             "NomerUslugi": 100,
             "NazvanieUslugi": "Электроснабжение",
-            "ZavodNomer": str(randint(10_000, 99_999)),
+            "ZavodNomer": f'ZN-{randint(10, 99)}-{randint(10_000, 99_999)}',
             "Razradnost": "4",
             "KoefTrans": "1",
             "MaxPok": "3000",
