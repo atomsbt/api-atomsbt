@@ -25,7 +25,7 @@ class LS(object):
 
         return content_json
 
-    def details(self):
+    def details(self, ls=None):
 
         delta = randint(1,30)
         dolgna = (datetime.now()).isoformat(timespec='milliseconds')
@@ -45,7 +45,7 @@ class LS(object):
             "KOMNATY": choice([str(randint(1,9)), None]),
             "KOPLATE": randint(0,99),
             "KOPLATESPENI": randint(100_000,999_999),
-            "LS": str(randint(10_000_000_000,99_999_999_999)),
+            "LS": ls if not None else str(randint(10_000_000_000,99_999_999_999)),
             "NACHISLENO": randint(-9_999_999,9_999_999),
             "OBSCHPLOSCH": choice(["42.3", "109.8", None]),
             "OPLACHENO": randint(0,99),

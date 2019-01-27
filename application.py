@@ -250,7 +250,7 @@ def request_ls_option(option=None):
     else:
         success = {
             "result": True,
-            "data": LS().details()
+            "data": LS().details(option)
         }
 
     sleep(1)

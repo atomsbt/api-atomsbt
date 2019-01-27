@@ -17,7 +17,7 @@ class Counter(object):
         for x in range(0,tarifnost):
             tarif = {
                 "DatePok": "2018-11-01T00:00:00.000",
-                "NomerTarifa": x+1,
+                "NomerTarifa": x,
                 "NazvanieTarifa": f'T{x+1}',
                 "PredPok": str(randint(100,9_999))
             }
@@ -52,13 +52,12 @@ class Counter(object):
         array = []
         for x in range(0,tarifnost):
             tarif = {
-                    "NomerTarifa": x+1,
+                    "NomerTarifa": x,
                     "NazvanieTarifa": f'T{x+1}',
                     "POKAZANIE": str(randint(100,99_999)),
                     "RASHOD": str(randint(100,99_999)),
                     "RASHODRASPR": "0",
                     "SOSTOYANIE": "1",
-                    "RASHOD": str(randint(100,99_999)),
                     "TIPVVODA": "Абонентское показание (интернет)"
             }
             array.append(tarif)
