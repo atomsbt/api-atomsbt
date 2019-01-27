@@ -42,12 +42,12 @@ class LS(object):
             "ZHILPLOSCH": "0",
             "ISHPENI": randint(0,99),
             "KACHESTVO": randint(0,99),
-            "KOMNATY": str(randint(1,9)),
+            "KOMNATY": choice([str(randint(1,9)), None]),
             "KOPLATE": randint(0,99),
             "KOPLATESPENI": randint(100_000,999_999),
             "LS": str(randint(10_000_000_000,99_999_999_999)),
             "NACHISLENO": randint(-9_999_999,9_999_999),
-            "OBSCHPLOSCH": "42.3",
+            "OBSCHPLOSCH": choice(["42.3", "109.8", None]),
             "OPLACHENO": randint(0,99),
             "OPLACHENOZAKRMES": randint(0,99),
             "OPLACHENOPENI": randint(0,99),
@@ -58,9 +58,9 @@ class LS(object):
             "PENI": randint(0,99),
             "PERERASCHET": randint(0,99),
             "TELEFONVCHEK": "+79157053345",
-            "TELNANIM": "89610165800",
+            "TELNANIM": choice(["89610165800", "+79101231212", None]),
             "FIONANIM": "Фамилия Имя Отчество",
-            "CHISLPROP": "1",
+            "CHISLPROP": choice(["1", "2", "3", None]),
             "UrgentPayment": choice([True, False])
         }
 
