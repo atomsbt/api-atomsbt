@@ -807,6 +807,8 @@ def request_url_push_chenge(option=None):
 @app.route("/<option>")
 def main(option='index'):
 
+    print(f'REQUEST {request.method} {request.path}')
+
     temp = f'{option}.html'
     return render_template(temp)
 

@@ -9,77 +9,96 @@ http://backurl/processing - шлюз взял транзакцию в обраб
  -->
 
 <html>
-<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 <body>
 
-<head>
-  <style type="text/css">
-    #wrapper {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    button {
-      height: 3em;
-      width: 20em;
-      border: 0;
-    }
-    #success {
-      color: white;
-      background: #92b558;
-    }
-    #fail {
-      color: white;
-      background: #dc4c46;
-    }
-    #processing {
-      color: white;
-      background: #ecbd51;
-    }
-    #card {
-      color: white;
-      background: #fff;
-      background: linear-gradient(-45deg, #b8dd51, #418b4e);
-      height: 12em;
-      width: 20em;
-      border-radius: 1em;
-      border: 0;
-    }
-    #title {
-      font-size: small;
-      color: #418b4e;
-    }
+  <head>
+    <style type="text/css">
+      #wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
 
-  </style>
-</head>
+      button {
+        height: 3em;
+        width: 20em;
+        border: 0;
+      }
 
-<div id="wrapper">
-  <table>
-    <tr><th>
-      <div id="title">Оплата с карты</div>
-    </th></tr>
-    <tr><th>
-      <div id="card"></div>
-    </th></tr>
-    <tr><th>
-      <div><br></div>
-      <div><br></div>
-      <div><br></div>
-    </th></tr>
-    <tr><th>
-      <a href="http://backurl/success"><button type="button" id="success">success</button></a>
-    </th></tr>
-    <tr><th>
-      <a href="http://backurl/fail"><button type="button" id="fail">fail</button></a>
-    </th></tr>
-    <tr><th>
-      <a href="http://backurl/processing"><button type="button" id="processing">processing</button></a>
-    </th></tr>
-  </table>
+      #success {
+        color: white;
+        background: #92b558;
+      }
 
-</div>
+      #fail {
+        color: white;
+        background: #dc4c46;
+      }
+
+      #processing {
+        color: white;
+        background: #ecbd51;
+      }
+
+      #card {
+        color: white;
+        background: #fff;
+        background: linear-gradient(-45deg, #b8dd51, #418b4e);
+        height: 12em;
+        width: 20em;
+        border-radius: 1em;
+        border: 0;
+      }
+
+      #title {
+        font-size: small;
+        color: #418b4e;
+      }
+    </style>
+  </head>
+
+  <div id="wrapper">
+    <table>
+      <tr>
+        <th>
+          <div id="title">Оплата с карты</div>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <div id="card"></div>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <div><br></div>
+          <div><br></div>
+          <div><br></div>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <a href="http://backurl/success"><button type="button" id="success">success</button></a>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <a href="http://backurl/fail"><button type="button" id="fail">fail</button></a>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <a href="http://backurl/processing"><button type="button" id="processing">processing</button></a>
+        </th>
+      </tr>
+    </table>
+
+  </div>
 
 </body>
+
 </html>
