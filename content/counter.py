@@ -3,6 +3,7 @@
 from random import randint
 from datetime import datetime, timedelta
 
+
 class Counter(object):
     def __init__(self, ls=None):
         super(Counter, self).__init__()
@@ -11,64 +12,64 @@ class Counter(object):
 
     def counter(self, codeInBilling=None):
 
-        tarifnost = randint(1,3)
+        tarifnost = randint(1, 3)
 
         array = []
-        for x in range(0,tarifnost):
+        for x in range(0, tarifnost):
             tarif = {
                 "DatePok": "2018-11-01T00:00:00.000",
                 "NomerTarifa": x,
                 "NazvanieTarifa": f'T{x+1}',
-                "PredPok": str(randint(100,9_999))
+                "PredPok": str(randint(100, 9_999))
             }
             array.append(tarif)
 
         content = {
-                "RowID": str(randint(10_000,99_999)),
-                "Tarifnost": tarifnost,
-                "NomerUslugi": 100,
-                "NazvanieUslugi": "Электроснабжение",
-                "ZavodNomer": str(randint(10_000,99_999)),
-                "Razradnost": "4",
-                "KoefTrans": "1",
-                "MaxPok": "3000",
-                "result": "ЭЛ",
-                "errorCode": "ЭЛ",
-                "errorMessage": "ЭЛ",
-                "ASKUE": str(randint(0,1)), # автомат или нет
-                "DateCheck": "2018-11-01T00:00:00.000",
-                "DateNextCheck": "2018-11-01T00:00:00.000",
-                "NomerUslugiForBilling": str(randint(10_000,99_999)),
-                "Tarif": array
-            }
+            "RowID": str(randint(10_000, 99_999)),
+            "Tarifnost": tarifnost,
+            "NomerUslugi": 100,
+            "NazvanieUslugi": "Электроснабжение",
+            "ZavodNomer": str(randint(10_000, 99_999)),
+            "Razradnost": "4",
+            "KoefTrans": "1",
+            "MaxPok": "3000",
+            "result": "ЭЛ",
+            "errorCode": "ЭЛ",
+            "errorMessage": "ЭЛ",
+            "ASKUE": str(randint(0, 1)),  # автомат или нет
+            "DateCheck": "2018-11-01T00:00:00.000",
+            "DateNextCheck": "2018-11-01T00:00:00.000",
+            "NomerUslugiForBilling": str(randint(10_000, 99_999)),
+            "Tarif": array
+        }
 
         return content
 
     def history(self, RowID=None):
 
-        tarifnost = randint(1,3)
-        date = datetime.now() - timedelta(days=randint(20,30))
+        tarifnost = randint(1, 3)
+        date = datetime.now() - timedelta(days=randint(20, 30))
 
         array = []
-        for x in range(0,tarifnost):
+        for x in range(tarifnost):
             tarif = {
-                    "NomerTarifa": x,
-                    "NazvanieTarifa": f'T{x+1}',
-                    "POKAZANIE": str(randint(100,99_999)),
-                    "RASHOD": str(randint(100,99_999)),
-                    "RASHODRASPR": "0",
-                    "SOSTOYANIE": "1",
-                    "TIPVVODA": "Абонентское показание (интернет)"
+                "NomerTarifa": x,
+                "NazvanieTarifa": f'T{x+1}',
+                "POKAZANIE": str(randint(10, 99_999)),
+                "RASHOD": str(randint(10, 99_999)),
+                "RASHODRASPR": "0",
+                "SOSTOYANIE": "1",
+                "TIPVVODA": "Показание"
             }
             array.append(tarif)
 
         content = {
             "DATA": date.isoformat(timespec='milliseconds'),
-            "ZavodNomer": str(randint(10_000,99_999)),
-            "NazvanieUslugi": "Электроснабжение",
+            "ZavodNomer": f'ZN-{randint(10, 99)}-{randint(10_000, 99_999)}',
+            "NazvanieUslugi": "Услуга",
             "Tarifnost": tarifnost,
-            "RowID": str(randint(10_000,99_999)),
-            "Rashod": randint(10,99_999),
+            "RowID": RowID if not None else str(randint(100, 99_999)),
+            "Rashod": randint(10, 99_999),
             "pokazaniya": array
         }
 
@@ -84,18 +85,18 @@ class Counter(object):
             }
         ]
         """
-        
+
         _count = None
         if discretization.lower() == 'h':
-            _count = count if count < 23 else randint(0,23)
+            _count = count if count < 23 else randint(0, 23)
         if discretization.lower() == 'd':
-            _count = count if count < 29 else randint(0,29)
+            _count = count if count < 29 else randint(0, 29)
         if discretization.lower() == 'm':
-            _count = count if count < 12 else randint(0,12)
-        
+            _count = count if count < 12 else randint(0, 12)
+
         array = []
-        for x in range(0,_count):
-            
+        for x in range(_count):
+
             _date = None
             _max = None
             if discretization.lower() == 'h':
@@ -110,14 +111,14 @@ class Counter(object):
 
             content = {
                 "date": _date.isoformat(timespec='milliseconds'),
-                "value": randint(0,_max) / 100
+                "value": randint(0, _max) / 100
             }
             array.append(content)
 
         return array
 
 
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 
 if __name__ == '__main__':
     # print(Counter().counter())
@@ -125,4 +126,4 @@ if __name__ == '__main__':
     # print(Counter().ascue(3,'d'))
     pass
 
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
