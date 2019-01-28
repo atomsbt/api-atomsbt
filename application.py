@@ -526,6 +526,15 @@ url_getlink = '/api/pay/getlink'
 @app.route(url_getlink, methods=['POST'])
 def request_getlink():
 
+    summ = request.get_json().get('summ')
+    if summ is not None and summ == 0:
+        err = {
+            "result": False,
+            "errorCode": -32131,
+            "errorText": 'summ должна быть больше 0',
+        }
+        return (json(err), 500)
+
     success = {
         "result": True,
         "link": "https://api-atomsbt.herokuapp.com/pay"
@@ -806,8 +815,6 @@ def request_url_push_chenge(option=None):
 @app.route("/")
 @app.route("/<option>")
 def main(option='index'):
-
-    print(f'REQUEST {request.method} {request.path}')
 
     temp = f'{option}.html'
     return render_template(temp)
