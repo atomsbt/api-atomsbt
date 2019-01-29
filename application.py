@@ -577,7 +577,7 @@ def request_url_reports(option=None):
 
     success = {
         "result": True,
-        "url": "https://static.tinkoff.ru/documents/docs/terms_of_integrated_banking_services.pdf"
+        "url": "https://api-atomsbt.herokuapp.com/page.pdf"
     }
 
     sleep(1)
@@ -586,10 +586,7 @@ def request_url_reports(option=None):
 # -----------------------------------------------------------------------
 
 
-url_services = '/api/user/services'
-
-
-@app.route(url_services, methods=['POST'])
+@app.route('/api/user/services', methods=['POST'])
 def request_url_services():
 
     lon = request.get_json()['longitude']
@@ -826,6 +823,11 @@ def main(option='index'):
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
+@app.route('/page.pdf')
+def page_pdf():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'page.pdf', mimetype='application/pdf')
 
 
 if __name__ == '__main__':
