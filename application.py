@@ -38,12 +38,12 @@ app = Flask(__name__)
 @app.after_request
 def after_request(response):
 
-    if request.method == 'POST':
-        req = f'\nREQUEST {request.method} {request.path}'
-        hed = '\nHEADERS {}'.format({"token": request.headers.get("token")})
-        bod = f'\nBODY {request.get_json()}\n'
-        message = '-'*80+req+hed+bod+'-'*80
-        print(message)
+
+    req = f'\nREQUEST {request.method} {request.path}'
+    hed = '\nHEADERS {}'.format({"token": request.headers.get("token")})
+    bod = f'\nBODY {request.get_json()}\n'
+    message = '-'*80+req+hed+bod+'-'*80
+    print(message)
 
     return response
 
@@ -505,7 +505,7 @@ def request_url_getpaygateway(ls=None):
     for _ in range(randint(1, 5)):
         rnd = randint(10_000, 99_999)
         pay_gateway = {
-            "code": "BN{}".format(rnd),
+            "code": "BN-{}".format(rnd),
             "name": "Банк {}".format(rnd)
         }
         array.append(pay_gateway)
