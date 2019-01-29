@@ -578,7 +578,7 @@ def request_url_reports(option=None):
 
     success = {
         "result": True,
-        "url": "https://static.tinkoff.ru/documents/docs/terms_of_integrated_banking_services.pdf"
+        "url": "https://api-tver.atomsbt.ru/temp/reportls_69100122131_5c5060135b70c.pdf"
     }
 
     sleep(1)
