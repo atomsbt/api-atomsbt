@@ -38,7 +38,6 @@ app = Flask(__name__)
 @app.after_request
 def after_request(response):
 
-
     req = f'\nREQUEST {request.method} {request.path}'
     hed = '\nHEADERS {}'.format({"token": request.headers.get("token")})
     bod = str()
@@ -578,7 +577,7 @@ def request_url_reports(option=None):
 
     success = {
         "result": True,
-        "url": "https://api-tver.atomsbt.ru/temp/reportls_69100122131_5c5060135b70c.pdf"
+        "url": "https://static.tinkoff.ru/documents/docs/terms_of_integrated_banking_services.pdf"
     }
 
     sleep(1)
@@ -824,8 +823,8 @@ def main(option='index'):
     return render_template(temp)
 
 
-@app.route('/favicon.ico') 
-def favicon(): 
+@app.route('/favicon.ico')
+def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 

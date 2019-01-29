@@ -36,7 +36,7 @@ class Payment(object):
     def __init__(self):
         super(Payment, self).__init__()
 
-        self.url_pdf = "https://api-tver.atomsbt.ru/temp/reportls_69100122131_5c5060135b70c.pdf"
+        self.url_pdf = "https://static.tinkoff.ru/documents/docs/terms_of_integrated_banking_services.pdf"
 
     def payment(self):
 
