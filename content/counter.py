@@ -24,19 +24,21 @@ class Counter(object):
             }
             array.append(tarif)
 
+        askue = randint(0, 1)
+
         content = {
             "RowID": str(randint(10_000, 99_999)),
             "Tarifnost": tarifnost,
             "NomerUslugi": 100,
             "NazvanieUslugi": "Электроснабжение",
-            "ZavodNomer": f'ZN-{randint(10, 99)}-{randint(10_000, 99_999)}',
+            "ZavodNomer": f'ZN-{randint(10, 99)}-{randint(10_000, 99_999)}' + ' ASKUE' * askue,
             "Razradnost": "4",
             "KoefTrans": "1",
             "MaxPok": "3000",
             "result": "ЭЛ",
             "errorCode": "ЭЛ",
             "errorMessage": "ЭЛ",
-            "ASKUE": str(randint(0, 1)),  # автомат или нет
+            "ASKUE": str(askue),  # автомат или нет
             "DateCheck": "2018-11-01T00:00:00.000",
             "DateNextCheck": "2018-11-01T00:00:00.000",
             "NomerUslugiForBilling": str(randint(10_000, 99_999)),
