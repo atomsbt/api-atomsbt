@@ -70,10 +70,7 @@ def error(errorCode):
 # -----------------------------------------------------------------------
 
 
-url_user = '/api/user'
-
-
-@app.route(url_user, methods=['GET'])
+@app.route('/api/user', methods=['GET'])
 def request_user():
 
     success = {
@@ -99,13 +96,8 @@ def request_user():
     sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (error(4020), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_auth = '/api/user/auth'
-
-
-@app.route(url_auth, methods=['POST'])
+@app.route('/api/user/auth', methods=['POST'])
 def request_auth():
 
     success = {
@@ -116,13 +108,8 @@ def request_auth():
     sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (error(401), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_user_changeemail = '/api/user/changeemail'
-
-
-@app.route(url_user_changeemail, methods=['POST'])
+@app.route('/api/user/changeemail', methods=['POST'])
 def request_url_user_changeemail():
 
     success = {
@@ -133,13 +120,8 @@ def request_url_user_changeemail():
     sleep(0.5)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5070), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_user_changepassword = '/api/user/changepassword'
-
-
-@app.route(url_user_changepassword, methods=['POST'])
+@app.route('/api/user/changepassword', methods=['POST'])
 def request_url_user_changepassword():
 
     success = {
@@ -150,13 +132,8 @@ def request_url_user_changepassword():
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(4050), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_user_tel_change = '/api/user/tel/change'
-
-
-@app.route(url_user_tel_change, methods=['POST'])
+@app.route('/api/user/tel/change', methods=['POST'])
 def request_url_user_tel_change():
 
     success = {
@@ -167,13 +144,8 @@ def request_url_user_tel_change():
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5010), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_user_tel_change_confirm = '/api/user/tel/change/confirm'
-
-
-@app.route(url_user_tel_change_confirm, methods=['POST'])
+@app.route('/api/user/tel/change/confirm', methods=['POST'])
 def request_url_user_tel_change_confirm():
 
     success = {
@@ -184,13 +156,8 @@ def request_url_user_tel_change_confirm():
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_register = '/api/user/register/tel'
-
-
-@app.route(url_register, methods=['POST'])
+@app.route('/api/user/register/tel', methods=['POST'])
 def request_url_register():
 
     success = {
@@ -201,13 +168,8 @@ def request_url_register():
     sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (error(6010), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_confirm = '/api/user/confirm/tel'
-
-
-@app.route(url_confirm, methods=['POST'])
+@app.route('/api/user/confirm/tel', methods=['POST'])
 def request_confirm():
 
     success = {
@@ -218,13 +180,8 @@ def request_confirm():
     sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (error(5010), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_reset = '/api/user/reset/tel'
-
-
-@app.route(url_reset, methods=['POST'])
+@app.route('/api/user/reset/tel', methods=['POST'])
 def request_reset():
 
     success = {
@@ -235,13 +192,8 @@ def request_reset():
     sleep(0.5)
     return (json(success), 200) if randint(0, 10) != 5 else (error(401), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_agreement = '/api/agreement'
-
-
-@app.route(url_agreement, methods=['GET'])
+@app.route('/api/agreement', methods=['GET'])
 def request_url_agreement():
 
     success = {
@@ -252,16 +204,11 @@ def request_url_agreement():
     sleep(0.5)
     return (json(success), 200) if randint(0, 10) != 5 else (error(500), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_ls = '/api/ls'
-
-
-@app.route(url_ls, methods=['GET'])
+@app.route('/api/ls', methods=['GET'])
 def request_url_ls():
 
-    array = []
+    array = list()
     for i in range(randint(1, 8)):
         array.append(LS().object(1 if i == 0 else 0))
 
@@ -273,13 +220,8 @@ def request_url_ls():
     sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (error(7050), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_ls_option = '/api/ls/<option>'
-
-
-@app.route(url_ls_option, methods=['GET', 'POST'])
+@app.route('/api/ls/<option>', methods=['GET', 'POST'])
 def request_ls_option(option=None):
 
     success = None
@@ -297,13 +239,8 @@ def request_ls_option(option=None):
     sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (error(7080), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_ls_services = '/api/ls/<ls>/services'
-
-
-@app.route(url_ls_services, methods=['GET'])
+@app.route('/api/ls/<ls>/services', methods=['GET'])
 def request_url_ls_services(ls=None):
 
     sql = """
@@ -313,7 +250,7 @@ def request_url_ls_services(ls=None):
         ORDER BY id ASC    
     """
 
-    array = []
+    array = list()
     standart = AtomDB().execute(sql.format('standart'))
     for x in range(randint(0, len(standart))):
         name = standart[x].get('name')
@@ -336,16 +273,11 @@ def request_url_ls_services(ls=None):
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(9050), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_counters = '/api/ls/<ls>/counters/list/<codeInBilling>'
-
-
-@app.route(url_counters, methods=['GET'])
+@app.route('/api/ls/<ls>/counters/list/<codeInBilling>', methods=['GET'])
 def request_ls_counters(ls=None, codeInBilling=None):
 
-    array = []
+    array = list()
     for _ in range(randint(1, 5)):
         array.append(Counter(ls=ls).counter(codeInBilling=codeInBilling))
 
@@ -366,16 +298,11 @@ def request_ls_counters(ls=None, codeInBilling=None):
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(6060), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_counters_option = '/api/ls/counters/<option>'
-
-
-@app.route(url_counters_option, methods=['POST'])
+@app.route('/api/ls/counters/<option>', methods=['POST'])
 def request_counters_option(option):
 
-    success = {}
+    success = dict()
     err = None
 
     if option == 'add':
@@ -403,13 +330,8 @@ def request_counters_option(option):
     sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (err, 500)
 
-# -----------------------------------------------------------------------
 
-
-url_ls_service_id = '/api/ls/<ls>/services/<id>'
-
-
-@app.route(url_ls_service_id, methods=['GET'])
+@app.route('/api/ls/<ls>/services/<id>', methods=['GET'])
 def request_url_ls_service_id(ls=None, id=None):
 
     sql = """
@@ -417,7 +339,7 @@ def request_url_ls_service_id(ls=None, id=None):
         FROM atom_forms    
     """
 
-    array = []
+    array = list()
     dbarr = AtomDB().execute(sql)
     for x in range(randint(0, len(dbarr))):
         name = dbarr[x].get('name')
@@ -436,13 +358,8 @@ def request_url_ls_service_id(ls=None, id=None):
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(9050), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_send_form = '/api/user/send/form'
-
-
-@app.route(url_send_form, methods=['POST'])
+@app.route('/api/user/send/form', methods=['POST'])
 def request_send_form():
 
     success = {
@@ -453,16 +370,11 @@ def request_send_form():
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5090), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_payments = '/api/ls/payments'
-
-
-@app.route(url_payments, methods=['POST'])
+@app.route('/api/ls/payments', methods=['POST'])
 def request_payments():
 
-    array = []
+    array = list()
     for _ in range(randint(0, 15)):
         array.append(Payment().payment())
 
@@ -478,13 +390,8 @@ def request_payments():
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(10050), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_checks = '/api/ls/<ls>/checks/<tranzakciya>'
-
-
-@app.route(url_checks, methods=['GET'])
+@app.route('/api/ls/<ls>/checks/<tranzakciya>', methods=['GET'])
 def request_checks(ls=None, tranzakciya=None):
 
     success = {
@@ -495,16 +402,11 @@ def request_checks(ls=None, tranzakciya=None):
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(9030), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_getpaygateway = '/api/ls/<ls>/pay/getpaygateway'
-
-
-@app.route(url_getpaygateway, methods=['GET'])
+@app.route('/api/ls/<ls>/pay/getpaygateway', methods=['GET'])
 def request_url_getpaygateway(ls=None):
 
-    array = []
+    array = list()
     for _ in range(randint(1, 5)):
         rnd = randint(10_000, 99_999)
         pay_gateway = {
@@ -523,10 +425,7 @@ def request_url_getpaygateway(ls=None):
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
 
-url_getlink = '/api/pay/getlink'
-
-
-@app.route(url_getlink, methods=['POST'])
+@app.route('/api/pay/getlink', methods=['POST'])
 def request_getlink():
 
     summ = request.get_json().get('summ')
@@ -546,16 +445,11 @@ def request_getlink():
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_kvtMonths = '/api/ls/<ls>/reports/kvtMonths'
-
-
-@app.route(url_kvtMonths, methods=['GET'])
+@app.route('/api/ls/<ls>/reports/kvtMonths', methods=['GET'])
 def request_url_kvtMonths(ls=None):
 
-    array = []
+    array = list()
     for i in range(randint(1, 15)):
         date = datetime.now() - timedelta(days=31*i)
         array.append(date.isoformat(timespec='milliseconds'))
@@ -569,10 +463,7 @@ def request_url_kvtMonths(ls=None):
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
 
-url_reports = '/api/ls/reports/<option>'
-
-
-@app.route(url_reports, methods=['POST'])
+@app.route('/api/ls/reports/<option>', methods=['POST'])
 def request_url_reports(option=None):
 
     success = {
@@ -582,8 +473,6 @@ def request_url_reports(option=None):
 
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
-
-# -----------------------------------------------------------------------
 
 
 @app.route('/api/user/services', methods=['POST'])
@@ -601,13 +490,8 @@ def request_url_services():
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_getInstallation = '/api/ls/<ls>/victronenergy/getInstallation'
-
-
-@app.route(url_getInstallation, methods=['GET'])
+@app.route('/api/ls/<ls>/victronenergy/getInstallation', methods=['GET'])
 def request_url_getInstallation(ls=None):
 
     success = {
@@ -622,13 +506,8 @@ def request_url_getInstallation(ls=None):
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_camera = '/api/ls/<ls>/camera'
-
-
-@app.route(url_camera, methods=['GET'])
+@app.route('/api/ls/<ls>/camera', methods=['GET'])
 def request_url_camera(ls=None):
 
     sql = """
@@ -636,7 +515,7 @@ def request_url_camera(ls=None):
         FROM atom_video
     """
 
-    array = []
+    array = list()
     dbarr = AtomDB().execute(sql)
     if len(dbarr) > 0:
         for x in range(len(dbarr)):
@@ -654,14 +533,16 @@ def request_url_camera(ls=None):
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(9040), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_ontime = '/api/ls/counter/ontime'
-
-
-@app.route(url_ontime, methods=['POST'])
-def request_url_ontime():
+@app.route('/api/ls/counter/ontime', methods=['POST'])
+def request_ontime():
+    # {
+    #     "ls": "69100403061",
+    #     "startdate": "2018-10-01T00:00:00.000",
+    #     "enddate": "2018-10-30T23:59:59.000",
+    #     "RowID": "60139",
+    #     "discretization": "d"
+    # }
 
     disc = request.get_json().get('discretization')
     date = request.get_json().get('startdate')
@@ -674,28 +555,34 @@ def request_url_ontime():
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(6080), 500)
 
-# -----------------------------------------------------------------------
 
+@app.route('/api/ls/analytics', methods=['POST'])
+def request_analytics():
+    # {
+    #     "ls": "69100403061",
+    #     "startdate": "2018-01-01T00:00:00.000",
+    #     "enddate": "2018-11-07T23:59:59.000",
+    #     "rowid": "1050194"
+    # }
 
-url_analytics = '/api/ls/analytics'
-
-
-@app.route(url_analytics, methods=['POST'])
-def request_url_analytics():
-
-    current = choice((True, False))
+    current = choice([True, False])
+    tarifs = ['Одноставочный', 'Двуставочный']
+    tarif = choice([True, False])
 
     success = {
         "result": True,
+        "change": choice([True, False]),
+        "idTarif": randint(11100, 999900),
+        "nameTarif": "Переходный",
         "data": [
             {
                 "Current": current,
-                "Tarif": "1",
+                "Tarif": tarifs[0 if tarif else 1],
                 "sum": randint(11100, 999900)
             },
             {
                 "Current": not current,
-                "Tarif": "2",
+                "Tarif": tarifs[0 if not tarif else 1],
                 "sum": randint(11100, 999900)
             }
         ]
@@ -704,14 +591,26 @@ def request_url_analytics():
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(10040), 500)
 
-# -----------------------------------------------------------------------
+
+@app.route('/api/user/changeTarif', methods=['POST'])
+def request_change_tarif():
+    # {
+    #     "ls": 69100403061,
+    #     "idTarif": 1
+    #     "rowid": "1050194"
+    # }
+
+    success = {
+        "result": True,
+        "message": "Ваше сообщение принято"
+    }
+
+    sleep(1)
+    return (json(success), 200) if randint(0, 10) != 5 else (error(6020), 500)
 
 
-url_askue = '/api/ls/counter/last'
-
-
-@app.route(url_askue, methods=['POST'])
-def request_url_askue():
+@app.route('/api/ls/counter/last', methods=['POST'])
+def request_counter_last():
 
     success = {
         "result": True,
@@ -722,14 +621,9 @@ def request_url_askue():
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(10080), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_getWeatherToLS = '/api/ls/<option>/getWeatherToLS'
-
-
-@app.route(url_getWeatherToLS, methods=['GET'])
-def request_url_getWeatherToLS(option):
+@app.route('/api/ls/<option>/getWeatherToLS', methods=['GET'])
+def request_get_weather_to_ls(option):
 
     icon = choice([
         "bkn_-sn_n", "bkn_+ra_d", "bkn_+ra_n", "bkn_+sn_d", "bkn_+sn_n",
@@ -740,25 +634,21 @@ def request_url_getWeatherToLS(option):
         "ovc_ra_sn", "ovc_ra", "ovc_sn", "ovc_ts_gr", "ovc_ts_ra", "ovc_ts",
         "ovc", "skc_d", "skc_n"
     ])
+    icon_url = f"https://yastatic.net/weather/i/icons/blueye/color/svg/{icon}.svg"
 
     success = {
         "result": True,
         "data": {
             "temp": str(randint(-40, 40)),
-            "icon": f"https://yastatic.net/weather/i/icons/blueye/color/svg/{icon}.svg"
+            "icon": icon_url
         }
     }
 
     sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(10080), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_feedback = '/api/user/feedback'
-
-
-@app.route(url_feedback, methods=['POST'])
+@app.route('/api/user/feedback', methods=['POST'])
 def request_feedback():
 
     success = {
@@ -770,16 +660,13 @@ def request_feedback():
     return (json(success), 200) if randint(0, 10) != 5 else (error(6020), 500)
 
 
-url_getTheme = '/api/ls/<option>/getTheme'
-
-
-@app.route(url_getTheme, methods=['GET'])
+@app.route('/api/ls/<option>/getTheme', methods=['GET'])
 def request_url_getTheme(option):
 
     array = list()
     for i in range(randint(1, 20)):
         item = {
-            "theme": f'theme {i}'+choice([' тестовый текст для проверки 2х строчной выпадалки', '']),
+            "theme": f'theme {i}' + choice([' тестовый текст для проверки 2х строчной выпадалки', '']),
             "description": choice(["test", None, ""]),
             "id": f'{i}'
         }
@@ -793,13 +680,8 @@ def request_url_getTheme(option):
     sleep(0.5)
     return (json(success), 200) if randint(0, 10) != 5 else (error(6020), 500)
 
-# -----------------------------------------------------------------------
 
-
-url_push_chenge = '/api/devices/<option>'
-
-
-@app.route(url_push_chenge, methods=['POST'])
+@app.route('/api/devices/<option>', methods=['POST'])
 def request_url_push_chenge(option=None):
 
     success = {
@@ -816,18 +698,16 @@ def request_url_push_chenge(option=None):
 @app.route("/<option>")
 def main(option='index'):
 
-    temp = f'{option}.html'
-    return render_template(temp)
+    static = {
+        'favicon.ico': 'image/vnd.microsoft.icon',
+        'page.pdf': 'application/pdf'
+    }
 
+    if static.get(option) is not None:
+        path = os.path.join(app.root_path, 'static')
+        return send_from_directory(path, option, mimetype=static.get(option))
 
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
-
-
-@app.route('/page.pdf')
-def page_pdf():
-    return send_from_directory(os.path.join(app.root_path, 'static'), 'page.pdf', mimetype='application/pdf')
+    return render_template(f'{option}.html')
 
 
 if __name__ == '__main__':
