@@ -111,5 +111,4 @@ venv.bak/
 dmypy.json
 
 # vscode
-.vscode/*
 .vscode
