@@ -24,6 +24,12 @@ class AtomDB(object):
         self._db_cursor.execute(sql)
         return self._db_cursor.fetchall()
 
+    def execute_first(self, sql: str):
+        """ :return: { key_1: item_1 } """
+        self._db_cursor.execute(sql)
+        array = self._db_cursor.fetchall()
+        return array[0] if len(array) > 0 else None
+
     def __del__(self):
         self._db_connect.close()
         self._db_cursor.close()

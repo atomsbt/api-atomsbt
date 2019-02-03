@@ -13,7 +13,6 @@ icons: https://cloudinary.com
 
 import os
 import uuid
-import logging
 
 from flask import Flask, request, render_template, send_from_directory
 from flask import jsonify as json
@@ -99,13 +98,25 @@ def request_user():
 
 @app.route('/api/user/auth', methods=['POST'])
 def request_auth():
+    # {
+    #     "login": "79000000009",
+    #     "password": "password"
+    # }
+
+    login = request.get_json().get('login')
+    sql = """
+        SELECT login, token 
+        FROM atom_users
+        WHERE login LIKE '{}'
+    """.format(login)
+    user = AtomDB().execute_first(sql)
 
     success = {
         "result": True,
-        "token": str(uuid.uuid4().hex)
+        "token": user.get('token') if user is not None else str(uuid.uuid4().hex)
     }
 
-    sleep(1)
+    sleep(0.5)
     return (json(success), 200) if randint(0, 20) != 5 else (error(401), 500)
 
 
@@ -208,8 +219,16 @@ def request_url_agreement():
 @app.route('/api/ls', methods=['GET'])
 def request_url_ls():
 
+    token = request.headers.get("token")
+    sql = """
+        SELECT login, ls 
+        FROM atom_users
+        WHERE token LIKE '{}' 
+    """.format(token)
+    ls = AtomDB().execute_first(sql)
+
     array = list()
-    for i in range(randint(1, 8)):
+    for i in range(len(ls.get('ls')) if ls is not None else randint(1, 8)):
         array.append(LS().object(1 if i == 0 else 0))
 
     success = {
@@ -629,10 +648,9 @@ def request_get_weather_to_ls(option):
         "bkn_-sn_n", "bkn_+ra_d", "bkn_+ra_n", "bkn_+sn_d", "bkn_+sn_n",
         "bkn_d", "bkn_n", "bkn_ra_d", "bkn_ra_n", "bkn_sn_d", "bkn_sn_n",
         "bl-", "bl", "fct_-ra", "fct_-sn", "fct_+ra", "fct_+sn", "fct_ra_sn",
-        "fct_ra", "fct_sn_dwn", "fct_sn_rs", "fct_sn",
-        "fg_d", "fg_n", "ovc_-ra", "ovc_-sn", "ovc_+ra", "ovc_+sn", "ovc_gr",
-        "ovc_ra_sn", "ovc_ra", "ovc_sn", "ovc_ts_gr", "ovc_ts_ra", "ovc_ts",
-        "ovc", "skc_d", "skc_n"
+        "fct_ra", "fct_sn_dwn", "fct_sn_rs", "fct_sn", "fg_d", "fg_n", "ovc_-ra",
+        "ovc_-sn", "ovc_+ra", "ovc_+sn", "ovc_gr", "ovc_ra_sn", "ovc_ra",
+        "ovc_sn", "ovc_ts_gr", "ovc_ts_ra", "ovc_ts", "ovc", "skc_d", "skc_n"
     ])
     icon_url = f"https://yastatic.net/weather/i/icons/blueye/color/svg/{icon}.svg"
 
@@ -644,8 +662,8 @@ def request_get_weather_to_ls(option):
         }
     }
 
-    sleep(1)
-    return (json(success), 200) if randint(0, 10) != 5 else (error(10080), 500)
+    sleep(0.5)
+    return (json(success), 200) if randint(0, 20) != 5 else (error(10080), 500)
 
 
 @app.route('/api/user/feedback', methods=['POST'])
@@ -666,7 +684,7 @@ def request_url_getTheme(option):
     array = list()
     for i in range(randint(1, 20)):
         item = {
-            "theme": f'theme {i}' + choice([' тестовый текст для проверки 2х строчной выпадалки', '']),
+            "theme": f'Тема с номером {i}' + choice([' тестовый текст для проверки 2х строчной выпадалки', '']),
             "description": choice(["test", None, ""]),
             "id": f'{i}'
         }
