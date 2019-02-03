@@ -14,7 +14,7 @@ class Counter(object):
 
         tarifnost = randint(1, 3)
 
-        array = []
+        array = list()
         for x in range(0, tarifnost):
             tarif = {
                 "DatePok": "2018-11-01T00:00:00.000",
@@ -52,7 +52,7 @@ class Counter(object):
         tarifnost = randint(1, 3)
         date = datetime.now() - timedelta(days=randint(20, 30))
 
-        array = []
+        array = list()
         for x in range(tarifnost):
             tarif = {
                 "NomerTarifa": x,
@@ -78,15 +78,6 @@ class Counter(object):
         return content
 
     def ascue(self, count, discretization, date):
-        """
-        return 
-        [
-            {
-                "date": string,
-                "value": int
-            }
-        ]
-        """
 
         _count = None
         if discretization.lower() == 'h':
@@ -96,7 +87,7 @@ class Counter(object):
         if discretization.lower() == 'm':
             _count = count if count < 12 else randint(0, 12)
 
-        array = []
+        array = list()
         for x in range(_count):
 
             _date = None

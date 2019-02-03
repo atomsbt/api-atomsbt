@@ -313,7 +313,7 @@ def request_counters_option(option):
         err = error(6050)
 
     if option == 'history':
-        array = []
+        array = list()
         for _ in range(randint(1, 15)):
             array.append(Counter().history())
 
