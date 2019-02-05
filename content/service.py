@@ -101,7 +101,7 @@ class Form(object):
         }
         """
         array = list()
-        for _ in range(randint(1, field_values_count)):
+        for _ in range(field_values_count):
             guid = randint(100, 999)
             value = {
                 "id": str(guid),
