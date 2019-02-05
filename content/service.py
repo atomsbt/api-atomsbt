@@ -46,7 +46,7 @@ class Form(object):
             "TEXT",  # просто текст
             "NUMERIC",  # цифры 12345678
             "MONEY",  # поле ввода денежных единиц с разбивкой по разрядам
-            "DATE",  # ввод даты, на север уходит unixtime
+            #"DATE",  # ввод даты, на север уходит unixtime
             "COMBO_BOX",  # поле с возможными значениями из values
             "CHECK_BOX",  # поле имеет значение 0/1
             "PRINTED_TEXT"  # поле нередактируемого текста
@@ -69,7 +69,7 @@ class Form(object):
         for x in range(randint(1, form_fields_count if form_fields_count > 0 else 1)):
             field_type = self.form_field_type[randint(
                 0, len(self.form_field_type)-1)]
-            combo_count = 0 if field_type != 'COMBO_BOX' else randint(0, 10)
+            combo_count = 0 if field_type != 'COMBO_BOX' else randint(1, 10)
             field = Form().field('Поле типа {0} с номером {1}'.format(
                 field_type, x), field_type, combo_count)
             fields.append(field)
@@ -101,7 +101,7 @@ class Form(object):
         }
         """
         array = list()
-        for _ in range(randint(0, field_values_count)):
+        for _ in range(randint(1, field_values_count)):
             guid = randint(100, 999)
             value = {
                 "id": str(guid),
