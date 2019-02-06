@@ -386,7 +386,7 @@ def request_send_form():
         "message": "Данные приняты сервером"
     }
 
-    sleep(1)
+    sleep(2)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5090), 500)
 
 

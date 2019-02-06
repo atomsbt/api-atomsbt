@@ -46,7 +46,7 @@ class Form(object):
             "TEXT",  # просто текст
             "NUMERIC",  # цифры 12345678
             "MONEY",  # поле ввода денежных единиц с разбивкой по разрядам
-            #"DATE",  # ввод даты, на север уходит unixtime
+            "DATE",  # ввод даты, на север уходит unixtime
             "COMBO_BOX",  # поле с возможными значениями из values
             "CHECK_BOX",  # поле имеет значение 0/1
             "PRINTED_TEXT"  # поле нередактируемого текста
@@ -83,7 +83,7 @@ class Form(object):
 
         return content
 
-    def field(self, field_name: str, field_type=None, field_values_count=0):
+    def field(self, field_name: str, field_type: str, field_values_count=0):
         """
         return {
             "id": str,
