@@ -113,7 +113,8 @@ class Form(object):
         if field_type in ['MONEY', 'NUMERIC']:
             value = str(randint(100, 999999999))
         if field_type == 'COMBO_BOX':
-            value = None if len(array) < 1 else array[randint(0,len(array))].get('id')
+            if len(array) > 0:
+                value = array[randint(0,len(array))-1].get('id')
         if field_type == 'TEXT':
             value = f'Некоторый текст' + choice([', тестовый для проверки 2х строчной выпадалки', ''])
 
