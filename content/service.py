@@ -109,6 +109,14 @@ class Form(object):
             }
             array.append(value)
 
+        value = None
+        if field_type in ['MONEY', 'NUMERIC']:
+            value = str(randint(100, 999999999))
+        if field_type == 'COMBO_BOX':
+            value = array[randint(0,len(array))]['id'] if len(array) > 0 else None
+        if field_type == 'TEXT':
+            value = f'Некоторый текст' + choice([', тестовый для проверки 2х строчной выпадалки', ''])
+
         regexp = '^(\\w{1,10}|\\d{1,10})'
         content = {
             "id": str(randint(1_000, 9_999)),
@@ -117,7 +125,7 @@ class Form(object):
             "regexp": None if randint(0, 3) != 3 else regexp,
             "error_msg": "Указаны не верные данные",
             "values": array if len(array) > 0 else None,
-            "value": (array[0]['id'] if randint(0, 5) > 2 else None) if len(array) > 0 else None
+            "value": value if randint(0, 5) > 2 else None
         }
 
         return content
