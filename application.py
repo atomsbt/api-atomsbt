@@ -210,8 +210,8 @@ def request_url_agreement():
 @app.route('/api/ls', methods=['GET'])
 def request_url_ls():
 
-    token = request.headers.get("token")
-    if token == ('' or None):
+    token = request.headers.get('token')
+    if token in ['', None]:
         return (error(4010), 500)
 
     sql = """
@@ -621,7 +621,7 @@ def request_get_weather_to_ls(option):
     icon = choice([
         "bkn_-sn_n", "bkn_+ra_d", "bkn_+ra_n", "bkn_+sn_d", "bkn_+sn_n",
         "bkn_d", "bkn_n", "bkn_ra_d", "bkn_ra_n", "bkn_sn_d", "bkn_sn_n",
-        "bl-", "bl", "fct_-ra", "fct_-sn", "fct_+ra", "fct_+sn", "fct_ra_sn",
+        "bl", "fct_-ra", "fct_-sn", "fct_+ra", "fct_+sn", "fct_ra_sn",
         "fct_ra", "fct_sn_dwn", "fct_sn_rs", "fct_sn", "fg_d", "fg_n", "ovc_-ra",
         "ovc_-sn", "ovc_+ra", "ovc_+sn", "ovc_gr", "ovc_ra_sn", "ovc_ra",
         "ovc_sn", "ovc_ts_gr", "ovc_ts_ra", "ovc_ts", "ovc", "skc_d", "skc_n"
