@@ -47,6 +47,7 @@ def after_request(response):
     message = '-'*80+req+hed+bod+'-'*80
     print(message)
 
+    sleep(1)
     return response
 
 
@@ -92,7 +93,6 @@ def request_user():
         }
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (error(4020), 500)
 
 
@@ -116,7 +116,6 @@ def request_auth():
         "token": user.get('token') if user is not None else str(uuid.uuid4().hex)
     }
 
-    sleep(0.5)
     return (json(success), 200) if randint(0, 20) != 5 else (error(401), 500)
 
 
@@ -128,7 +127,6 @@ def request_url_user_changeemail():
         "message": "Емаил изменен"
     }
 
-    sleep(0.5)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5070), 500)
 
 
@@ -140,7 +138,6 @@ def request_url_user_changepassword():
         "message": "Пароль изменен"
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(4050), 500)
 
 
@@ -152,7 +149,6 @@ def request_url_user_tel_change():
         "message": "Код подтверждения отправлен на телефон"
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5010), 500)
 
 
@@ -164,7 +160,6 @@ def request_url_user_tel_change_confirm():
         "message": "Телефон изменен"
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
 
@@ -176,7 +171,6 @@ def request_url_register():
         "message": "Код подтверждения отправлен на телефон"
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (error(6010), 500)
 
 
@@ -188,7 +182,6 @@ def request_confirm():
         "message": "Пользователь успешно зарегистрирован"
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (error(5010), 500)
 
 
@@ -200,7 +193,6 @@ def request_reset():
         "message": "Новый пароль отправлен на телефон"
     }
 
-    sleep(0.5)
     return (json(success), 200) if randint(0, 10) != 5 else (error(401), 500)
 
 
@@ -212,7 +204,6 @@ def request_url_agreement():
         "link": "https://api-atomsbt.herokuapp.com/policy"
     }
 
-    sleep(0.5)
     return (json(success), 200) if randint(0, 10) != 5 else (error(500), 500)
 
 
@@ -220,6 +211,9 @@ def request_url_agreement():
 def request_url_ls():
 
     token = request.headers.get("token")
+    if token == ('' or None):
+        return (error(4010), 500)
+
     sql = """
         SELECT login, ls 
         FROM atom_users
@@ -236,7 +230,6 @@ def request_url_ls():
         "data": array
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (error(7050), 500)
 
 
@@ -255,7 +248,6 @@ def request_ls_option(option=None):
             "data": LS().details(option)
         }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (error(7080), 500)
 
 
@@ -289,7 +281,6 @@ def request_url_ls_services(ls=None):
         "data": array
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(9050), 500)
 
 
@@ -314,7 +305,6 @@ def request_ls_counters(ls=None, codeInBilling=None):
         }
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(6060), 500)
 
 
@@ -346,7 +336,6 @@ def request_counters_option(option):
         }
         err = error(7010)
 
-    sleep(1)
     return (json(success), 200) if randint(0, 20) != 5 else (err, 500)
 
 
@@ -374,7 +363,6 @@ def request_url_ls_service_id(ls=None, id=None):
         "data": array
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(9050), 500)
 
 
@@ -386,7 +374,6 @@ def request_send_form():
         "message": "Данные приняты сервером"
     }
 
-    sleep(2)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5090), 500)
 
 
@@ -406,7 +393,6 @@ def request_payments():
         "data": array
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(10050), 500)
 
 
@@ -418,7 +404,6 @@ def request_checks(ls=None, tranzakciya=None):
         "data": Payment().check()
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(9030), 500)
 
 
@@ -440,7 +425,6 @@ def request_url_getpaygateway(ls=None):
         "usls_enabled": False if randint(0, 3) != 3 else True
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
 
@@ -461,7 +445,6 @@ def request_getlink():
         "link": "https://api-atomsbt.herokuapp.com/pay"
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
 
@@ -478,7 +461,6 @@ def request_url_kvtMonths(ls=None):
         "data": array
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
 
@@ -490,7 +472,6 @@ def request_url_reports(option=None):
         "url": "https://api-atomsbt.herokuapp.com/page.pdf"
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
 
@@ -506,7 +487,6 @@ def request_url_services():
         "data": Map().places(float(lon), float(lat), float(dis))
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
 
@@ -522,7 +502,6 @@ def request_url_getInstallation(ls=None):
         "solar_yield": "140 W"
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
 
 
@@ -549,7 +528,6 @@ def request_url_camera(ls=None):
         "data": array
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(9040), 500)
 
 
@@ -571,7 +549,6 @@ def request_ontime():
         "data": Counter().ascue(randint(0, 30), disc, date)
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(6080), 500)
 
 
@@ -607,7 +584,6 @@ def request_analytics():
         ]
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(10040), 500)
 
 
@@ -624,7 +600,6 @@ def request_change_tarif():
         "message": "Ваше сообщение принято"
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(6020), 500)
 
 
@@ -637,7 +612,6 @@ def request_counter_last():
         "SILATOKA": "0.3 А"
     }
 
-    sleep(1)
     return (json(success), 200) if randint(0, 10) != 5 else (error(10080), 500)
 
 
@@ -662,7 +636,6 @@ def request_get_weather_to_ls(option):
         }
     }
 
-    sleep(0.5)
     return (json(success), 200) if randint(0, 20) != 5 else (error(10080), 500)
 
 
@@ -674,7 +647,6 @@ def request_feedback():
         "message": "Регистрация обращения выполнена"
     }
 
-    sleep(0.5)
     return (json(success), 200) if randint(0, 10) != 5 else (error(6020), 500)
 
 
@@ -695,7 +667,6 @@ def request_url_getTheme(option):
         "data": array
     }
 
-    sleep(0.5)
     return (json(success), 200) if randint(0, 10) != 5 else (error(6020), 500)
 
 
