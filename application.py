@@ -56,14 +56,14 @@ def error(errorCode):
     sql = """
         SELECT error_code, error_text 
         FROM atom_errors
-        WHERE error_code = {}   
-    """
-    ex = AtomDB().execute(sql.format(errorCode))
+        WHERE error_code = {}
+    """.format(errorCode)
+    ex = AtomDB().execute(sql)
 
     error = {
         "result": False,
         "errorCode": ex[0].get('error_code') if len(ex) > 0 else 0,
-        "errorText": ex[0].get('error_text') if len(ex) > 0 else None,
+        "errorText": f'{ex[0].get("error_text")}\n{request.path}' if len(ex) > 0 else None,
     }
     return json(error)
 
