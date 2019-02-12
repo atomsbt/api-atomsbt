@@ -104,7 +104,7 @@ class Form(object):
         for _ in range(field_values_count):
             guid = randint(100, 999)
             value = {
-                "id": str(guid),
+                "id": f'{guid}_id',
                 "value": f'Значение {guid}' + choice([' тестовый текст для проверки 2х строчной выпадалки', ''])
             }
             array.append(value)
