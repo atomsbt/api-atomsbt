@@ -110,7 +110,7 @@ class Form(object):
             array.append(value)
 
         value = None
-        if field_type in ['MONEY', 'NUMERIC']:
+        if field_type in ['MONEY', 'NUMERIC', 'PRINTED_TEXT']:
             value = str(randint(100, 999999999))
         if field_type == 'COMBO_BOX':
             if len(array) > 0:
@@ -126,7 +126,7 @@ class Form(object):
             "regexp": None if randint(0, 3) != 3 else regexp,
             "error_msg": "Указаны не верные данные",
             "values": array if len(array) > 0 else None,
-            "value": value if randint(0, 5) > 2 else None
+            "value": value if randint(0, 5) > 1 else None
         }
 
         return content
