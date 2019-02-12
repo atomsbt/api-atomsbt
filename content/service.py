@@ -75,7 +75,7 @@ class Form(object):
             fields.append(field)
 
         content = {
-            "id": str(randint(10_000, 99_999)),
+            "id": f'form_{randint(10_000, 99_999)}_id',
             "name": form_name,
             "image_url": form_image if not None else (self.image_url if randint(0, 3) != 3 else ''),
             "fields": fields
@@ -120,7 +120,7 @@ class Form(object):
 
         regexp = '^(\\w{1,10}|\\d{1,10})'
         content = {
-            "id": str(randint(1_000, 9_999)),
+            "id": f'{field_type}_{randint(100, 999)}_id',
             "name": field_name,
             "type": field_type,
             "regexp": None if randint(0, 3) != 3 else regexp,
