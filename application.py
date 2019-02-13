@@ -41,10 +41,10 @@ def after_request(response):
     hed = '\nHEADERS {}'.format({"token": request.headers.get("token")})
     bod = str()
     if request.method == 'POST':
-        bod = f'\nBODY {request.get_json()}\n'
+        bod = f'\nBODY {request.get_json()}'
     else:
-        bod = f'\nBODY {response.get_json()}\n'
-    message = '-'*80+req+hed+bod+'-'*80
+        bod = f'\nBODY {response.get_json()}'
+    message = req+hed+bod
     print(message)
 
     sleep(1)

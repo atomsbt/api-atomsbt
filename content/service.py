@@ -54,7 +54,7 @@ class Form(object):
 
     def form(self, form_name: str, form_image=None, form_fields_count=1):
         """
-        return {
+        :return: {
             "id": str,
             "name": str,
             "image_url": str,
@@ -85,7 +85,7 @@ class Form(object):
 
     def field(self, field_name: str, field_type: str, field_values_count=0):
         """
-        return {
+        :return: {
             "id": str,
             "name": str,
             "type": str,
