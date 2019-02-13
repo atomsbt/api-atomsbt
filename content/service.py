@@ -18,7 +18,7 @@ class Service(object):
 
         content = {
             "amount": amount,
-            "amount_peni": int(amount*0.12),
+            "amount_peni": choice([int(amount*0.12), 0]),
             "nds": 18,
             "image_url": image_url,
             "id": service_id,
