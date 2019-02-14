@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from random import randint, choice
+from datetime import datetime
 
 
 class Service(object):
@@ -46,7 +47,7 @@ class Form(object):
             "TEXT",  # просто текст
             "NUMERIC",  # цифры 12345678
             "MONEY",  # поле ввода денежных единиц с разбивкой по разрядам
-            "DATE",  # ввод даты, на север уходит unixtime
+            "DATE",  # ввод даты, на север уходит '2017-02-14T23:36:46.000'
             "COMBO_BOX",  # поле с возможными значениями из values
             "CHECK_BOX",  # поле имеет значение 0/1
             "PRINTED_TEXT"  # поле нередактируемого текста
@@ -110,13 +111,18 @@ class Form(object):
             array.append(value)
 
         value = None
-        if field_type in ['MONEY', 'NUMERIC', 'PRINTED_TEXT']:
+        if field_type in ['MONEY', 'NUMERIC']:
             value = str(randint(100, 999999999))
-        if field_type == 'COMBO_BOX':
+        if field_type in ['PRINTED_TEXT']:
+            value = choice([str(randint(100, 999999999)), 'Некоторый текст'])
+        if field_type in ['DATE']:
+            value = datetime.now().isoformat(timespec='milliseconds')
+        if field_type in ['COMBO_BOX']:
             if len(array) > 0:
-                value = array[randint(0,len(array))-1].get('id')
-        if field_type == 'TEXT':
-            value = f'Некоторый текст' + choice([', тестовый для проверки 2х строчной выпадалки', ''])
+                value = array[randint(0, len(array))-1].get('id')
+        if field_type in ['TEXT']:
+            value = f'Некоторый текст' + \
+                choice([', тестовый для проверки 2х строчной выпадалки', ''])
 
         regexp = '^(\\w{1,10}|\\d{1,10})'
         content = {

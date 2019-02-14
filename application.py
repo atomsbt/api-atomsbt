@@ -1,15 +1,7 @@
 #!/usr/bin/python3
 
-"""
-
-heroku logs -a api-atomsbt -t --source app
-
-
-resorces
-icons: https://cloudinary.com
-
-
-"""
+# heroku logs -a api-atomsbt -t --source app
+# icons: https://cloudinary.com
 
 import os
 import uuid
