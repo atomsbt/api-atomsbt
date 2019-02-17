@@ -29,7 +29,7 @@ class LS(object):
     def details(self, ls=None):
 
         delta = randint(1, 30)
-        dolgna = (datetime.now()).isoformat(timespec='milliseconds')
+        dolgna = datetime.now().isoformat(timespec='milliseconds')
         delo = (datetime.now() - timedelta(days=delta)
                 ).isoformat(timespec='milliseconds')
 

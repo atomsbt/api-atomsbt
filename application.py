@@ -31,6 +31,7 @@ def after_request(response):
 
     req = f'REQUEST {request.method} {request.path}'
     hed = 'HEADERS {}'.format({"token": request.headers.get("token")})
+
     bod = str()
     if request.method == 'POST':
         bod = f'BODY {request.get_json()}'
@@ -251,12 +252,11 @@ def request_url_ls_services(ls=None):
         SELECT id, name, image_url, type, code_in_billing 
         FROM atom_services
         WHERE type LIKE '{}'
-        ORDER BY id ASC    
-    """
+        ORDER BY id ASC"""
 
     array = list()
     standart = AtomDB().execute(sql.format('standart'))
-    for x in range(randint(0, len(standart))):
+    for x in range(randint(1, 5)):
         name = standart[x].get('name')
         image = standart[x].get('image_url')
         array.append(Service().element(name, 'standart', True, image, None))
@@ -286,8 +286,7 @@ def request_ls_counters(ls=None, codeInBilling=None):
 
     dn = datetime.now()
     ot = dn - timedelta(days=15)
-    do = (dn - timedelta(days=3)) if randint(0,
-                                             1) > 0 else (dn + timedelta(days=3))
+    do = (dn - timedelta(days=3)) if choice((True, False)) else (dn + timedelta(days=3))
 
     success = {
         "result": True,
