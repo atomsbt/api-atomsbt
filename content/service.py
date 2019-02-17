@@ -18,8 +18,8 @@ class Service(object):
             self.image_url if randint(0, 3) != 3 else '')
 
         content = {
-            "amount": amount,
-            "amount_peni": choice([int(amount*0.12), 0]),
+            "amount": amount if e_type == 'standart' else None,
+            "amount_peni": choice([int(amount*0.12), 0]) if e_type == 'standart' else None,
             "nds": 18,
             "image_url": image_url,
             "id": service_id,
