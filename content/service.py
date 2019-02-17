@@ -32,7 +32,7 @@ class Service(object):
                 "services": True if randint(0, 5) != 5 else False,
                 "counters": True if randint(0, 5) != 5 else False,
                 "payments": True if randint(0, 5) != 5 else False
-            } if (e_params & e_type == 'standart') else {}
+            } if (e_params and e_type == 'standart') else {}
         }
 
         return content
