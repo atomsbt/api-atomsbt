@@ -421,18 +421,18 @@ def request_url_getpaygateway(ls=None):
 @app.route('/api/pay/getlink', methods=['POST'])
 def request_getlink():
     # {
-    # "ls": "69100122131",
-    # "tel": "79000000009",
-    # "email": "test@test.ru",
-    # "payGatewayCode": "",
-    # "summ": 12393,
-    # "usls": [
+    #   "ls": "69100122131",
+    #   "tel": "79000000009",
+    #   "email": "test@test.ru",
+    #   "payGatewayCode": "",
+    #   "summ": 12393,
+    #   "usls": [
     #     {
-    #     "amount": 266666,
-    #     "amount_peni": 1232,
-    #     "codeInBilling": 100
+    #       "amount": 266666,
+    #       "amount_peni": 1232,
+    #       "codeInBilling": 100
     #     }
-    # ]
+    #   ]
     # }
 
     summ = request.get_json().get('summ')

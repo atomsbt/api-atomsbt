@@ -35,8 +35,8 @@ class LS(object):
 
         content_json = {
             "EMAILVCHEK": "enable2005@yandex.ru",
-            "ADRES": "г Тверь, ул Оснабрюкская, д 27к1, кв 14",
-            "BALANS": randint(-999999, 999999),
+            "ADRES": choice(["г Тверь, ул Оснабрюкская, д 27к1, кв 14", None]),
+            "BALANS": choice([randint(-999999, 999999), 0]),
             "VHPENI": 0,
             "DELO": delo if randint(0, 3) == 3 else "",
             "DOKSOBS": "",
