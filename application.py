@@ -98,11 +98,10 @@ def request_auth():
     # }
 
     login = request.get_json().get('login')
-    sql = """
+    sql = f"""
         SELECT login, token 
         FROM atom_users
-        WHERE login LIKE '{}'
-    """.format(login)
+        WHERE login LIKE '{login}'"""
     user = AtomDB().execute_first(sql)
 
     success = {
@@ -208,11 +207,10 @@ def request_url_ls():
     if token in ['', None]:
         return (error(4010), 500)
 
-    sql = """
+    sql = f"""
         SELECT login, ls 
         FROM atom_users
-        WHERE token LIKE '{}' 
-    """.format(token)
+        WHERE token LIKE '{token}'"""
     ls = AtomDB().execute_first(sql)
 
     array = list()
@@ -422,6 +420,20 @@ def request_url_getpaygateway(ls=None):
 
 @app.route('/api/pay/getlink', methods=['POST'])
 def request_getlink():
+    # {
+    # "ls": "69100122131",
+    # "tel": "79000000009",
+    # "email": "test@test.ru",
+    # "payGatewayCode": "",
+    # "summ": 12393,
+    # "usls": [
+    #     {
+    #     "amount": 266666,
+    #     "amount_peni": 1232,
+    #     "codeInBilling": 100
+    #     }
+    # ]
+    # }
 
     summ = request.get_json().get('summ')
     if summ is not None and summ == 0:
@@ -432,9 +444,11 @@ def request_getlink():
         }
         return (json(err), 500)
 
+    amount = f'?amount={summ}' if summ is not None else ''
+
     success = {
         "result": True,
-        "link": "https://api-atomsbt.herokuapp.com/pay"
+        "link": "https://api-atomsbt.herokuapp.com/pay" + amount
     }
 
     return (json(success), 200) if randint(0, 10) != 5 else (error(5050), 500)
@@ -470,9 +484,9 @@ def request_url_reports(option=None):
 @app.route('/api/user/services', methods=['POST'])
 def request_url_services():
 
-    lon = request.get_json()['longitude']
-    lat = request.get_json()['latitude']
-    dis = request.get_json()['distance']
+    lon = request.get_json().get('longitude')
+    lat = request.get_json().get('latitude')
+    dis = request.get_json().get('distance')
 
     success = {
         "result": True,
@@ -502,8 +516,7 @@ def request_url_camera(ls=None):
 
     sql = """
         SELECT name, video_url
-        FROM atom_video
-    """
+        FROM atom_video"""
 
     array = list()
     dbarr = AtomDB().execute(sql)
@@ -624,7 +637,7 @@ def request_get_weather_to_ls(option):
         "result": True,
         "data": {
             "temp": str(randint(-40, 40)),
-            "icon": icon_url
+            "icon": choice([icon_url, None])
         }
     }
 
@@ -669,7 +682,6 @@ def request_url_push_chenge(option=None):
         "result": True
     }
 
-    sleep(0.5)
     return (json(success), 200) if randint(0, 10) != 5 else (error(10020), 500)
 
 # -----------------------------------------------------------------------
@@ -688,7 +700,8 @@ def main(option='index'):
         path = os.path.join(app.root_path, 'static')
         return send_from_directory(path, option, mimetype=static.get(option))
 
-    return render_template(f'{option}.html')
+    params = {'amount': str(request.args.get('amount') / 100)}
+    return render_template(f'{option}.html', params=params)
 
 
 if __name__ == '__main__':

@@ -17,6 +17,7 @@ http://backurl/processing - шлюз взял транзакцию в обраб
 
   <head>
     <style type="text/css">
+    
       #wrapper {
         position: absolute;
         top: 50%;
@@ -59,6 +60,15 @@ http://backurl/processing - шлюз взял транзакцию в обраб
         font-size: small;
         color: #418b4e;
       }
+
+      #amount {
+        font-size: large;
+        font-weight: bold;
+        color: #353641;
+        text-align: center; 
+        vertical-align: middle;
+      }
+
     </style>
   </head>
 
@@ -70,9 +80,9 @@ http://backurl/processing - шлюз взял транзакцию в обраб
         </th>
       </tr>
       <tr>
-        <th>
-          <div id="card"></div>
-        </th>
+        <td id="card">
+          <div id="amount">{{params.amount}}</div>
+        </td>
       </tr>
       <tr>
         <th>
