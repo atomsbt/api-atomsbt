@@ -439,14 +439,14 @@ def request_getlink():
     usls = request.get_json().get('usls')
 
     total = int()
-    if summ is not None and summ == 0:
-        err = {
-            "result": False,
-            "errorCode": -32131,
-            "errorText": 'summ должна быть больше 0',
-        }
-        return (json(err), 500)
-    else:
+    if summ is not None: 
+        if summ == 0:
+            err = {
+                "result": False,
+                "errorCode": -32131,
+                "errorText": 'summ должна быть больше 0',
+            }
+            return (json(err), 500)
         total = int(summ)
     
     if usls is not None:
