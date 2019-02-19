@@ -700,7 +700,7 @@ def main(option='index'):
         path = os.path.join(app.root_path, 'static')
         return send_from_directory(path, option, mimetype=static.get(option))
 
-    params = {'amount': str(request.args.get('amount') / 100)}
+    params = {'amount': str( int(request.args.get('amount')) / 100)}
     return render_template(f'{option}.html', params=params)
 
 
