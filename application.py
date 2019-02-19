@@ -440,13 +440,6 @@ def request_getlink():
 
     total = int()
     if summ is not None: 
-        if summ == 0:
-            err = {
-                "result": False,
-                "errorCode": -32131,
-                "errorText": 'summ должна быть больше 0',
-            }
-            return (json(err), 500)
         total = int(summ)
     
     if usls is not None:
@@ -455,7 +448,15 @@ def request_getlink():
             peni = item.get('amount_peni')
             total = total + int(amount) + int(peni)
 
-    amount = f'?amount={total}' if total != 0 else ''
+    if total == 0:
+        err = {
+            "result": False,
+            "errorCode": -32131,
+            "errorText": 'Сумма должна быть больше 0',
+        }
+        return (json(err), 500)
+
+    amount = f'?amount={total}'
 
     success = {
         "result": True,
@@ -711,7 +712,7 @@ def main(option='index'):
         path = os.path.join(app.root_path, 'static')
         return send_from_directory(path, option, mimetype=static.get(option))
 
-    amount = request.args.get('amount')
+    amount = str( int(request.args.get('amount'))/100 )
     return render_template(f'{option}.html', amount=amount)
 
 
