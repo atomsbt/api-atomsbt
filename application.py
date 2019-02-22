@@ -714,7 +714,7 @@ def main(option='index'):
 
     amount = request.args.get('amount')
     if amount is not None:
-        amount = str( int(request.args.get('amount'))/100 )
+        amount = str( int(request.args.get('amount'))/100 ) + ' ₽'
     return render_template(f'{option}.html', amount=amount)
 
 
