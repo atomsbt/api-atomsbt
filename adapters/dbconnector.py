@@ -3,16 +3,18 @@
 import psycopg2
 import psycopg2.extras
 
+# -----------------------------------------------------------------------
+
 
 class AtomDB(object):
     def __init__(self):
         super(AtomDB, self).__init__()
 
         self._db_config = {
-            'host': 'ec2-54-235-156-60.compute-1.amazonaws.com',
-            'dbname': 'ded684tvpdf9gi',
-            'user': 'wcskpxfmdwhqtp',
-            'password': 'c5ae351b7e07a34fec9661fb9a03d173530e5727c013777a0acfa94fc4fb6cad'
+            'host': 'ec2-54-247-118-238.eu-west-1.compute.amazonaws.com',
+            'dbname': 'dsn9angbu9h92',
+            'user': 'ohayrelqkdsthq',
+            'password': 'a8cb96703e2f9ef40dadd0482bb503360e998fdf3207fb11b3e7f6011b3b3230'
         }
 
         self._db_connect = psycopg2.connect(**self._db_config)
@@ -34,7 +36,8 @@ class AtomDB(object):
         self._db_connect.close()
         self._db_cursor.close()
 
+# -----------------------------------------------------------------------
+
 
 if __name__ == '__main__':
-
     pass
