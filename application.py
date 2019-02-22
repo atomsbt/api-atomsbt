@@ -705,8 +705,7 @@ def main(option='index'):
 
     static = {
         'favicon.ico': 'image/vnd.microsoft.icon',
-        'page.pdf': 'application/pdf',
-        '5e1a52e7-8ec2-4ef7-bb71-7e9a6645f534.dump': 'text/plain'
+        'page.pdf': 'application/pdf'
     }
 
     if static.get(option) is not None:

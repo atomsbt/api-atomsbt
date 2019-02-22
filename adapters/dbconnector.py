@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-#heroku pg:backups:restore 'https://api-atomsbt.herokuapp.com/5e1a52e7-8ec2-4ef7-bb71-7e9a6645f534.dump' postgresql-shaped-88915 -a api-atomsbt
-
 import psycopg2
 import psycopg2.extras
 
