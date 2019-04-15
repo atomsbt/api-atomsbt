@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-# heroku logs -a api-atomsbt -t --source app
-# icons: https://cloudinary.com
+#mock: heroku logs -a api-atomsbt -t --source app
+#icons: https://cloudinary.com
+#doc: http://git.stack-it.ru/web/api.atomsbt.ru/blob/maste/CONTRIBUTING.md
 
 import os
 import uuid
@@ -195,6 +196,17 @@ def request_url_agreement():
     success = {
         "result": True,
         "link": "https://api-atomsbt.herokuapp.com/policy"
+    }
+
+    return (json(success), 200) if randint(0, 10) != 5 else (error(500), 500)
+
+@app.route('/api/market', methods=['GET'])
+def request_url_market():
+
+    success = {
+        "result": True,
+        "enable": choice([True, False]),
+        "link": "https://api-atomsbt.herokuapp.com/index"
     }
 
     return (json(success), 200) if randint(0, 10) != 5 else (error(500), 500)
