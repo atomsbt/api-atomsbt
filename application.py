@@ -31,14 +31,11 @@ app = Flask(__name__)
 def after_request(response):
 
     req = f'REQUEST {request.method} {request.path}'
-    hed = 'HEADERS {}'.format({"token": request.headers.get("token")})
+    hed = f'HEADERS {request.headers.get("token")}'
+    req = f'BODY REQ {request.get_json()}'
+    res = f'BODY RESP {response.get_json()}'
 
-    bod = str()
-    if request.method == 'POST':
-        bod = f'BODY {request.get_json()}'
-    else:
-        bod = f'BODY {response.get_json()}'
-    message = req + '\n' + hed + '\n' + bod
+    message = req + '\n' + hed + '\n' + req + '\n' + res
     print(message)
 
     sleep(1)
