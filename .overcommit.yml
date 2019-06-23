@@ -32,9 +32,9 @@
 #  IndexTags:
 #    enabled: true # Generate a tags file with `ctags` each time HEAD changes
 
-CommitMsg:
-  MessageFormat:
-    enabled: true
-    pattern: \[(feature|bug|task)\]\s[A-Za-z0-9]+
-    expected_pattern_message: ‘[<task type>] <commit message>’
-    sample_message: ‘[task] Add age field to applications table’
+# CommitMsg:
+#   MessageFormat:
+#     enabled: true
+#     pattern: \[(feature|bug|task)\]\s[A-Za-z0-9]+
+#     expected_pattern_message: ‘[<task type>] <commit message>’
+#     sample_message: ‘[task] Add age field to applications table’

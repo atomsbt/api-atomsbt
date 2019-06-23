@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 
-#mock: heroku logs -a api-atomsbt -t --source app
+#mock: heroku logs -a api-atomsbt -t -s app
 #icons: https://cloudinary.com
 #doc: http://git.stack-it.ru/web/api.atomsbt.ru/blob/maste/CONTRIBUTING.md
 
 import os
-import uuid
+from uuid import uuid4
 
 from flask import Flask, request, render_template, send_from_directory
 from flask import jsonify as json
@@ -68,15 +68,25 @@ def error(errorCode):
 @app.route('/api/user', methods=['GET'])
 def request_user():
 
+    token = request.headers.get("token")
+    sql = f"""
+        SELECT login, token 
+        FROM atom_users
+        WHERE token LIKE '{token}'"""
+    user = AtomDB().execute_first(sql)
+
+    phone = user.get('phone', '00000000000')
+    email = user.get('email', 'xxxxxxxxxxx')
+
     success = {
         "result": True,
         "data": {
             "id": 23,
             "account_type_id": None,
             "billing_account_id": None,
-            "account_login": "70000000004",
-            "account_email": "test4@test.ru",
-            "account_mphone": "70000000004",
+            "account_login": phone,
+            "account_email": email,
+            "account_mphone": phone,
             "account_password": "5f4dcc3b5aa765d61d8327deb882cf99",
             "account_status": None,
             "flag_sync": None,
@@ -107,7 +117,7 @@ def request_auth():
 
     success = {
         "result": True,
-        "token": user.get('token') if user is not None else str(uuid.uuid4().hex)
+        "token": uuid4().hex if user is None else user.get('token')
     }
 
     return (json(success), 200) if randint(0, 20) != 5 else (error(401), 500)
