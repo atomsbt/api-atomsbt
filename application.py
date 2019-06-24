@@ -32,8 +32,8 @@ def after_request(response):
 
     req = f'REQUEST {request.method} {request.path}'
     hed = f'HEADERS {request.headers.get("token")}'
-    req = f'BODY REQ {request.get_json()}'
-    res = f'BODY RESP {response.get_json()}'
+    req = f'BODY REQ <- {request.get_json()}'
+    res = f'BODY RES -> {response.get_json()}'
 
     message = req + '\n' + hed + '\n' + req + '\n' + res
     print(message)
