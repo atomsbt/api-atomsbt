@@ -72,8 +72,12 @@ def request_user():
         WHERE token LIKE '{token}'"""
     user = AtomDB().execute_first(sql)
 
-    phone = user.get('phone', '00000000000')
-    email = user.get('email', 'xxxxxxxxxxx')
+    phone = '00000000000'
+    email = 'xxxxxxxxxxx'
+
+    if user:
+        phone = user.get('phone')
+        email = user.get('email')
 
     success = {
         "result": True,
