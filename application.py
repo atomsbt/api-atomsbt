@@ -291,7 +291,7 @@ def request_url_ls_services(ls=None):
         "data": array
     }
 
-    return (json(success), 200) if randint(0, 10) != 5 else (error(9050), 500)
+    return choice( [(json(success), 200), (json(success), 200), (error(401), 401)] ) # if randint(0, 10) != 5 else (error(9050), 500)
 
 
 @app.route('/api/ls/<ls>/counters/list/<codeInBilling>', methods=['GET'])
